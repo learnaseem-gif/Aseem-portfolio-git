@@ -114,7 +114,7 @@ window.PROJECTS = [
     featured: false,
     status: "live",
     cover: "assets/work/motor-world-autos/cover.jpg",
-    heroVideo: "",
+    heroVideo: "assets/work/motor-world-autos/reel.mp4",
     summary:
       "Inventory photography, reels, and web presence that help an auto dealer move metal faster.",
     problem:

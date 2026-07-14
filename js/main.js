@@ -69,12 +69,17 @@ function projectCard(p, index) {
   const tags = p.services.map(tag).join('');
   const dataServices = p.services.join('|');
 
+  // A reel plays inline in the card; otherwise show the cover image.
+  const media = p.heroVideo
+    ? `<video class="work-video" src="/${p.heroVideo}" muted loop playsinline preload="none" poster="/${p.cover}"></video>`
+    : `<img src="/${p.cover}" alt="${p.client} — ${p.title}" loading="lazy" />`;
+
   return `
     <a class="work-item ${classes.slice(1).join(' ')}" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
       <div class="work-media">
         ${badge}
         ${brandedPoster()}
-        <img src="/${p.cover}" alt="${p.client} — ${p.title}" loading="lazy" />
+        ${media}
       </div>
       <div class="work-caption">
         <span class="work-client">${p.client}</span>
@@ -107,6 +112,23 @@ if (workList && projects.length) {
     img.addEventListener('error', () => img.classList.add('is-broken'));
     if (img.complete && img.naturalWidth === 0) img.classList.add('is-broken');
   });
+
+  // Reels play only while their card is on screen (saves bandwidth/CPU).
+  const cardVideos = workList.querySelectorAll('.work-video');
+  if (cardVideos.length && 'IntersectionObserver' in window && !prefersReduced) {
+    const vo = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const v = entry.target;
+        if (entry.isIntersecting) {
+          if (v.preload === 'none') v.preload = 'auto';
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+    cardVideos.forEach((v) => vo.observe(v));
+  }
 }
 
 /* ---- Service filter ---- */
