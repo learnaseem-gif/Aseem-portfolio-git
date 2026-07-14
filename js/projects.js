@@ -41,7 +41,7 @@ window.PROJECTS = [
     services: ["Social Reels", "Photography"],
     featured: false,
     status: "live",
-    cover: "assets/work/bagga-jewels/cover.jpg",
+    cover: "assets/work/bagga-jewels/01.jpg",
     heroVideo: "",
     summary:
       "Scroll-stopping reels and product photography that make fine jewelry read as luxury on a phone screen.",
@@ -54,10 +54,7 @@ window.PROJECTS = [
     ],
     work:
       "We built a reel format that leads with motion and light — pieces shot to catch the eye mid-scroll, cut to a rhythm that holds attention long enough to sell.",
-    gallery: [
-      "assets/work/bagga-jewels/01.jpg",
-      "assets/work/bagga-jewels/02.jpg",
-    ],
+    gallery: [],
   },
   {
     slug: "saloud",
