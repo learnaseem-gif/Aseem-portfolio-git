@@ -228,27 +228,42 @@ img {
   color: var(--brand);
 }
 
+/* Work lead — centered reveal moment after the hero */
+
+.work-lead {
+  min-height: 82svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(3rem, 8vh, 6rem) 1.5rem;
+}
+
+.work-lead-inner .section-title {
+  font-size: clamp(2.75rem, 9vw, 6rem);
+}
+
+.work-lead-sub {
+  margin-top: 1.25rem;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  text-wrap: balance;
+}
+
 /* Work */
 
 .work {
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 6vw, 6rem) clamp(5rem, 12vh, 9rem);
+  padding: 0 clamp(1.5rem, 6vw, 6rem) clamp(5rem, 12vh, 9rem);
   max-width: 1500px;
   margin: 0 auto;
-}
-
-.work-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1.5rem 2rem;
-  margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
 .work-filter {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 }
 
 .filter-btn {

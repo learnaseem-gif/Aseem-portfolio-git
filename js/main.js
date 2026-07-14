@@ -150,7 +150,7 @@ filterBtns.forEach((btn) => {
 /* ---- Scroll reveals ---- */
 
 if (!prefersReduced) {
-  document.querySelectorAll('.intro-lead, .work-item, .service-row, .contact-pitch, .lead-form')
+  document.querySelectorAll('.work-lead-inner, .intro-lead, .work-item, .service-row, .contact-pitch, .lead-form')
     .forEach((el) => {
       el.classList.add('reveal');
       ScrollTrigger.create({
