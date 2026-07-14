@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Scaling Space — Creative Media &amp; Marketing</title>
-  <meta name="description" content="The Scaling Space is a creative media &amp; marketing studio — photography, video, social content, paid marketing, and web, built to scale brands." />
+  <meta name="description" content="The Scaling Space is a creative media &amp; marketing studio in Vancouver — photography, video, social content, paid marketing, and websites, built to scale brands." />
   <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
   <link rel="preload" href="/assets/fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/hanken-400.woff2" as="font" type="font/woff2" crossorigin />
@@ -23,6 +23,7 @@
       </svg>
       <span>The Scaling Space</span>
     </a>
+    <a class="header-cta" href="#contact">Start a project</a>
   </header>
 
   <main>
@@ -44,15 +45,106 @@
       <p class="scroll-cue" aria-hidden="true">Scroll</p>
     </section>
 
-    <section class="next-teaser" id="work">
-      <h2 class="next-teaser-heading">Selected Work</h2>
-      <p class="next-teaser-sub">Photography &middot; Social &middot; Paid &middot; Web — for brands built to grow.</p>
+    <section class="intro" id="intro">
+      <p class="intro-lead">
+        We plan, shoot, edit, and market — <em>one accountable team</em> behind
+        your brand's photography, video, social, paid, and web. Not a patchwork
+        of freelancers. A studio built to scale brands.
+      </p>
+    </section>
+
+    <section class="work" id="work">
+      <div class="work-head">
+        <h2 class="section-title">Selected Work</h2>
+        <div class="work-filter" role="group" aria-label="Filter work by service">
+          <button type="button" class="filter-btn is-active" data-filter="all">All</button>
+          <button type="button" class="filter-btn" data-filter="Photography">Photography</button>
+          <button type="button" class="filter-btn" data-filter="Social Reels">Social Reels</button>
+          <button type="button" class="filter-btn" data-filter="Paid Campaigns">Paid Campaigns</button>
+          <button type="button" class="filter-btn" data-filter="Websites">Websites</button>
+        </div>
+      </div>
+      <div class="work-list" id="work-list"><!-- rendered from js/projects.js --></div>
+    </section>
+
+    <section class="services" id="services">
+      <h2 class="section-title">What we do</h2>
+      <ul class="services-list">
+        <li class="service-row">
+          <h3 class="service-name">Photography</h3>
+          <p class="service-desc">Product, brand, event, and lifestyle photography that makes your work look the way it deserves to.</p>
+        </li>
+        <li class="service-row">
+          <h3 class="service-name">Social &amp; Reels</h3>
+          <p class="service-desc">Scroll-stopping short-form video and content, planned and edited to hold attention and grow your following.</p>
+        </li>
+        <li class="service-row">
+          <h3 class="service-name">Paid Campaigns</h3>
+          <p class="service-desc">Paid social and search that turns ad spend into leads and sales, with creative that actually converts.</p>
+        </li>
+        <li class="service-row">
+          <h3 class="service-name">Websites</h3>
+          <p class="service-desc">Fast, modern websites that look premium and are built to turn visitors into customers.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="contact-inner">
+        <div class="contact-pitch">
+          <h2 class="section-title">Let's scale<br />your brand</h2>
+          <p class="contact-sub">Tell us what you're working on. We'll get back to you fast.</p>
+          <ul class="contact-details">
+            <li><span>WhatsApp / Call</span><a href="https://wa.me/17783028140">+1 778 302 8140</a></li>
+            <li><span>Email</span><a href="mailto:aseem.tss@outlook.com">aseem.tss@outlook.com</a></li>
+            <li><span>Instagram</span><a href="https://www.instagram.com/aseem.visuals" target="_blank" rel="noopener">@aseem.visuals</a></li>
+            <li><span>Based in</span>Vancouver, Lower Mainland — working worldwide</li>
+          </ul>
+        </div>
+
+        <form class="lead-form" id="lead-form" novalidate>
+          <div class="field">
+            <label for="lf-name">Name</label>
+            <input id="lf-name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="lf-business">Business / brand</label>
+            <input id="lf-business" name="business" type="text" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="lf-contact">Email or phone</label>
+            <input id="lf-contact" name="contact" type="text" required />
+          </div>
+          <div class="field">
+            <label for="lf-services">What do you need?</label>
+            <div class="chip-set" id="lf-services" role="group" aria-label="Services you're interested in">
+              <label class="chip"><input type="checkbox" name="service" value="Photography" /> Photography</label>
+              <label class="chip"><input type="checkbox" name="service" value="Social / Reels" /> Social / Reels</label>
+              <label class="chip"><input type="checkbox" name="service" value="Paid Campaigns" /> Paid Campaigns</label>
+              <label class="chip"><input type="checkbox" name="service" value="Website" /> Website</label>
+              <label class="chip"><input type="checkbox" name="service" value="Full package" /> Full package</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="lf-message">A bit about the project</label>
+            <textarea id="lf-message" name="message" rows="3"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send via WhatsApp</button>
+          <p class="form-note">Opens WhatsApp with your details ready to send. Prefer email? <a href="mailto:aseem.tss@outlook.com">Write to us instead.</a></p>
+        </form>
+      </div>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <span>© <span id="year"></span> The Scaling Space</span>
+    <a href="#hero">Back to top ↑</a>
+  </footer>
 
   <script src="/js/vendor/gsap.min.js"></script>
   <script src="/js/vendor/ScrollTrigger.min.js"></script>
   <script src="/js/vendor/lenis.min.js"></script>
+  <script src="/js/projects.js"></script>
   <script src="/js/main.js"></script>
 </body>
 </html>
