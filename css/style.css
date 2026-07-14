@@ -3,10 +3,11 @@
   --surface: oklch(20% 0.026 138);
   --ink: oklch(96% 0.012 138);
   --muted: oklch(78% 0.03 138);
-  --brand: oklch(74% 0.19 132);
-  --brand-ink: oklch(18% 0.03 132);
-  --mark-fg: oklch(98% 0.014 132);
-  --mark-fg-soft: oklch(98% 0.014 132 / 55%);
+  --brand: oklch(72.2% 0.168 138);
+  --brand-ink: oklch(20.2% 0.031 139);
+  /* Logo fills, matched to the uploaded mark */
+  --logo-body: oklch(99% 0.005 138);
+  --logo-accent: oklch(88.3% 0.07 137);
 
   --font-display: "Bricolage Grotesque", "Arial Black", sans-serif;
   --font-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
