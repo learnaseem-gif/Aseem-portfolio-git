@@ -130,6 +130,21 @@ img {
   display: block;
 }
 
+/* Web: single-line lockup. Mobile keeps the stacked three-line layout. */
+@media (min-width: 768px) {
+  .hero-text {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.26em;
+    white-space: nowrap;
+    font-size: clamp(2.75rem, 8.2vw, 6rem);
+  }
+
+  .hero-text span {
+    display: inline;
+  }
+}
+
 .scroll-cue {
   position: absolute;
   left: 50%;
