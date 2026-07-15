@@ -253,16 +253,10 @@ img {
 
 .work-intro-veil {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 160vmax;
-  height: 160vmax;
-  margin: -80vmax 0 0 -80vmax;
-  border-radius: 50%;
-  background: var(--w-bg);
-  transform: scale(0);
-  transform-origin: center;
+  inset: 0;
   z-index: 3;
+  background: var(--w-bg);
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -273,9 +267,26 @@ img {
   will-change: transform;
 }
 
-.work-intro-inner .section-title {
-  font-size: clamp(2.75rem, 9vw, 6rem);
-  color: var(--ink);
+.work-intro-title {
+  margin: 0;
+  width: min(92vw, 62rem);
+  margin-inline: auto;
+}
+
+.work-intro-mark {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.work-intro-mark text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  fill: var(--ink);
+  font-size: 175px;
+  letter-spacing: -4px;
+  will-change: transform;
 }
 
 .work-lead-sub {

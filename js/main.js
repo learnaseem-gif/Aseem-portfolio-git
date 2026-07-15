@@ -130,7 +130,7 @@ if (workList && projects.length) {
   }
 
   const intro = document.querySelector('.work-intro');
-  const introInner = document.querySelector('.work-intro-inner');
+  const introMark = intro ? intro.querySelector('.work-intro-mark text') : null;
   const veil = document.querySelector('.work-intro-veil');
   const tagline = intro ? intro.querySelector('.work-lead-sub') : null;
   const filterbar = document.querySelector('.work-filterbar');
@@ -149,11 +149,12 @@ if (workList && projects.length) {
         anticipatePin: 1,
       },
     })
-      // The word grows in place; a white disc floods out from its centre
-      // and consumes the black until the stage is white.
-      .to(tagline, { opacity: 0, ease: 'none', duration: 0.12 }, 0)
-      .to(introInner, { scale: 7, ease: 'none', duration: 1 }, 0)
-      .fromTo(veil, { scale: 0 }, { scale: 1, ease: 'power1.in', duration: 0.82 }, 0.16);
+      // The vector wordmark itself scales from a point on the ink, so the
+      // white letterform floods outward and consumes the black. The veil only
+      // snaps in at the very end to guarantee a fully clean white.
+      .to(tagline, { opacity: 0, ease: 'none', duration: 0.1 }, 0)
+      .to(introMark, { scale: 60, transformOrigin: '54% 50%', ease: 'power2.in', duration: 1 }, 0)
+      .to(veil, { opacity: 1, ease: 'none', duration: 0.2 }, 0.8);
 
     // Parallax the media inside each full-screen panel.
     workList.querySelectorAll('.work-panel').forEach((panel) => {
