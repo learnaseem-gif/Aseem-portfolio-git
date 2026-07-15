@@ -228,80 +228,47 @@ img {
   color: var(--brand);
 }
 
-/* Work — full-bleed parallax gallery on a light stage */
+/* Work — horizontal-scroll gallery */
 
 .work {
-  --w-bg: oklch(98% 0.004 138);
-  --w-ink: oklch(20% 0.02 138);
-  --w-muted: oklch(45% 0.02 138);
-  --w-line: oklch(88% 0.01 138);
   position: relative;
-  background: var(--w-bg);
+  background: var(--bg);
 }
 
-/* SELECTED WORK title — pins center, then the stage turns light */
-.work-intro {
+.work-hscroll {
   position: relative;
-  z-index: 3;
   height: 100svh;
+  overflow: hidden;
+}
+
+.work-track {
+  display: flex;
+  height: 100svh;
+  width: max-content;
+  will-change: transform;
+}
+
+.work-slide {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.work-slide.is-hidden { display: none; }
+
+/* Intro slide — SELECTED WORK */
+.work-slide--intro {
   display: grid;
   place-items: center;
   text-align: center;
   padding: 0 1.5rem;
   background: var(--bg);
-  overflow: hidden;
 }
 
-/* Full-image flood layer, revealed as the word grows into the work */
-.work-reveal {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0;
-  will-change: opacity;
-}
-
-.work-reveal-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.work-reveal-scrim {
-  position: absolute;
-  inset: 0;
-  background: oklch(12% 0.02 138 / 0.28);
-}
-
-.work-intro-inner {
-  position: relative;
-  z-index: 2;
-}
-
-/* The wordmark is a window into the imagery (its letters are filled
-   with the same photo that floods in behind them). */
-.work-reveal-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 0.95;
+.hslide-intro .section-title {
   font-size: clamp(2.75rem, 9vw, 6rem);
-  text-wrap: balance;
-  color: var(--ink);
-  will-change: transform, opacity;
-}
-
-@supports ((-webkit-background-clip: text) or (background-clip: text)) {
-  .work-reveal-title {
-    background-image: url("/assets/work/bagga-jewels/01.jpg");
-    background-size: cover;
-    background-position: center 30%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
 }
 
 .work-lead-sub {
@@ -311,27 +278,29 @@ img {
   text-wrap: balance;
 }
 
-/* Sticky filter bar — the tags that rise to the top */
+.hscroll-hint {
+  display: inline-block;
+  margin-top: clamp(2rem, 5vh, 3.5rem);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.hscroll-hint b { color: var(--brand); font-weight: 700; }
+
+/* Filter bar — top of the pinned gallery */
 .work-filterbar {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 30;
-  background: color-mix(in oklch, var(--w-bg) 92%, transparent);
+  background: color-mix(in oklch, var(--bg) 68%, transparent);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--w-line);
+  border-bottom: 1px solid oklch(30% 0.02 138);
   padding-top: env(safe-area-inset-top, 0);
-  transform: translateY(-110%);
-  opacity: 0;
-  pointer-events: none;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
-}
-
-.work-filterbar.is-in {
-  transform: translateY(0);
-  opacity: 1;
-  pointer-events: auto;
 }
 
 .work-filter {
@@ -356,9 +325,9 @@ img {
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.85rem;
-  color: var(--w-muted);
+  color: var(--muted);
   background: transparent;
-  border: 1px solid var(--w-line);
+  border: 1px solid oklch(38% 0.02 138);
   border-radius: 100px;
   padding: 0.5em 1em;
   cursor: pointer;
@@ -367,36 +336,28 @@ img {
 }
 
 .filter-btn:hover {
-  color: var(--w-ink);
-  border-color: var(--w-muted);
+  color: var(--ink);
+  border-color: var(--muted);
 }
 
 .filter-btn.is-active {
-  color: #fff;
+  color: var(--bg);
   background: var(--brand);
   border-color: var(--brand);
 }
 
-/* Panels — one full viewport each, edge to edge, no card */
-.work-panels {
-  position: relative;
-  z-index: 2;
-}
-
-.work-panel {
-  position: relative;
+/* Project slide — one full screen, edge to edge, no card */
+.work-slide--project {
   display: block;
-  width: 100%;
-  height: 100svh;
-  overflow: hidden;
   text-decoration: none;
   color: #fff;
 }
 
 .work-panel-media {
   position: absolute;
-  inset: -12% 0;
-  height: 124%;
+  inset: 0 -9%;
+  width: 118%;
+  height: 100%;
   will-change: transform;
 }
 
@@ -990,4 +951,10 @@ img {
   .reveal { opacity: 1; transform: none; transition: none; }
   .work-media img { transition: none; }
   .marquee-track { transform: none !important; }
+
+  /* No horizontal scroll-jack: stack the gallery vertically instead. */
+  .work-hscroll { height: auto; overflow: visible; }
+  .work-track { flex-direction: column; height: auto; width: 100%; transform: none !important; }
+  .work-slide { flex-basis: auto; width: 100%; }
+  .work-filterbar { position: sticky; }
 }

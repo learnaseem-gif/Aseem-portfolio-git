@@ -46,30 +46,30 @@
     </section>
 
     <section class="work" id="work">
-      <div class="work-intro">
-        <div class="work-reveal" aria-hidden="true">
-          <img class="work-reveal-img" src="/assets/work/bagga-jewels/01.jpg" alt="" />
-          <div class="work-reveal-scrim"></div>
-        </div>
-        <div class="work-intro-inner">
-          <h2 class="work-reveal-title" aria-label="Selected Work">Selected Work</h2>
-          <p class="work-lead-sub">Photography &middot; Social &middot; Paid &middot; Web — for brands built to grow.</p>
-        </div>
-      </div>
-
-      <div class="work-filterbar">
-        <div class="work-filter" role="group" aria-label="Filter work by service">
-          <div class="work-filter-track">
-            <button type="button" class="filter-btn is-active" data-filter="all">All</button>
-            <button type="button" class="filter-btn" data-filter="Photography">Photography</button>
-            <button type="button" class="filter-btn" data-filter="Social Reels">Social Reels</button>
-            <button type="button" class="filter-btn" data-filter="Paid Campaigns">Paid Campaigns</button>
-            <button type="button" class="filter-btn" data-filter="Websites">Websites</button>
+      <div class="work-hscroll">
+        <div class="work-filterbar">
+          <div class="work-filter" role="group" aria-label="Filter work by service">
+            <div class="work-filter-track">
+              <button type="button" class="filter-btn is-active" data-filter="all">All</button>
+              <button type="button" class="filter-btn" data-filter="Photography">Photography</button>
+              <button type="button" class="filter-btn" data-filter="Social Reels">Social Reels</button>
+              <button type="button" class="filter-btn" data-filter="Paid Campaigns">Paid Campaigns</button>
+              <button type="button" class="filter-btn" data-filter="Websites">Websites</button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="work-panels" id="work-list"><!-- rendered from js/projects.js --></div>
+        <div class="work-track" id="work-list">
+          <div class="work-slide work-slide--intro">
+            <div class="hslide-intro">
+              <h2 class="section-title">Selected Work</h2>
+              <p class="work-lead-sub">Photography &middot; Social &middot; Paid &middot; Web — for brands built to grow.</p>
+              <span class="hscroll-hint" aria-hidden="true">Scroll to explore <b>&rarr;</b></span>
+            </div>
+          </div>
+          <!-- project slides appended from js/projects.js -->
+        </div>
+      </div>
     </section>
 
     <section class="marquee" aria-hidden="true">

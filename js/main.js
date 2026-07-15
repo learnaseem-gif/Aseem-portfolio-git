@@ -57,7 +57,7 @@ function tag(text) {
   return `<span class="work-tag">${text}</span>`;
 }
 
-function projectPanel(p) {
+function projectSlide(p) {
   const badge = p.status === 'coming-soon'
     ? '<span class="work-badge">Coming soon</span>'
     : '';
@@ -70,7 +70,7 @@ function projectPanel(p) {
     : `<img src="/${p.cover}" alt="${p.client} — ${p.title}" loading="lazy" />`;
 
   return `
-    <a class="work-panel" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
+    <a class="work-slide work-slide--project" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
       ${badge}
       <div class="work-panel-media">
         ${brandedPoster()}
@@ -81,7 +81,7 @@ function projectPanel(p) {
         <span class="work-panel-cat">${p.category}</span>
         <span class="work-panel-client">${p.client}</span>
         <span class="work-panel-meta">${tags}</span>
-        <span class="work-panel-cta">View project →</span>
+        <span class="work-panel-cta">View project</span>
       </div>
     </a>`;
 }
@@ -101,9 +101,10 @@ function brandedPoster() {
 }
 
 if (workList && projects.length) {
-  // Featured first, then the rest in declared order.
+  // Featured first, then the rest in declared order. Slides are appended
+  // after the intro slide already in the markup.
   const ordered = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-  workList.innerHTML = ordered.map((p) => projectPanel(p)).join('');
+  workList.insertAdjacentHTML('beforeend', ordered.map((p) => projectSlide(p)).join(''));
 
   // Until real covers are added, hide any cover that fails to load so the
   // branded poster shows instead of a broken-image box.
@@ -112,7 +113,7 @@ if (workList && projects.length) {
     if (img.complete && img.naturalWidth === 0) img.classList.add('is-broken');
   });
 
-  // Reels play only while their panel is on screen (saves bandwidth/CPU).
+  // Reels play only while their slide is on screen (saves bandwidth/CPU).
   const panelVideos = workList.querySelectorAll('.work-panel-video');
   if (panelVideos.length && 'IntersectionObserver' in window && !prefersReduced) {
     const vo = new IntersectionObserver((entries) => {
@@ -129,68 +130,53 @@ if (workList && projects.length) {
     panelVideos.forEach((v) => vo.observe(v));
   }
 
-  const intro = document.querySelector('.work-intro');
-  const revealTitle = intro ? intro.querySelector('.work-reveal-title') : null;
-  const reveal = intro ? intro.querySelector('.work-reveal') : null;
-  const tagline = intro ? intro.querySelector('.work-lead-sub') : null;
-  const filterbar = document.querySelector('.work-filterbar');
+  const hscroll = document.querySelector('.work-hscroll');
   const siteHeader = document.querySelector('.site-header');
 
-  if (!prefersReduced) {
-    // The wordmark is a window into the work: it scales up while the full
-    // image floods in behind it, then the word dissolves into the imagery.
-    gsap.timeline({
+  if (!prefersReduced && hscroll) {
+    // Vertical scroll drives the track sideways: each project is a full
+    // screen sliding in from the right.
+    const distance = () => workList.scrollWidth - window.innerWidth;
+    const hTween = gsap.to(workList, {
+      x: () => -distance(),
+      ease: 'none',
       scrollTrigger: {
-        trigger: intro,
-        start: 'top top',
-        end: '+=130%',
-        scrub: 0.5,
+        trigger: hscroll,
         pin: true,
-        anticipatePin: 1,
+        scrub: 0.6,
+        start: 'top top',
+        end: () => '+=' + distance(),
+        invalidateOnRefresh: true,
+        // Hide the floating header for the whole pinned gallery.
+        onToggle: (self) => {
+          if (siteHeader) {
+            gsap.to(siteHeader, { autoAlpha: self.isActive ? 0 : 1, duration: 0.3, overwrite: true });
+          }
+        },
       },
-    })
-      .to(tagline, { opacity: 0, ease: 'none', duration: 0.12 }, 0)
-      .to(revealTitle, { scale: 5.5, ease: 'power1.in', duration: 1 }, 0)
-      .to(reveal, { opacity: 1, ease: 'none', duration: 0.5 }, 0.32)
-      .to(revealTitle, { opacity: 0, ease: 'none', duration: 0.25 }, 0.68);
+    });
 
-    // Parallax the media inside each full-screen panel.
-    workList.querySelectorAll('.work-panel').forEach((panel) => {
-      const media = panel.querySelector('.work-panel-media');
+    // Subtle parallax on each slide's media as it crosses the viewport.
+    workList.querySelectorAll('.work-slide--project').forEach((slide) => {
+      const media = slide.querySelector('.work-panel-media');
+      if (!media) return;
       gsap.fromTo(
         media,
-        { yPercent: -8 },
+        { xPercent: -6 },
         {
-          yPercent: 8,
+          xPercent: 6,
           ease: 'none',
-          scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true },
+          scrollTrigger: {
+            trigger: slide,
+            containerAnimation: hTween,
+            start: 'left right',
+            end: 'right left',
+            scrub: true,
+          },
         }
       );
     });
   }
-
-  // Hide the header the moment the transition begins (no more overlap with
-  // the filter bar), and bring it back after the gallery.
-  ScrollTrigger.create({
-    trigger: '.work',
-    start: 'top top+=2',
-    end: 'bottom top',
-    onToggle: (self) => {
-      if (siteHeader) {
-        gsap.to(siteHeader, { autoAlpha: self.isActive ? 0 : 1, duration: 0.3, overwrite: true });
-      }
-    },
-  });
-
-  // The filter bar drops down from the top once the stage has turned white.
-  ScrollTrigger.create({
-    trigger: '.work-panels',
-    start: 'top 92%',
-    end: 'bottom top',
-    onToggle: (self) => {
-      if (filterbar) filterbar.classList.toggle('is-in', self.isActive);
-    },
-  });
 }
 
 /* ---- Service filter ---- */
@@ -200,12 +186,18 @@ filterBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
     const filter = btn.dataset.filter;
     filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
-    document.querySelectorAll('.work-panel').forEach((panel) => {
-      const services = (panel.dataset.services || '').split('|');
+    document.querySelectorAll('.work-slide--project').forEach((slide) => {
+      const services = (slide.dataset.services || '').split('|');
       const show = filter === 'all' || services.includes(filter);
-      panel.classList.toggle('is-hidden', !show);
+      slide.classList.toggle('is-hidden', !show);
     });
-    ScrollTrigger.refresh();
+    // Track width changed — recompute the pinned scroll distance and jump
+    // back to the gallery start so nothing is stranded off-screen.
+    if (window.ScrollTrigger) {
+      const work = document.getElementById('work');
+      ScrollTrigger.refresh();
+      if (work) work.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
   });
 });
 
