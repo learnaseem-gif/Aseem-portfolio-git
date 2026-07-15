@@ -228,78 +228,61 @@ img {
   color: var(--brand);
 }
 
-/* Work — horizontal-scroll gallery */
+/* Work — kinetic title + vertical full-screen gallery */
 
 .work {
   position: relative;
   background: var(--bg);
 }
 
-.work-hscroll {
-  position: relative;
-  height: 100svh;
-  overflow: hidden;
+/* SELECTED WORK — kinetic type intro */
+.work-intro {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(3rem, 8vh, 6rem) 1.5rem;
 }
 
-.work-track {
-  display: flex;
-  height: 100svh;
-  width: max-content;
+.work-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.035em;
+  line-height: 0.9;
+  font-size: clamp(3rem, 13vw, 9rem);
+  text-wrap: balance;
+}
+
+.work-title-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+
+.work-title-word {
+  display: inline-block;
   will-change: transform;
 }
 
-.work-slide {
-  position: relative;
-  flex: 0 0 100vw;
-  width: 100vw;
-  height: 100svh;
-  overflow: hidden;
-}
-
-.work-slide.is-hidden { display: none; }
-
-/* Intro slide — SELECTED WORK */
-.work-slide--intro {
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 0 1.5rem;
-  background: var(--bg);
-}
-
-.hslide-intro .section-title {
-  font-size: clamp(2.75rem, 9vw, 6rem);
-}
-
 .work-lead-sub {
-  margin-top: 1.25rem;
+  margin-top: clamp(1.25rem, 3vw, 2rem);
   color: var(--muted);
   font-size: clamp(1rem, 1.8vw, 1.3rem);
   text-wrap: balance;
 }
 
-.hscroll-hint {
-  display: inline-block;
-  margin-top: clamp(2rem, 5vh, 3.5rem);
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.hscroll-hint b { color: var(--brand); font-weight: 700; }
-
-/* Filter bar — top of the pinned gallery */
+/* Filter bar — sticky at the top of the gallery */
 .work-filterbar {
-  position: absolute;
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 30;
-  background: color-mix(in oklch, var(--bg) 68%, transparent);
+  z-index: 15;
+  background: color-mix(in oklch, var(--bg) 72%, transparent);
   backdrop-filter: blur(12px);
-  border-bottom: 1px solid oklch(30% 0.02 138);
+  border-block: 1px solid oklch(30% 0.02 138);
   padding-top: env(safe-area-inset-top, 0);
 }
 
@@ -346,18 +329,28 @@ img {
   border-color: var(--brand);
 }
 
-/* Project slide — one full screen, edge to edge, no card */
-.work-slide--project {
+/* Vertical full-screen panels */
+.work-panels {
+  position: relative;
+}
+
+.work-panel {
+  position: relative;
   display: block;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
   text-decoration: none;
   color: #fff;
 }
 
+.work-panel.is-hidden { display: none; }
+
 .work-panel-media {
   position: absolute;
-  inset: 0 -9%;
-  width: 118%;
-  height: 100%;
+  inset: -9% 0;
+  width: 100%;
+  height: 118%;
   will-change: transform;
 }
 
