@@ -149,9 +149,11 @@ if (workList && projects.length) {
         anticipatePin: 1,
       },
     })
-      .to(tagline, { opacity: 0, ease: 'none', duration: 0.15 }, 0)
-      .to(introInner, { scale: 16, ease: 'power2.in', duration: 1 }, 0)
-      .to(veil, { opacity: 1, ease: 'power2.in', duration: 0.32 }, 0.68);
+      // The word grows in place; a white disc floods out from its centre
+      // and consumes the black until the stage is white.
+      .to(tagline, { opacity: 0, ease: 'none', duration: 0.12 }, 0)
+      .to(introInner, { scale: 7, ease: 'none', duration: 1 }, 0)
+      .fromTo(veil, { scale: 0 }, { scale: 1, ease: 'power1.in', duration: 0.82 }, 0.16);
 
     // Parallax the media inside each full-screen panel.
     workList.querySelectorAll('.work-panel').forEach((panel) => {

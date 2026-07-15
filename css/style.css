@@ -253,10 +253,16 @@ img {
 
 .work-intro-veil {
   position: absolute;
-  inset: 0;
-  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 160vmax;
+  height: 160vmax;
+  margin: -80vmax 0 0 -80vmax;
+  border-radius: 50%;
   background: var(--w-bg);
-  opacity: 0;
+  transform: scale(0);
+  transform-origin: center;
+  z-index: 3;
   pointer-events: none;
 }
 
