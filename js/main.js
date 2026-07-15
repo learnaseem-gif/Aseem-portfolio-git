@@ -130,31 +130,29 @@ if (workList && projects.length) {
   }
 
   const intro = document.querySelector('.work-intro');
-  const introMark = intro ? intro.querySelector('.work-intro-mark text') : null;
-  const veil = document.querySelector('.work-intro-veil');
+  const revealTitle = intro ? intro.querySelector('.work-reveal-title') : null;
+  const reveal = intro ? intro.querySelector('.work-reveal') : null;
   const tagline = intro ? intro.querySelector('.work-lead-sub') : null;
   const filterbar = document.querySelector('.work-filterbar');
   const siteHeader = document.querySelector('.site-header');
 
   if (!prefersReduced) {
-    // SELECTED WORK scales up until it becomes the white stage — the same
-    // "grow to fill the screen" idea as the hero logo.
+    // The wordmark is a window into the work: it scales up while the full
+    // image floods in behind it, then the word dissolves into the imagery.
     gsap.timeline({
       scrollTrigger: {
         trigger: intro,
         start: 'top top',
-        end: '+=135%',
+        end: '+=130%',
         scrub: 0.5,
         pin: true,
         anticipatePin: 1,
       },
     })
-      // The vector wordmark itself scales from a point on the ink, so the
-      // white letterform floods outward and consumes the black. The veil only
-      // snaps in at the very end to guarantee a fully clean white.
-      .to(tagline, { opacity: 0, ease: 'none', duration: 0.1 }, 0)
-      .to(introMark, { scale: 60, transformOrigin: '54% 50%', ease: 'power2.in', duration: 1 }, 0)
-      .to(veil, { opacity: 1, ease: 'none', duration: 0.2 }, 0.8);
+      .to(tagline, { opacity: 0, ease: 'none', duration: 0.12 }, 0)
+      .to(revealTitle, { scale: 5.5, ease: 'power1.in', duration: 1 }, 0)
+      .to(reveal, { opacity: 1, ease: 'none', duration: 0.5 }, 0.32)
+      .to(revealTitle, { opacity: 0, ease: 'none', duration: 0.25 }, 0.68);
 
     // Parallax the media inside each full-screen panel.
     workList.querySelectorAll('.work-panel').forEach((panel) => {
