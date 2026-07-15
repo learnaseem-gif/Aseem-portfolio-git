@@ -1,0 +1,13 @@
+# Files here are NOT uploaded to Cloudflare's static hosting.
+.git
+.claude
+uploads
+node_modules
+*.md
+.gitignore
+wrangler.jsonc
+.assetsignore
+
+# Video exceeds Cloudflare's 25 MiB per-file limit — served from a
+# dedicated video host instead (wired up separately).
+*.mp4
