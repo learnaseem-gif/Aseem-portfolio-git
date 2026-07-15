@@ -173,7 +173,7 @@ if (workList && projects.length) {
   ScrollTrigger.create({
     trigger: '.work',
     start: 'top top+=2',
-    end: 'bottom bottom',
+    end: 'bottom top',
     onToggle: (self) => {
       if (siteHeader) {
         gsap.to(siteHeader, { autoAlpha: self.isActive ? 0 : 1, duration: 0.3, overwrite: true });
@@ -185,7 +185,7 @@ if (workList && projects.length) {
   ScrollTrigger.create({
     trigger: '.work-panels',
     start: 'top 92%',
-    end: 'bottom bottom',
+    end: 'bottom top',
     onToggle: (self) => {
       if (filterbar) filterbar.classList.toggle('is-in', self.isActive);
     },

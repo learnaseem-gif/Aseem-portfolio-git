@@ -855,6 +855,100 @@ img {
   .project-body { grid-template-columns: 1fr; }
 }
 
+/* ---- Marquee ---- */
+
+.marquee {
+  overflow: hidden;
+  padding: clamp(1.5rem, 4vw, 3rem) 0;
+  background: var(--bg);
+  border-top: 1px solid oklch(28% 0.02 138);
+  border-bottom: 1px solid oklch(28% 0.02 138);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.marquee-track span {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  color: var(--ink);
+  padding-right: 0.3em;
+}
+
+.marquee-track i {
+  font-style: normal;
+  color: var(--brand);
+  margin: 0 0.25em;
+}
+
+/* ---- Panel hover life ---- */
+
+.work-panel-media img,
+.work-panel-media video {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .work-panel:hover .work-panel-media img,
+  .work-panel:hover .work-panel-media video {
+    transform: scale(1.05);
+  }
+}
+
+.work-panel-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.work-panel-cta::after {
+  content: "→";
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .work-panel:hover .work-panel-cta::after {
+    transform: translateX(6px);
+  }
+}
+
+/* ---- Custom cursor (fine pointers only) ---- */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--brand);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 200;
+  opacity: 0;
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease,
+    opacity 0.25s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor.is-active { opacity: 1; }
+
+.cursor.is-hovering {
+  width: 58px;
+  height: 58px;
+  background: oklch(72.2% 0.168 138 / 0.15);
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor { display: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-field,
   .hero-logo,
@@ -863,4 +957,5 @@ img {
   }
   .reveal { opacity: 1; transform: none; transition: none; }
   .work-media img { transition: none; }
+  .marquee-track { transform: none !important; }
 }
