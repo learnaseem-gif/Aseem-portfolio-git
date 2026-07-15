@@ -129,23 +129,29 @@ if (workList && projects.length) {
     panelVideos.forEach((v) => vo.observe(v));
   }
 
+  const intro = document.querySelector('.work-intro');
+  const introInner = document.querySelector('.work-intro-inner');
+  const veil = document.querySelector('.work-intro-veil');
+  const tagline = intro ? intro.querySelector('.work-lead-sub') : null;
+  const filterbar = document.querySelector('.work-filterbar');
+  const siteHeader = document.querySelector('.site-header');
+
   if (!prefersReduced) {
-    // Pin the SELECTED WORK title; as you scroll past, the stage turns light.
-    const intro = document.querySelector('.work-intro');
-    const introInner = document.querySelector('.work-intro-inner');
-    const veil = document.querySelector('.work-intro-veil');
+    // SELECTED WORK scales up until it becomes the white stage — the same
+    // "grow to fill the screen" idea as the hero logo.
     gsap.timeline({
       scrollTrigger: {
         trigger: intro,
         start: 'top top',
-        end: '+=90%',
-        scrub: true,
+        end: '+=135%',
+        scrub: 0.5,
         pin: true,
         anticipatePin: 1,
       },
     })
-      .to(introInner, { opacity: 0, y: -40, ease: 'none', duration: 0.55 }, 0)
-      .to(veil, { opacity: 1, ease: 'none', duration: 1 }, 0);
+      .to(tagline, { opacity: 0, ease: 'none', duration: 0.15 }, 0)
+      .to(introInner, { scale: 16, ease: 'power2.in', duration: 1 }, 0)
+      .to(veil, { opacity: 1, ease: 'power2.in', duration: 0.32 }, 0.68);
 
     // Parallax the media inside each full-screen panel.
     workList.querySelectorAll('.work-panel').forEach((panel) => {
@@ -161,18 +167,28 @@ if (workList && projects.length) {
       );
     });
   }
-}
 
-/* ---- Hide the floating header while the light gallery owns the top ---- */
-
-const siteHeader = document.querySelector('.site-header');
-if (siteHeader && workList) {
+  // Hide the header the moment the transition begins (no more overlap with
+  // the filter bar), and bring it back after the gallery.
   ScrollTrigger.create({
-    trigger: workList,
+    trigger: '.work',
     start: 'top top+=2',
-    end: 'bottom top',
-    onToggle: (self) =>
-      gsap.to(siteHeader, { autoAlpha: self.isActive ? 0 : 1, duration: 0.3, overwrite: true }),
+    end: 'bottom bottom',
+    onToggle: (self) => {
+      if (siteHeader) {
+        gsap.to(siteHeader, { autoAlpha: self.isActive ? 0 : 1, duration: 0.3, overwrite: true });
+      }
+    },
+  });
+
+  // The filter bar drops down from the top once the stage has turned white.
+  ScrollTrigger.create({
+    trigger: '.work-panels',
+    start: 'top 92%',
+    end: 'bottom bottom',
+    onToggle: (self) => {
+      if (filterbar) filterbar.classList.toggle('is-in', self.isActive);
+    },
   });
 }
 
