@@ -57,33 +57,31 @@ function tag(text) {
   return `<span class="work-tag">${text}</span>`;
 }
 
-function projectCard(p, index) {
-  const classes = ['work-item'];
-  if (p.featured) classes.push('is-featured');
-  // Give a couple of non-featured items a wide span for editorial rhythm.
-  else if (index % 5 === 2) classes.push('is-wide');
-
+function projectPanel(p) {
   const badge = p.status === 'coming-soon'
     ? '<span class="work-badge">Coming soon</span>'
     : '';
   const tags = p.services.map(tag).join('');
   const dataServices = p.services.join('|');
 
-  // A reel plays inline in the card; otherwise show the cover image.
+  // A reel plays inline; otherwise show the cover image.
   const media = p.heroVideo
-    ? `<video class="work-video" src="/${p.heroVideo}" muted loop playsinline preload="none" poster="/${p.cover}"></video>`
+    ? `<video class="work-panel-video" src="/${p.heroVideo}" muted loop playsinline preload="none" poster="/${p.cover}"></video>`
     : `<img src="/${p.cover}" alt="${p.client} — ${p.title}" loading="lazy" />`;
 
   return `
-    <a class="work-item ${classes.slice(1).join(' ')}" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
-      <div class="work-media">
-        ${badge}
+    <a class="work-panel" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
+      ${badge}
+      <div class="work-panel-media">
         ${brandedPoster()}
         ${media}
       </div>
-      <div class="work-caption">
-        <span class="work-client">${p.client}</span>
-        <span class="work-meta">${tags}</span>
+      <div class="work-panel-scrim"></div>
+      <div class="work-panel-info">
+        <span class="work-panel-cat">${p.category}</span>
+        <span class="work-panel-client">${p.client}</span>
+        <span class="work-panel-meta">${tags}</span>
+        <span class="work-panel-cta">View project →</span>
       </div>
     </a>`;
 }
@@ -105,17 +103,18 @@ function brandedPoster() {
 if (workList && projects.length) {
   // Featured first, then the rest in declared order.
   const ordered = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-  workList.innerHTML = ordered.map((p, i) => projectCard(p, i)).join('');
+  workList.innerHTML = ordered.map((p) => projectPanel(p)).join('');
+
   // Until real covers are added, hide any cover that fails to load so the
   // branded poster shows instead of a broken-image box.
-  workList.querySelectorAll('.work-media img').forEach((img) => {
+  workList.querySelectorAll('.work-panel-media img').forEach((img) => {
     img.addEventListener('error', () => img.classList.add('is-broken'));
     if (img.complete && img.naturalWidth === 0) img.classList.add('is-broken');
   });
 
-  // Reels play only while their card is on screen (saves bandwidth/CPU).
-  const cardVideos = workList.querySelectorAll('.work-video');
-  if (cardVideos.length && 'IntersectionObserver' in window && !prefersReduced) {
+  // Reels play only while their panel is on screen (saves bandwidth/CPU).
+  const panelVideos = workList.querySelectorAll('.work-panel-video');
+  if (panelVideos.length && 'IntersectionObserver' in window && !prefersReduced) {
     const vo = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const v = entry.target;
@@ -127,8 +126,54 @@ if (workList && projects.length) {
         }
       });
     }, { threshold: 0.4 });
-    cardVideos.forEach((v) => vo.observe(v));
+    panelVideos.forEach((v) => vo.observe(v));
   }
+
+  if (!prefersReduced) {
+    // Pin the SELECTED WORK title; as you scroll past, the stage turns light.
+    const intro = document.querySelector('.work-intro');
+    const introInner = document.querySelector('.work-intro-inner');
+    const veil = document.querySelector('.work-intro-veil');
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: intro,
+        start: 'top top',
+        end: '+=90%',
+        scrub: true,
+        pin: true,
+        anticipatePin: 1,
+      },
+    })
+      .to(introInner, { opacity: 0, y: -40, ease: 'none', duration: 0.55 }, 0)
+      .to(veil, { opacity: 1, ease: 'none', duration: 1 }, 0);
+
+    // Parallax the media inside each full-screen panel.
+    workList.querySelectorAll('.work-panel').forEach((panel) => {
+      const media = panel.querySelector('.work-panel-media');
+      gsap.fromTo(
+        media,
+        { yPercent: -8 },
+        {
+          yPercent: 8,
+          ease: 'none',
+          scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true },
+        }
+      );
+    });
+  }
+}
+
+/* ---- Hide the floating header while the light gallery owns the top ---- */
+
+const siteHeader = document.querySelector('.site-header');
+if (siteHeader && workList) {
+  ScrollTrigger.create({
+    trigger: workList,
+    start: 'top top+=2',
+    end: 'bottom top',
+    onToggle: (self) =>
+      gsap.to(siteHeader, { autoAlpha: self.isActive ? 0 : 1, duration: 0.3, overwrite: true }),
+  });
 }
 
 /* ---- Service filter ---- */
@@ -138,10 +183,10 @@ filterBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
     const filter = btn.dataset.filter;
     filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
-    document.querySelectorAll('.work-item').forEach((item) => {
-      const services = (item.dataset.services || '').split('|');
+    document.querySelectorAll('.work-panel').forEach((panel) => {
+      const services = (panel.dataset.services || '').split('|');
       const show = filter === 'all' || services.includes(filter);
-      item.classList.toggle('is-hidden', !show);
+      panel.classList.toggle('is-hidden', !show);
     });
     ScrollTrigger.refresh();
   });
@@ -150,7 +195,7 @@ filterBtns.forEach((btn) => {
 /* ---- Scroll reveals ---- */
 
 if (!prefersReduced) {
-  document.querySelectorAll('.work-lead-inner, .intro-lead, .work-item, .service-row, .contact-pitch, .lead-form')
+  document.querySelectorAll('.intro-lead, .service-row, .contact-pitch, .lead-form')
     .forEach((el) => {
       el.classList.add('reveal');
       ScrollTrigger.create({

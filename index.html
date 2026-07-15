@@ -45,22 +45,28 @@
       <p class="scroll-cue" aria-hidden="true">Scroll</p>
     </section>
 
-    <section class="work-lead" id="work">
-      <div class="work-lead-inner">
-        <h2 class="section-title">Selected Work</h2>
-        <p class="work-lead-sub">Photography &middot; Social &middot; Paid &middot; Web — for brands built to grow.</p>
+    <section class="work" id="work">
+      <div class="work-intro">
+        <div class="work-intro-veil" aria-hidden="true"></div>
+        <div class="work-intro-inner">
+          <h2 class="section-title">Selected Work</h2>
+          <p class="work-lead-sub">Photography &middot; Social &middot; Paid &middot; Web — for brands built to grow.</p>
+        </div>
       </div>
-    </section>
 
-    <section class="work">
-      <div class="work-filter" role="group" aria-label="Filter work by service">
-        <button type="button" class="filter-btn is-active" data-filter="all">All</button>
-        <button type="button" class="filter-btn" data-filter="Photography">Photography</button>
-        <button type="button" class="filter-btn" data-filter="Social Reels">Social Reels</button>
-        <button type="button" class="filter-btn" data-filter="Paid Campaigns">Paid Campaigns</button>
-        <button type="button" class="filter-btn" data-filter="Websites">Websites</button>
+      <div class="work-filterbar">
+        <div class="work-filter" role="group" aria-label="Filter work by service">
+          <div class="work-filter-track">
+            <button type="button" class="filter-btn is-active" data-filter="all">All</button>
+            <button type="button" class="filter-btn" data-filter="Photography">Photography</button>
+            <button type="button" class="filter-btn" data-filter="Social Reels">Social Reels</button>
+            <button type="button" class="filter-btn" data-filter="Paid Campaigns">Paid Campaigns</button>
+            <button type="button" class="filter-btn" data-filter="Websites">Websites</button>
+          </div>
+        </div>
       </div>
-      <div class="work-list" id="work-list"><!-- rendered from js/projects.js --></div>
+
+      <div class="work-panels" id="work-list"><!-- rendered from js/projects.js --></div>
     </section>
 
     <section class="intro" id="about">
