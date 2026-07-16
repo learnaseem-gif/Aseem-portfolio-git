@@ -528,6 +528,7 @@ img {
 
 /* Mobile inline visual */
 .service-thumb {
+  position: relative;
   grid-column: 1 / -1;
   margin-top: 0.5rem;
   aspect-ratio: 16 / 10;
@@ -536,7 +537,19 @@ img {
   background: radial-gradient(120% 120% at 30% 20%, oklch(26% 0.05 138), oklch(15% 0.03 138));
 }
 
-.service-thumb img {
+.service-thumb::before,
+.service-reveal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("/assets/logo.svg") center / clamp(48px, 20%, 84px) no-repeat;
+  opacity: 0.9;
+}
+
+.service-thumb img,
+.service-reveal img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
