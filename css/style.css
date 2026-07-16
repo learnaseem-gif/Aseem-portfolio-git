@@ -491,15 +491,33 @@ img {
   align-items: baseline;
   padding: clamp(1.5rem, 3.5vw, 2.5rem) 0;
   border-top: 1px solid oklch(28% 0.02 138);
+  position: relative;
+  transition: opacity 0.35s ease;
 }
 
 .service-row:last-child { border-bottom: 1px solid oklch(28% 0.02 138); }
+
+.service-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
 
 .service-name {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.025em;
   font-size: clamp(1.75rem, 4.5vw, 3.25rem);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+}
+
+.service-arrow {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  color: var(--brand);
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.35s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .service-desc {
@@ -508,8 +526,76 @@ img {
   max-width: 46ch;
 }
 
+/* Mobile inline visual */
+.service-thumb {
+  grid-column: 1 / -1;
+  margin-top: 0.5rem;
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(120% 120% at 30% 20%, oklch(26% 0.05 138), oklch(15% 0.03 138));
+}
+
+.service-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-thumb img.is-broken { opacity: 0; }
+
+/* Floating cursor-followed visual (desktop) */
+.service-reveal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: min(30vw, 380px);
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  visibility: hidden;
+  background: radial-gradient(120% 120% at 30% 20%, oklch(26% 0.05 138), oklch(15% 0.03 138));
+  box-shadow: 0 30px 80px oklch(0% 0 0 / 0.5);
+  will-change: transform;
+}
+
+.service-reveal img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.service-reveal img.is-broken { opacity: 0; }
+
+/* On hover-capable screens, hide the inline thumb and use the floating reveal */
+@media (hover: hover) and (pointer: fine) {
+  .service-thumb { display: none; }
+
+  .services-list.has-hover .service-row { opacity: 0.4; }
+  .services-list.has-hover .service-row.is-hovered { opacity: 1; }
+
+  .service-row.is-hovered .service-name {
+    transform: translateX(1.25rem);
+    color: var(--brand);
+  }
+
+  .service-row.is-hovered .service-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .service-reveal { display: none; }
+  .service-arrow { display: none; }
+}
+
 @media (max-width: 680px) {
   .service-row { grid-template-columns: 1fr; gap: 0.75rem; }
+  .service-main { justify-content: flex-start; }
 }
 
 /* Contact */

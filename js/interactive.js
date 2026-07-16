@@ -50,6 +50,54 @@
     });
   }
 
+  /* ---- Mobile inline service thumbs: hide broken, show branded poster ---- */
+  document.querySelectorAll('.service-thumb img').forEach((img) => {
+    img.addEventListener('error', () => img.classList.add('is-broken'));
+    if (img.complete && img.naturalWidth === 0) img.classList.add('is-broken');
+  });
+
+  /* ---- Services hover-reveal (desktop): a visual follows the cursor ---- */
+  const reveal = document.querySelector('.service-reveal');
+  const list = document.querySelector('.services-list');
+  const rows = document.querySelectorAll('.service-row');
+  if (reveal && list && rows.length && finePointer && !prefersReduced) {
+    const revealImg = reveal.querySelector('img');
+    revealImg.addEventListener('error', () => revealImg.classList.add('is-broken'));
+
+    const rx = gsap.quickTo(reveal, 'x', { duration: 0.55, ease: 'power3' });
+    const ry = gsap.quickTo(reveal, 'y', { duration: 0.55, ease: 'power3' });
+    let w = reveal.offsetWidth || 340;
+    let h = reveal.offsetHeight || 255;
+
+    window.addEventListener('pointermove', (e) => {
+      rx(e.clientX - w / 2);
+      ry(e.clientY - h / 2);
+    });
+
+    rows.forEach((row) => {
+      row.addEventListener('pointerenter', () => {
+        w = reveal.offsetWidth;
+        h = reveal.offsetHeight;
+        const src = row.dataset.media;
+        if (src && revealImg.getAttribute('src') !== src) {
+          revealImg.classList.remove('is-broken');
+          revealImg.src = src;
+        }
+        list.classList.add('has-hover');
+        rows.forEach((r) => r.classList.toggle('is-hovered', r === row));
+        gsap.to(reveal, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'power3', overwrite: true });
+      });
+    });
+
+    list.addEventListener('pointerleave', () => {
+      list.classList.remove('has-hover');
+      rows.forEach((r) => r.classList.remove('is-hovered'));
+      gsap.to(reveal, { autoAlpha: 0, scale: 0.85, duration: 0.3, ease: 'power2', overwrite: true });
+    });
+
+    gsap.set(reveal, { scale: 0.85 });
+  }
+
   /* ---- Magnetic CTAs (desktop) ---- */
   if (finePointer && !prefersReduced) {
     document.querySelectorAll('.header-cta, .submit-btn').forEach((el) => {
