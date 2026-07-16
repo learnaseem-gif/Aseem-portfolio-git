@@ -10,7 +10,18 @@ if (!prefersReduced && window.Lenis) {
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((time) => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
+  window.__lenis = lenis;
 }
+
+/* Back to top: the hero is a pinned scroll region, so anchoring to #hero
+   lands mid-animation on a blank frame. Scroll to the real page top. */
+document.querySelectorAll('a[href="#hero"]').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (window.__lenis) window.__lenis.scrollTo(0);
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
 
 gsap.registerPlugin(ScrollTrigger);
 

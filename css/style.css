@@ -547,7 +547,9 @@ img {
 }
 
 .service-thumb img,
-.service-reveal img {
+.service-thumb video,
+.service-reveal img,
+.service-reveal video {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -556,6 +558,11 @@ img {
 }
 
 .service-thumb img.is-broken { opacity: 0; }
+
+/* The reveal shows either its image or its video, never both */
+.service-reveal video { display: none; }
+.service-reveal.is-video video { display: block; }
+.service-reveal.is-video img { display: none; }
 
 /* Floating cursor-followed visual (desktop) */
 .service-reveal {

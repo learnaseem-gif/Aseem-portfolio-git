@@ -120,7 +120,12 @@
           <div class="service-thumb" aria-hidden="true"><img src="/assets/services/web.jpg" alt="" loading="lazy" /></div>
         </li>
       </ul>
-      <div class="service-reveal" aria-hidden="true"><img alt="" /></div>
+      <!-- Floating hover visual. To give a service a video instead of an
+           image, add data-video="/assets/services/<name>.mp4" to its row. -->
+      <div class="service-reveal" aria-hidden="true">
+        <img alt="" />
+        <video muted loop playsinline preload="none"></video>
+      </div>
     </section>
 
     <section class="contact" id="contact">

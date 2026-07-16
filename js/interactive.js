@@ -56,32 +56,50 @@
     if (img.complete && img.naturalWidth === 0) img.classList.add('is-broken');
   });
 
-  /* ---- Services hover-reveal (desktop): a visual follows the cursor ---- */
+  /* ---- Services hover-reveal (desktop): a visual trails the cursor,
+     offset to the side so it never covers the row's text, and plays a
+     video when the row has data-video. ---- */
   const reveal = document.querySelector('.service-reveal');
   const list = document.querySelector('.services-list');
   const rows = document.querySelectorAll('.service-row');
   if (reveal && list && rows.length && finePointer && !prefersReduced) {
     const revealImg = reveal.querySelector('img');
+    const revealVid = reveal.querySelector('video');
     revealImg.addEventListener('error', () => revealImg.classList.add('is-broken'));
 
-    const rx = gsap.quickTo(reveal, 'x', { duration: 0.55, ease: 'power3' });
-    const ry = gsap.quickTo(reveal, 'y', { duration: 0.55, ease: 'power3' });
-    let w = reveal.offsetWidth || 340;
-    let h = reveal.offsetHeight || 255;
+    const rx = gsap.quickTo(reveal, 'x', { duration: 0.5, ease: 'power3' });
+    const ry = gsap.quickTo(reveal, 'y', { duration: 0.5, ease: 'power3' });
+    const GAP = 28; // distance from the cursor
+    const EDGE = 16; // viewport padding
 
     window.addEventListener('pointermove', (e) => {
-      rx(e.clientX - w / 2);
-      ry(e.clientY - h / 2);
+      const w = reveal.offsetWidth || 340;
+      const h = reveal.offsetHeight || 255;
+      // Down-right of the cursor so the hovered row's name and text stay
+      // readable (overlap only hits dimmed rows); flips sides near edges.
+      let x = e.clientX + GAP;
+      if (x + w > window.innerWidth - EDGE) x = e.clientX - w - GAP;
+      let y = e.clientY + GAP;
+      if (y + h > window.innerHeight - EDGE) y = e.clientY - h - GAP;
+      rx(x);
+      ry(y);
     });
 
     rows.forEach((row) => {
       row.addEventListener('pointerenter', () => {
-        w = reveal.offsetWidth;
-        h = reveal.offsetHeight;
-        const src = row.dataset.media;
-        if (src && revealImg.getAttribute('src') !== src) {
-          revealImg.classList.remove('is-broken');
-          revealImg.src = src;
+        const vidSrc = row.dataset.video;
+        if (vidSrc && revealVid) {
+          reveal.classList.add('is-video');
+          if (revealVid.getAttribute('src') !== vidSrc) revealVid.src = vidSrc;
+          revealVid.play().catch(() => {});
+        } else {
+          reveal.classList.remove('is-video');
+          if (revealVid) revealVid.pause();
+          const src = row.dataset.media;
+          if (src && revealImg.getAttribute('src') !== src) {
+            revealImg.classList.remove('is-broken');
+            revealImg.src = src;
+          }
         }
         list.classList.add('has-hover');
         rows.forEach((r) => r.classList.toggle('is-hovered', r === row));
@@ -92,10 +110,26 @@
     list.addEventListener('pointerleave', () => {
       list.classList.remove('has-hover');
       rows.forEach((r) => r.classList.remove('is-hovered'));
+      if (revealVid) revealVid.pause();
       gsap.to(reveal, { autoAlpha: 0, scale: 0.85, duration: 0.3, ease: 'power2', overwrite: true });
     });
 
     gsap.set(reveal, { scale: 0.85 });
+  }
+
+  /* ---- Mobile: a row with data-video plays it inline in its thumb ---- */
+  if (!finePointer) {
+    document.querySelectorAll('.service-row[data-video]').forEach((row) => {
+      const thumb = row.querySelector('.service-thumb');
+      if (!thumb) return;
+      const v = document.createElement('video');
+      v.src = row.dataset.video;
+      v.muted = true;
+      v.loop = true;
+      v.playsInline = true;
+      v.autoplay = true;
+      thumb.replaceChildren(v);
+    });
   }
 
   /* ---- Magnetic CTAs (desktop) ---- */
