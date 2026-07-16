@@ -61,7 +61,7 @@
      video when the row has data-video. ---- */
   const reveal = document.querySelector('.service-reveal');
   const list = document.querySelector('.services-list');
-  const rows = document.querySelectorAll('.service-row');
+  const rows = Array.from(document.querySelectorAll('.service-row'));
   if (reveal && list && rows.length && finePointer && !prefersReduced) {
     const revealImg = reveal.querySelector('img');
     const revealVid = reveal.querySelector('video');
@@ -71,48 +71,78 @@
     const ry = gsap.quickTo(reveal, 'y', { duration: 0.5, ease: 'power3' });
     const GAP = 28; // distance from the cursor
     const EDGE = 16; // viewport padding
+    let lastX = -1;
+    let lastY = -1;
+    let activeRow = null;
 
-    window.addEventListener('pointermove', (e) => {
+    function place(cx, cy) {
       const w = reveal.offsetWidth || 340;
       const h = reveal.offsetHeight || 255;
       // Down-right of the cursor so the hovered row's name and text stay
       // readable (overlap only hits dimmed rows); flips sides near edges.
-      let x = e.clientX + GAP;
-      if (x + w > window.innerWidth - EDGE) x = e.clientX - w - GAP;
-      let y = e.clientY + GAP;
-      if (y + h > window.innerHeight - EDGE) y = e.clientY - h - GAP;
+      let x = cx + GAP;
+      if (x + w > window.innerWidth - EDGE) x = cx - w - GAP;
+      let y = cy + GAP;
+      if (y + h > window.innerHeight - EDGE) y = cy - h - GAP;
       rx(x);
       ry(y);
-    });
+    }
 
-    rows.forEach((row) => {
-      row.addEventListener('pointerenter', () => {
-        const vidSrc = row.dataset.video;
-        if (vidSrc && revealVid) {
-          reveal.classList.add('is-video');
-          if (revealVid.getAttribute('src') !== vidSrc) revealVid.src = vidSrc;
-          revealVid.play().catch(() => {});
-        } else {
-          reveal.classList.remove('is-video');
-          if (revealVid) revealVid.pause();
-          const src = row.dataset.media;
-          if (src && revealImg.getAttribute('src') !== src) {
-            revealImg.classList.remove('is-broken');
-            revealImg.src = src;
-          }
+    function activate(row) {
+      if (activeRow === row) return;
+      activeRow = row;
+      const vidSrc = row.dataset.video;
+      if (vidSrc && revealVid) {
+        reveal.classList.add('is-video');
+        if (revealVid.getAttribute('src') !== vidSrc) revealVid.src = vidSrc;
+        revealVid.play().catch(() => {});
+      } else {
+        reveal.classList.remove('is-video');
+        if (revealVid) revealVid.pause();
+        const src = row.dataset.media;
+        if (src && revealImg.getAttribute('src') !== src) {
+          revealImg.classList.remove('is-broken');
+          revealImg.src = src;
         }
-        list.classList.add('has-hover');
-        rows.forEach((r) => r.classList.toggle('is-hovered', r === row));
-        gsap.to(reveal, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'power3', overwrite: true });
-      });
-    });
+      }
+      list.classList.add('has-hover');
+      rows.forEach((r) => r.classList.toggle('is-hovered', r === row));
+      // overwrite:'auto' only kills conflicting props — never the x/y
+      // follower tweens (overwrite:true froze the box after first hover).
+      gsap.to(reveal, { autoAlpha: 1, scale: 1, duration: 0.4, ease: 'power3', overwrite: 'auto' });
+    }
 
-    list.addEventListener('pointerleave', () => {
+    function deactivate() {
+      if (!activeRow) return;
+      activeRow = null;
       list.classList.remove('has-hover');
       rows.forEach((r) => r.classList.remove('is-hovered'));
       if (revealVid) revealVid.pause();
-      gsap.to(reveal, { autoAlpha: 0, scale: 0.85, duration: 0.3, ease: 'power2', overwrite: true });
+      gsap.to(reveal, { autoAlpha: 0, scale: 0.85, duration: 0.3, ease: 'power2', overwrite: 'auto' });
+    }
+
+    window.addEventListener('pointermove', (e) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      place(e.clientX, e.clientY);
     });
+
+    rows.forEach((row) => {
+      row.addEventListener('pointerenter', () => activate(row));
+    });
+    list.addEventListener('pointerleave', deactivate);
+
+    // Smooth scrolling moves the rows under a stationary cursor without
+    // firing pointer events — re-resolve the row under the pointer on
+    // scroll so the hover tracks the page too.
+    window.addEventListener('scroll', () => {
+      if (lastX < 0) return;
+      const el = document.elementFromPoint(lastX, lastY);
+      if (!el) { deactivate(); return; }
+      const row = el.closest('.service-row');
+      if (row) activate(row);
+      else if (!el.closest('.services')) deactivate();
+    }, { passive: true });
 
     gsap.set(reveal, { scale: 0.85 });
   }
