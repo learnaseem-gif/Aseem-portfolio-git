@@ -57,6 +57,9 @@ window.PROJECTS = [
       "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9506_result.webp",
       "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9529_result.webp",
       "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9534_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Ir-Cpo-Inspection.mp4",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Ir-Technight-Event.mp4",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Ir-Tire-Promotion.mp4",
     ],
   },
   {
@@ -161,6 +164,12 @@ window.PROJECTS = [
     ],
     work:
       "We gave every vehicle a consistent, sharp look and built social content that showcases stock and personality — so browsers become buyers.",
-    gallery: [],
+    gallery: [
+      "assets/work/motor-world-autos/bmw-x5-reel.mp4",
+      "assets/work/motor-world-autos/dodge-challenger-gt-reel.mp4",
+      "assets/work/motor-world-autos/ram-reel.mp4",
+      "assets/work/motor-world-autos/u-sick-reel.mp4",
+      "assets/work/motor-world-autos/final-reel.mp4",
+    ],
   },
 ];

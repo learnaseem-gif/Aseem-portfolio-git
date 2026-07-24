@@ -37,10 +37,26 @@ function renderHero(p) {
     </div>`;
 }
 
+function isVideoSrc(src) {
+  return /\.(mp4|mov|webm)(\?|$)/i.test(src);
+}
+
 function renderGallery(p) {
   if (!p.gallery || !p.gallery.length) return '';
   const items = p.gallery
-    .map((src, i) => `<figure class="gallery-item"><img src="${mediaUrl(src)}" alt="${p.client} work ${i + 1}" loading="lazy" /></figure>`)
+    .map((src, i) => {
+      const url = mediaUrl(src);
+      if (isVideoSrc(src)) {
+        // A real deliverable to review, not ambient background — click to
+        // play with its actual sound, not an autoplaying muted loop.
+        return `
+          <figure class="gallery-item gallery-item--video">
+            <span class="gallery-item-badge">Reel</span>
+            <video src="${url}" controls playsinline preload="metadata"></video>
+          </figure>`;
+      }
+      return `<figure class="gallery-item"><img src="${url}" alt="${p.client} work ${i + 1}" loading="lazy" /></figure>`;
+    })
     .join('');
   return `<section class="project-gallery">${items}</section>`;
 }
@@ -95,6 +111,10 @@ if (!slug || !project) {
     heroImg.addEventListener('error', () => heroImg.classList.add('is-broken'));
     if (heroImg.complete && heroImg.naturalWidth === 0) heroImg.classList.add('is-broken');
   }
+  // Hide any gallery image that fails to load rather than show a broken icon.
+  root.querySelectorAll('.gallery-item img').forEach((img) => {
+    img.addEventListener('error', () => img.closest('.gallery-item').classList.add('is-broken'));
+  });
 }
 
 const yearEl = document.getElementById('year');
