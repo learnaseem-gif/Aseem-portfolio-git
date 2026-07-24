@@ -2,13 +2,22 @@
  * The Scaling Space — project data (single source of truth).
  *
  * To add or edit work, change this file only; the homepage grid and the
- * project detail pages both read from it. Drop real media into
- * /assets/work/<slug>/ and point `cover` / `heroVideo` / `gallery` at it.
+ * project detail pages both read from it. Media can be either:
+ *   - a local repo path, e.g. "assets/work/<slug>/cover.jpg"
+ *   - a full URL to the R2 media bucket, e.g.
+ *     "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/<Client>/Photos/x.webp"
  *
  * services  — any of: "Photography", "Social Reels", "Paid Campaigns", "Websites"
  * featured  — true pins the project to the large lead slot (reserved for Porsche)
  * status    — "live" shows normally; "coming-soon" shows the card with a badge
  */
+
+// Resolves either kind of path above into a usable <img>/<video> src.
+window.mediaUrl = function mediaUrl(path) {
+  if (!path) return path;
+  return /^https?:\/\//i.test(path) ? path : '/' + path;
+};
+
 window.PROJECTS = [
   {
     slug: "porsche-centre-richmond",
@@ -41,8 +50,8 @@ window.PROJECTS = [
     services: ["Social Reels", "Photography"],
     featured: false,
     status: "live",
-    cover: "assets/work/bagga-jewels/01.jpg",
-    heroVideo: "",
+    cover: "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Hero%20Image_result.webp",
+    heroVideo: "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Videos/Hero-Video.mp4",
     summary:
       "Scroll-stopping reels and product photography that make fine jewelry read as luxury on a phone screen.",
     problem:
@@ -54,7 +63,19 @@ window.PROJECTS = [
     ],
     work:
       "We built a reel format that leads with motion and light — pieces shot to catch the eye mid-scroll, cut to a rhythm that holds attention long enough to sell.",
-    gallery: [],
+    gallery: [
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00887_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00983_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00987_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC01019_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC01038_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Grid-3_01_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Grid-Revision_04_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/new-magzine_03_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/pink-grid-03_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/1_result.webp",
+      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/2_result.webp",
+    ],
   },
   {
     slug: "saloud",

@@ -19,7 +19,7 @@ function renderHero(p) {
   if (p.heroVideo) {
     return `
       <div class="project-hero-media">
-        <video src="/${p.heroVideo}" autoplay muted loop playsinline poster="/${p.cover}"></video>
+        <video src="${mediaUrl(p.heroVideo)}" autoplay muted loop playsinline poster="${mediaUrl(p.cover)}"></video>
       </div>`;
   }
   return `
@@ -32,7 +32,7 @@ function renderHero(p) {
           <path d="M100.19 184.784C100.19 197.795 100.19 210.577 100.19 223.326C91.8426 224.645 82.3386 216.379 81.3848 207.158C80.113 194.914 87.9531 185.443 100.19 184.784Z" fill="var(--logo-accent)"/>
         </svg>
       </div>
-      <img src="/${p.cover}" alt="${p.client} — ${p.title}" />
+      <img src="${mediaUrl(p.cover)}" alt="${p.client} — ${p.title}" />
       ${p.status === 'coming-soon' ? '<span class="work-badge project-badge">Case study coming soon</span>' : ''}
     </div>`;
 }
@@ -40,7 +40,7 @@ function renderHero(p) {
 function renderGallery(p) {
   if (!p.gallery || !p.gallery.length) return '';
   const items = p.gallery
-    .map((src, i) => `<figure class="gallery-item"><img src="/${src}" alt="${p.client} work ${i + 1}" loading="lazy" /></figure>`)
+    .map((src, i) => `<figure class="gallery-item"><img src="${mediaUrl(src)}" alt="${p.client} work ${i + 1}" loading="lazy" /></figure>`)
     .join('');
   return `<section class="project-gallery">${items}</section>`;
 }

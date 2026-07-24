@@ -77,8 +77,8 @@ function projectSlide(p) {
 
   // A reel plays inline; otherwise show the cover image.
   const media = p.heroVideo
-    ? `<video class="work-panel-video" src="/${p.heroVideo}" muted loop playsinline preload="none" poster="/${p.cover}"></video>`
-    : `<img src="/${p.cover}" alt="${p.client} — ${p.title}" loading="lazy" />`;
+    ? `<video class="work-panel-video" src="${mediaUrl(p.heroVideo)}" muted loop playsinline preload="none" poster="${mediaUrl(p.cover)}"></video>`
+    : `<img src="${mediaUrl(p.cover)}" alt="${p.client} — ${p.title}" loading="lazy" />`;
 
   return `
     <a class="work-panel" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
