@@ -41,6 +41,39 @@ function isVideoSrc(src) {
   return /\.(mp4|mov|webm)(\?|$)/i.test(src);
 }
 
+// Header + filter tabs above the gallery, so a visitor can jump straight to
+// the photos or the reels instead of scrolling past what they don't want.
+// Tabs only appear when the project actually has both kinds of media.
+function renderMediaNav(p) {
+  if (!p.gallery || !p.gallery.length) return '';
+  const videoCount = p.gallery.filter(isVideoSrc).length;
+  const photoCount = p.gallery.length - videoCount;
+
+  if (photoCount && videoCount) {
+    return `
+      <div class="media-nav">
+        <div>
+          <h2 class="media-nav-title">Photography &amp; Video</h2>
+          <span class="media-nav-count">${p.gallery.length} items — ${photoCount} photo${photoCount === 1 ? '' : 's'}, ${videoCount} reel${videoCount === 1 ? '' : 's'}</span>
+        </div>
+        <div class="media-tabs" role="tablist" aria-label="Filter media by type">
+          <button type="button" class="media-tab is-active" data-filter="all">All <span class="count">${p.gallery.length}</span></button>
+          <button type="button" class="media-tab" data-filter="photo">Photos <span class="count">${photoCount}</span></button>
+          <button type="button" class="media-tab" data-filter="video">Reels <span class="count">${videoCount}</span></button>
+        </div>
+      </div>`;
+  }
+
+  const label = videoCount ? 'Reels' : 'Photography';
+  return `
+    <div class="media-nav">
+      <div>
+        <h2 class="media-nav-title">${label}</h2>
+        <span class="media-nav-count">${p.gallery.length} item${p.gallery.length === 1 ? '' : 's'}</span>
+      </div>
+    </div>`;
+}
+
 function renderGallery(p) {
   if (!p.gallery || !p.gallery.length) return '';
   const items = p.gallery
@@ -93,6 +126,7 @@ function render(p) {
       </div>
     </section>
 
+    ${renderMediaNav(p)}
     ${renderGallery(p)}
 
     <section class="project-cta">
@@ -114,6 +148,20 @@ if (!slug || !project) {
   // Hide any gallery image that fails to load rather than show a broken icon.
   root.querySelectorAll('.gallery-item img').forEach((img) => {
     img.addEventListener('error', () => img.closest('.gallery-item').classList.add('is-broken'));
+  });
+
+  // Photo/Reel filter tabs above the gallery.
+  const mediaTabs = root.querySelectorAll('.media-tab');
+  mediaTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const filter = tab.dataset.filter;
+      mediaTabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+      root.querySelectorAll('.gallery-item').forEach((item) => {
+        const isVideo = item.classList.contains('gallery-item--video');
+        const show = filter === 'all' || (filter === 'photo' && !isVideo) || (filter === 'video' && isVideo);
+        item.classList.toggle('is-hidden', !show);
+      });
+    });
   });
 }
 
