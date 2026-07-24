@@ -11,7 +11,7 @@ function notFound() {
     <section class="project-missing">
       <h1 class="section-title">Project not found</h1>
       <p>That project isn't here. It may have moved or is still being published.</p>
-      <a class="submit-btn" href="/#work">See all work</a>
+      <a class="submit-btn" href="/work.html">See all work</a>
     </section>`;
 }
 
@@ -100,7 +100,7 @@ function render(p) {
   const tags = p.services.map((s) => `<span class="work-tag">${s}</span>`).join('');
 
   root.innerHTML = `
-    <a class="project-back" href="/#work">← All work</a>
+    <a class="project-back" href="/work.html">← All work</a>
 
     <header class="project-head">
       <p class="project-category">${p.category}</p>

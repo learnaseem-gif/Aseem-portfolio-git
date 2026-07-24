@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us — The Scaling Space</title>
+  <meta name="description" content="The Scaling Space is a creative media &amp; marketing studio in Vancouver — one accountable team behind your brand's photography, video, social, paid, and web." />
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+  <link rel="preload" href="/assets/fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/hanken-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="project-page">
+
+  <header class="site-header">
+    <a class="brand-mark" href="/" aria-label="The Scaling Space — home">
+      <svg class="brand-mark-icon" viewBox="0 0 300 300" width="28" height="28" aria-hidden="true">
+        <path d="M300 150C300 67.1573 232.843 0 150 0C67.1573 0 0 67.1573 0 150C0 232.843 67.1573 300 150 300C232.843 300 300 232.843 300 150Z" fill="var(--brand)"/>
+        <path d="M103.653 223.575C103.653 222.384 103.653 221.475 103.653 220.559C103.653 189.092 103.585 157.617 103.673 126.149C103.747 98.8751 127.64 75.3567 155.428 75.0269C156.152 75.0202 156.876 75.1077 158.039 75.175C158.039 76.252 158.039 77.2482 158.039 78.2444C158.039 109.921 158.093 141.597 158.019 173.28C157.958 200.09 133.376 223.864 105.993 223.757C105.371 223.743 104.742 223.656 103.653 223.575Z" fill="var(--logo-body)"/>
+        <path d="M163.371 177.299C163.371 143.206 163.371 109.315 163.371 75C182.074 75.1481 197.017 82.2628 207.536 97.0847C219.955 114.585 220.733 133.143 210.052 151.734C199.398 170.272 178.665 178.302 163.371 177.299Z" fill="var(--logo-accent)"/>
+        <path d="M100.19 184.784C100.19 197.795 100.19 210.577 100.19 223.326C91.8426 224.645 82.3386 216.379 81.3848 207.158C80.113 194.914 87.9531 185.443 100.19 184.784Z" fill="var(--logo-accent)"/>
+      </svg>
+      <span>The Scaling Space</span>
+    </a>
+    <div class="site-header-right">
+      <nav class="site-nav">
+        <a href="/work.html">Work</a>
+        <a href="/about.html">About Us</a>
+      </nav>
+      <a class="header-cta" href="/#contact">Start a project</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="about-hero">
+      <div class="about-photo">
+        <div class="work-poster" aria-hidden="true">
+          <svg viewBox="0 0 300 300" class="work-poster-mark">
+            <path d="M300 150C300 67.1573 232.843 0 150 0C67.1573 0 0 67.1573 0 150C0 232.843 67.1573 300 150 300C232.843 300 300 232.843 300 150Z" fill="var(--brand)"/>
+            <path d="M103.653 223.575C103.653 189.092 103.585 157.617 103.673 126.149C103.747 98.8751 127.64 75.3567 155.428 75.0269C156.152 75.0202 156.876 75.1077 158.039 75.175C158.039 109.921 158.093 141.597 158.019 173.28C157.958 200.09 133.376 223.864 105.993 223.757C105.371 223.743 104.742 223.656 103.653 223.575Z" fill="var(--logo-body)"/>
+            <path d="M163.371 177.299C163.371 143.206 163.371 109.315 163.371 75C182.074 75.1481 197.017 82.2628 207.536 97.0847C219.955 114.585 220.733 133.143 210.052 151.734C199.398 170.272 178.665 178.302 163.371 177.299Z" fill="var(--logo-accent)"/>
+            <path d="M100.19 184.784C100.19 197.795 100.19 210.577 100.19 223.326C91.8426 224.645 82.3386 216.379 81.3848 207.158C80.113 194.914 87.9531 185.443 100.19 184.784Z" fill="var(--logo-accent)"/>
+          </svg>
+        </div>
+        <img id="founder-photo" src="/assets/founder.jpg" alt="Founder of The Scaling Space" />
+        <span class="work-badge about-photo-badge">Photo coming soon</span>
+      </div>
+
+      <div class="about-copy">
+        <h1 class="about-title">About Us</h1>
+        <p class="about-lede">One accountable creative team — not a patchwork of freelancers.</p>
+        <p class="about-body">
+          We plan, shoot, edit, and market — one accountable team behind your
+          brand's photography, video, social, paid, and web. A studio built
+          to scale brands.
+        </p>
+      </div>
+    </section>
+
+    <section class="project-cta">
+      <h2 class="section-title">Want work like this?</h2>
+      <a class="submit-btn" href="/#contact">Start a project</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>© <span id="year"></span> The Scaling Space</span>
+    <a href="#top" data-scroll-top>Back to top ↑</a>
+  </footer>
+
+  <div class="cursor" aria-hidden="true"></div>
+
+  <script src="/js/vendor/gsap.min.js"></script>
+  <script src="/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="/js/vendor/lenis.min.js"></script>
+  <script src="/js/projects.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/interactive.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const fp = document.getElementById('founder-photo');
+    fp.addEventListener('error', () => fp.classList.add('is-broken'));
+    if (fp.complete && fp.naturalWidth === 0) fp.classList.add('is-broken');
+  </script>
+</body>
+</html>

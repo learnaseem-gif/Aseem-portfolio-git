@@ -13,9 +13,10 @@ if (!prefersReduced && window.Lenis) {
   window.__lenis = lenis;
 }
 
-/* Back to top: the hero is a pinned scroll region, so anchoring to #hero
-   lands mid-animation on a blank frame. Scroll to the real page top. */
-document.querySelectorAll('a[href="#hero"]').forEach((a) => {
+/* Back to top: on the homepage the hero is a pinned scroll region, so
+   anchoring to #hero lands mid-animation on a blank frame — scroll to the
+   real page top instead. Used by the footer link on every page. */
+document.querySelectorAll('[data-scroll-top]').forEach((a) => {
   a.addEventListener('click', (e) => {
     e.preventDefault();
     if (window.__lenis) window.__lenis.scrollTo(0);

@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Project — The Scaling Space</title>
-  <meta name="description" content="A project by The Scaling Space — creative media &amp; marketing." />
+  <title>Work — The Scaling Space</title>
+  <meta name="description" content="Selected work from The Scaling Space — photography, social reels, paid campaigns, and websites for brands built to grow." />
   <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
   <link rel="preload" href="/assets/fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/hanken-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/css/fonts.css" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body class="project-page">
+<body>
 
   <header class="site-header">
     <a class="brand-mark" href="/" aria-label="The Scaling Space — home">
@@ -32,16 +32,50 @@
     </div>
   </header>
 
-  <main id="project-root">
-    <!-- rendered from js/projects.js -->
+  <main>
+    <section class="work" id="work">
+      <div class="work-intro">
+        <h1 class="work-title" aria-label="Selected Work">
+          <span class="work-title-line"><span class="work-title-word">Selected</span></span>
+          <span class="work-title-line"><span class="work-title-word">Work</span></span>
+        </h1>
+        <p class="work-lead-sub">Photography &middot; Social &middot; Paid &middot; Web — for brands built to grow.</p>
+      </div>
+
+      <div class="work-filterbar">
+        <div class="work-filter" role="group" aria-label="Filter work by service">
+          <div class="work-filter-track">
+            <button type="button" class="filter-btn is-active" data-filter="all">All</button>
+            <button type="button" class="filter-btn" data-filter="Photography">Photography</button>
+            <button type="button" class="filter-btn" data-filter="Social Reels">Social Reels</button>
+            <button type="button" class="filter-btn" data-filter="Paid Campaigns">Paid Campaigns</button>
+            <button type="button" class="filter-btn" data-filter="Websites">Websites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-panels" id="work-list"><!-- vertical full-screen panels from js/projects.js --></div>
+    </section>
+
+    <section class="project-cta">
+      <h2 class="section-title">Want work like this?</h2>
+      <a class="submit-btn" href="/#contact">Start a project</a>
+    </section>
   </main>
 
   <footer class="site-footer">
     <span>© <span id="year"></span> The Scaling Space</span>
-    <a href="/work.html">All work →</a>
+    <a href="#top" data-scroll-top>Back to top ↑</a>
   </footer>
 
+  <div class="cursor" aria-hidden="true"></div>
+
+  <script src="/js/vendor/gsap.min.js"></script>
+  <script src="/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="/js/vendor/lenis.min.js"></script>
   <script src="/js/projects.js"></script>
-  <script src="/js/project.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/interactive.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
