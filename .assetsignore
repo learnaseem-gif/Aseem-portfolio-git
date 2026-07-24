@@ -8,6 +8,6 @@ node_modules
 wrangler.jsonc
 .assetsignore
 
-# Video exceeds Cloudflare's 25 MiB per-file limit — served from a
-# dedicated video host instead (wired up separately).
-*.mp4
+# Cloudflare's static-asset limit is 25 MiB per file. Videos under that
+# ship from the repo directly; anything larger is hosted on R2 instead
+# (see js/projects.js) and referenced by full URL, not a local path.
