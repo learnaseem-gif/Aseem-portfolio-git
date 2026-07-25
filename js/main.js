@@ -69,31 +69,32 @@ function tag(text) {
   return `<span class="work-tag">${text}</span>`;
 }
 
-function projectSlide(p) {
+function projectCard(p) {
   const badge = p.status === 'coming-soon'
     ? '<span class="work-badge">Coming soon</span>'
     : '';
   const tags = p.services.map(tag).join('');
   const dataServices = p.services.join('|');
+  const featured = p.featured ? ' work-card--featured' : '';
 
   // A reel plays inline; otherwise show the cover image.
   const media = p.heroVideo
-    ? `<video class="work-panel-video" src="${mediaUrl(p.heroVideo)}" muted loop playsinline preload="none" poster="${mediaUrl(p.cover)}"></video>`
+    ? `<video class="work-card-video" src="${mediaUrl(p.heroVideo)}" muted loop playsinline preload="none" poster="${mediaUrl(p.cover)}"></video>`
     : `<img src="${mediaUrl(p.cover)}" alt="${p.client} — ${p.title}" loading="lazy" />`;
 
   return `
-    <a class="work-panel" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
+    <a class="work-card${featured}" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
       ${badge}
-      <div class="work-panel-media">
+      <div class="work-card-media">
         ${brandedPoster()}
         ${media}
       </div>
-      <div class="work-panel-scrim"></div>
-      <div class="work-panel-info">
-        <span class="work-panel-cat">${p.category}</span>
-        <span class="work-panel-client">${p.client}</span>
-        <span class="work-panel-meta">${tags}</span>
-        <span class="work-panel-cta">View project</span>
+      <div class="work-card-scrim"></div>
+      <div class="work-card-info">
+        <span class="work-card-cat">${p.category}</span>
+        <span class="work-card-client">${p.client}</span>
+        <span class="work-card-meta">${tags}</span>
+        <span class="work-card-cta">View project</span>
       </div>
     </a>`;
 }
@@ -115,18 +116,32 @@ function brandedPoster() {
 if (workList && projects.length) {
   // Featured first, then the rest in declared order.
   const ordered = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-  workList.innerHTML = ordered.map((p) => projectSlide(p)).join('');
+  workList.innerHTML = ordered.map((p) => projectCard(p)).join('');
 
   // Until real covers are added, hide any cover that fails to load so the
   // branded poster shows instead of a broken-image box.
-  workList.querySelectorAll('.work-panel-media img').forEach((img) => {
+  workList.querySelectorAll('.work-card-media img').forEach((img) => {
     img.addEventListener('error', () => img.classList.add('is-broken'));
     if (img.complete && img.naturalWidth === 0) img.classList.add('is-broken');
   });
 
-  // Reels play only while their panel is on screen (saves bandwidth/CPU).
-  const panelVideos = workList.querySelectorAll('.work-panel-video');
-  if (panelVideos.length && 'IntersectionObserver' in window && !prefersReduced) {
+  // On a grid, several reels can be in view at once — on touch devices we
+  // still autoplay-in-view (muted), but on hover-capable devices a card only
+  // plays while the cursor is actually on it, so the grid stays calm.
+  const cardVideos = workList.querySelectorAll('.work-card-video');
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  if (cardVideos.length && canHover) {
+    cardVideos.forEach((v) => {
+      const card = v.closest('.work-card');
+      if (!card) return;
+      card.addEventListener('mouseenter', () => {
+        if (v.preload === 'none') v.preload = 'auto';
+        v.play().catch(() => {});
+      });
+      card.addEventListener('mouseleave', () => v.pause());
+    });
+  } else if (cardVideos.length && 'IntersectionObserver' in window && !prefersReduced) {
     const vo = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const v = entry.target;
@@ -138,10 +153,8 @@ if (workList && projects.length) {
         }
       });
     }, { threshold: 0.4 });
-    panelVideos.forEach((v) => vo.observe(v));
+    cardVideos.forEach((v) => vo.observe(v));
   }
-
-  const siteHeader = document.querySelector('.site-header');
 
   if (!prefersReduced) {
     // Kinetic title: the two words rise out of a mask, staggered, and get a
@@ -166,31 +179,18 @@ if (workList && projects.length) {
       });
     }
 
-    // Vertical parallax on each full-screen panel's media.
-    workList.querySelectorAll('.work-panel').forEach((panel) => {
-      const media = panel.querySelector('.work-panel-media');
-      if (!media) return;
-      gsap.fromTo(
-        media,
-        { yPercent: -6 },
-        {
-          yPercent: 6,
-          ease: 'none',
-          scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true },
-        }
-      );
-    });
-
-    // Hide the floating header while the gallery owns the screen.
-    ScrollTrigger.create({
-      trigger: workList,
-      start: 'top top+=2',
-      end: 'bottom bottom',
-      onToggle: (self) => {
-        if (siteHeader) {
-          gsap.to(siteHeader, { autoAlpha: self.isActive ? 0 : 1, duration: 0.3, overwrite: true });
-        }
-      },
+    // Cards rise in as the grid scrolls into view, staggered by position.
+    gsap.set(workList.querySelectorAll('.work-card'), { autoAlpha: 0, y: 36 });
+    ScrollTrigger.batch('.work-card', {
+      start: 'top 90%',
+      once: true,
+      onEnter: (batch) => gsap.to(batch, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.1,
+      }),
     });
   }
 }
@@ -202,10 +202,10 @@ filterBtns.forEach((btn) => {
   btn.addEventListener('click', () => {
     const filter = btn.dataset.filter;
     filterBtns.forEach((b) => b.classList.toggle('is-active', b === btn));
-    document.querySelectorAll('.work-panel').forEach((panel) => {
-      const services = (panel.dataset.services || '').split('|');
+    document.querySelectorAll('.work-card').forEach((card) => {
+      const services = (card.dataset.services || '').split('|');
       const show = filter === 'all' || services.includes(filter);
-      panel.classList.toggle('is-hidden', !show);
+      card.classList.toggle('is-hidden', !show);
     });
     if (window.ScrollTrigger) ScrollTrigger.refresh();
   });

@@ -358,33 +358,43 @@ img {
   border-color: var(--brand);
 }
 
-/* Vertical full-screen panels */
-.work-panels {
-  position: relative;
+/* Work grid — responsive cards with category filtering */
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(1.1rem, 2.5vw, 1.85rem);
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 4vh, 2.5rem) clamp(1.25rem, 5vw, 4rem) clamp(4rem, 10vh, 7rem);
 }
 
-.work-panel {
+.work-card {
   position: relative;
   display: block;
-  width: 100%;
-  height: 100svh;
+  border-radius: 16px;
   overflow: hidden;
   text-decoration: none;
   color: #fff;
 }
 
-.work-panel.is-hidden { display: none; }
+.work-card.is-hidden { display: none; }
 
-.work-panel-media {
-  position: absolute;
-  inset: -9% 0;
-  width: 100%;
-  height: 118%;
-  will-change: transform;
+@media (min-width: 720px) {
+  .work-card--featured { grid-column: span 2; }
 }
 
-.work-panel-media img,
-.work-panel-media video {
+.work-card-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+}
+
+.work-card--featured .work-card-media {
+  aspect-ratio: 16 / 10;
+}
+
+.work-card-media img,
+.work-card-media video {
   position: relative;
   z-index: 1;
   width: 100%;
@@ -392,60 +402,64 @@ img {
   object-fit: cover;
 }
 
-.work-panel-media img.is-broken { opacity: 0; }
+.work-card-media img.is-broken { opacity: 0; }
 
-.work-panel-scrim {
+.work-card-scrim {
   position: absolute;
   inset: 0;
   z-index: 2;
   background: linear-gradient(
     to top,
-    oklch(12% 0.02 138 / 0.82) 0%,
-    oklch(12% 0.02 138 / 0.32) 34%,
-    transparent 66%
+    oklch(12% 0.02 138 / 0.86) 0%,
+    oklch(12% 0.02 138 / 0.3) 40%,
+    transparent 70%
   );
 }
 
-.work-panel-info {
+.work-card-info {
   position: absolute;
   z-index: 3;
-  left: clamp(1.25rem, 5vw, 4rem);
-  right: clamp(1.25rem, 5vw, 4rem);
-  bottom: clamp(2rem, 7vh, 4.5rem);
+  left: clamp(1rem, 3vw, 1.5rem);
+  right: clamp(1rem, 3vw, 1.5rem);
+  bottom: clamp(1rem, 3vw, 1.5rem);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.45rem;
 }
 
-.work-panel-cat {
-  font-size: 0.8rem;
+.work-card-cat {
+  font-size: 0.76rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: oklch(88% 0.07 137);
 }
 
-.work-panel-client {
+.work-card-client {
   font-family: var(--font-display);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: -0.03em;
-  line-height: 0.95;
-  font-size: clamp(2rem, 7vw, 5rem);
+  line-height: 0.98;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
   text-wrap: balance;
 }
 
-.work-panel-meta {
+.work-card--featured .work-card-client {
+  font-size: clamp(1.8rem, 3.6vw, 3rem);
+}
+
+.work-card-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
-  margin-top: 0.35rem;
+  margin-top: 0.2rem;
 }
 
-.work-panel-cta {
-  margin-top: 0.75rem;
+.work-card-cta {
+  margin-top: 0.6rem;
   font-family: var(--font-body);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   color: #fff;
 }
 
@@ -483,8 +497,8 @@ img {
 
 .work-badge {
   position: absolute;
-  top: clamp(4.5rem, 9vh, 6rem);
-  left: clamp(1.25rem, 5vw, 4rem);
+  top: 0.85rem;
+  left: 0.85rem;
   z-index: 4;
   font-family: var(--font-body);
   font-size: 0.72rem;
@@ -496,8 +510,6 @@ img {
   padding: 0.35em 0.75em;
   border-radius: 100px;
 }
-
-.work-panel.is-hidden { display: none; }
 
 /* Services */
 
@@ -1179,33 +1191,33 @@ img {
   margin: 0 0.25em;
 }
 
-/* ---- Panel hover life ---- */
+/* ---- Card hover life ---- */
 
-.work-panel-media img,
-.work-panel-media video {
+.work-card-media img,
+.work-card-media video {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (hover: hover) {
-  .work-panel:hover .work-panel-media img,
-  .work-panel:hover .work-panel-media video {
+  .work-card:hover .work-card-media img,
+  .work-card:hover .work-card-media video {
     transform: scale(1.05);
   }
 }
 
-.work-panel-cta {
+.work-card-cta {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
 }
 
-.work-panel-cta::after {
+.work-card-cta::after {
   content: "→";
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (hover: hover) {
-  .work-panel:hover .work-panel-cta::after {
+  .work-card:hover .work-card-cta::after {
     transform: translateX(6px);
   }
 }

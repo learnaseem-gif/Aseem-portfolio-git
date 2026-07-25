@@ -42,7 +42,7 @@
     document.documentElement.style.cursor = 'none';
 
     const hoverTargets = document.querySelectorAll(
-      'a, button, .work-panel, .filter-btn, .chip, input, textarea, label'
+      'a, button, .filter-btn, .chip, input, textarea, label'
     );
     hoverTargets.forEach((el) => {
       el.addEventListener('pointerenter', () => cursor.classList.add('is-hovering'));
