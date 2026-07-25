@@ -266,30 +266,47 @@ function renderProjectCards(container, list) {
 
 // Kinetic title: the words rise out of a mask, staggered, and get a brief
 // scroll-velocity skew so the type feels alive. Shared by the work-page
-// intro and the homepage teaser heading.
-function kineticTitleReveal(triggerSelector, titleSelector) {
+// intro and the homepage teaser heading. `tagsSelector` is optional — the
+// homepage passes its category pills so they rise up right after the title.
+function kineticTitleReveal(triggerSelector, titleSelector, tagsSelector) {
   const trigger = document.querySelector(triggerSelector);
   const title = document.querySelector(titleSelector);
   if (!trigger || !title) return;
   const words = title.querySelectorAll('.work-title-word');
-  if (!words.length) return;
+  if (words.length) {
+    gsap.set(words, { yPercent: 115 });
+    gsap.to(words, {
+      yPercent: 0,
+      ease: 'power4.out',
+      duration: 1.1,
+      stagger: 0.12,
+      scrollTrigger: { trigger, start: 'top 65%', once: true },
+    });
 
-  gsap.set(words, { yPercent: 115 });
-  gsap.to(words, {
-    yPercent: 0,
-    ease: 'power4.out',
-    duration: 1.1,
-    stagger: 0.12,
-    scrollTrigger: { trigger, start: 'top 65%', once: true },
-  });
+    const skewSetter = gsap.quickTo(title, 'skewY', { duration: 0.5, ease: 'power3' });
+    ScrollTrigger.create({
+      trigger,
+      start: 'top bottom',
+      end: 'bottom top',
+      onUpdate: (self) => skewSetter(gsap.utils.clamp(-7, 7, self.getVelocity() / -260)),
+    });
+  }
 
-  const skewSetter = gsap.quickTo(title, 'skewY', { duration: 0.5, ease: 'power3' });
-  ScrollTrigger.create({
-    trigger,
-    start: 'top bottom',
-    end: 'bottom top',
-    onUpdate: (self) => skewSetter(gsap.utils.clamp(-7, 7, self.getVelocity() / -260)),
-  });
+  if (tagsSelector) {
+    const tags = document.querySelectorAll(tagsSelector);
+    if (tags.length) {
+      gsap.set(tags, { yPercent: 130, autoAlpha: 0 });
+      gsap.to(tags, {
+        yPercent: 0,
+        autoAlpha: 1,
+        ease: 'power3.out',
+        duration: 0.8,
+        stagger: 0.08,
+        delay: 0.5,
+        scrollTrigger: { trigger, start: 'top 65%', once: true },
+      });
+    }
+  }
 }
 
 if (workList && projects.length) {
@@ -309,7 +326,7 @@ if (homeWorkList && projects.length) {
   const teaser = (featured ? [featured, ...rest] : rest).slice(0, 4);
   renderProjectPanels(homeWorkList, teaser);
 
-  if (!prefersReduced) kineticTitleReveal('.work-teaser', '.work-teaser-title');
+  if (!prefersReduced) kineticTitleReveal('.work-teaser', '.work-title', '.work-teaser-cat');
 }
 
 /* ---- Service filter ---- */

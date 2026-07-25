@@ -51,6 +51,14 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: clamp(1rem, 2vw, 1.75rem) clamp(1.25rem, 3vw, 2.5rem);
+}
+
+/* The work page merges the filter into the header itself, so it keeps a
+   solid surface (otherwise bright photos/reels scrolling underneath bleed
+   through). Everywhere else the header stays fully transparent — most
+   importantly over the homepage hero, where the scaling logo needs to
+   fill the entire screen with nothing crossing over it. */
+.site-header--work {
   background: color-mix(in oklch, var(--bg) 94%, transparent);
   backdrop-filter: blur(20px);
 }
@@ -539,32 +547,30 @@ img {
    the original full-viewport treatment. */
 
 .work-teaser {
-  padding-top: clamp(3rem, 8vh, 5rem);
-  border-top: 1px solid oklch(28% 0.02 138);
+  position: relative;
 }
 
-.work-teaser-head {
+.work-teaser-cats {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 clamp(1.5rem, 6vw, 6rem) clamp(2rem, 5vw, 3rem);
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
 }
 
-.work-teaser-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 0.92;
-  font-size: clamp(2.25rem, 7vw, 5rem);
+.work-teaser-cat {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border: 1px solid oklch(38% 0.02 138);
+  border-radius: 100px;
+  padding: 0.5em 1em;
+  will-change: transform, opacity;
 }
 
 .work-teaser-link {
+  margin-top: clamp(1.5rem, 4vw, 2.5rem);
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 0.95rem;
