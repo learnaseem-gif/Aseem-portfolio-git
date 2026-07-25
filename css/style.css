@@ -405,12 +405,12 @@ img {
   aspect-ratio: 16 / 10;
 }
 
-/* Oversized and offset so the parallax scrub (±6%) never reveals an edge. */
+/* Oversized and offset so the parallax scrub (±10%) never reveals an edge. */
 .work-card-media-inner {
   position: absolute;
-  inset: -9% 0;
+  inset: -13% 0;
   width: 100%;
-  height: 118%;
+  height: 126%;
   will-change: transform;
 }
 
@@ -543,11 +543,21 @@ img {
 
 .work-teaser-head {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 1rem;
   margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.work-teaser-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.92;
+  font-size: clamp(2.25rem, 7vw, 5rem);
 }
 
 .work-teaser-link {
