@@ -306,14 +306,26 @@ img {
   text-wrap: balance;
 }
 
-/* Filter bar — sticky at the top of the gallery */
-.work-filterbar {
-  position: sticky;
-  top: var(--header-h, 4.5rem);
-  z-index: 15;
-  background: color-mix(in oklch, var(--bg) 94%, transparent);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid oklch(30% 0.02 138);
+/* Category filter — lives inline in the header on the work page, so it's
+   always on the same row as the logo instead of a separate sticky bar. */
+.site-header--work {
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.site-header--work .work-filter {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+@media (max-width: 859.98px) {
+  .site-header--work {
+    flex-wrap: wrap;
+  }
+  .site-header--work .work-filter {
+    order: 3;
+    flex: 1 1 100%;
+    margin-top: 0.6rem;
+  }
 }
 
 .work-filter {
@@ -330,7 +342,6 @@ img {
   gap: 0.5rem;
   width: max-content;
   margin: 0 auto;
-  padding: 0.85rem clamp(1rem, 4vw, 2rem);
 }
 
 .filter-btn {
@@ -392,6 +403,15 @@ img {
 
 .work-card--featured .work-card-media {
   aspect-ratio: 16 / 10;
+}
+
+/* Oversized and offset so the parallax scrub (±6%) never reveals an edge. */
+.work-card-media-inner {
+  position: absolute;
+  inset: -9% 0;
+  width: 100%;
+  height: 118%;
+  will-change: transform;
 }
 
 .work-card-media img,
@@ -1302,12 +1322,5 @@ img {
     transition: none !important;
   }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .work-media img { transition: none; }
   .marquee-track { transform: none !important; }
-
-  /* No horizontal scroll-jack: stack the gallery vertically instead. */
-  .work-hscroll { height: auto; overflow: visible; }
-  .work-track { flex-direction: column; height: auto; width: 100%; transform: none !important; }
-  .work-slide { flex-basis: auto; width: 100%; }
-  .work-filterbar { position: sticky; }
 }

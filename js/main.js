@@ -1,22 +1,5 @@
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* Keep sticky elements (e.g. the work-page filter bar) clear of the fixed
-   header — its height changes across breakpoints, so measure it instead of
-   guessing a fixed offset. */
-const siteHeaderEl = document.querySelector('.site-header');
-function syncHeaderHeight() {
-  if (siteHeaderEl) {
-    document.documentElement.style.setProperty('--header-h', `${siteHeaderEl.offsetHeight}px`);
-  }
-}
-syncHeaderHeight();
-window.addEventListener('resize', syncHeaderHeight);
-// Self-hosted fonts swap in after first paint (font-display: swap), which
-// can change the header's rendered height — re-measure once they're ready.
-if (document.fonts && document.fonts.ready) {
-  document.fonts.ready.then(syncHeaderHeight);
-}
-
 if (!prefersReduced && window.Lenis) {
   const lenis = new Lenis({
     duration: 1.15,
@@ -103,8 +86,10 @@ function projectCard(p) {
     <a class="work-card${featured}" href="/project.html?slug=${p.slug}" data-services="${dataServices}">
       ${badge}
       <div class="work-card-media">
-        ${brandedPoster()}
-        ${media}
+        <div class="work-card-media-inner">
+          ${brandedPoster()}
+          ${media}
+        </div>
       </div>
       <div class="work-card-scrim"></div>
       <div class="work-card-info">
@@ -188,6 +173,19 @@ function renderProjectCards(container, list) {
         ease: 'power3.out',
         stagger: 0.1,
       }),
+    });
+
+    // Vertical parallax on each card's media as it scrolls through view.
+    container.querySelectorAll('.work-card-media-inner').forEach((inner) => {
+      gsap.fromTo(
+        inner,
+        { yPercent: -6 },
+        {
+          yPercent: 6,
+          ease: 'none',
+          scrollTrigger: { trigger: inner, start: 'top bottom', end: 'bottom top', scrub: true },
+        }
+      );
     });
   }
 }
