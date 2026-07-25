@@ -115,9 +115,83 @@ function brandedPoster() {
     </div>`;
 }
 
-// Renders a list of projects as cards into `container` and wires up the
-// broken-image fallback, reel playback, and scroll-in reveal. Shared by the
-// full work-page grid and the smaller homepage teaser.
+// Full-bleed, one-per-viewport panel — the homepage teaser's original
+// treatment. Only used for the small homepage list; the full work-page
+// listing uses projectCard()/renderProjectCards() (a grid) instead, since
+// full-bleed panels don't scale to a growing list of projects.
+function panelSlide(p) {
+  const badge = p.status === 'coming-soon'
+    ? '<span class="work-badge">Coming soon</span>'
+    : '';
+  const tags = p.services.map(tag).join('');
+
+  const media = p.heroVideo
+    ? `<video class="work-panel-video" src="${mediaUrl(p.heroVideo)}" muted loop playsinline preload="none" poster="${mediaUrl(p.cover)}"></video>`
+    : `<img src="${mediaUrl(p.cover)}" alt="${p.client} — ${p.title}" loading="lazy" />`;
+
+  return `
+    <a class="work-panel" href="/project.html?slug=${p.slug}">
+      ${badge}
+      <div class="work-panel-media">
+        ${brandedPoster()}
+        ${media}
+      </div>
+      <div class="work-panel-scrim"></div>
+      <div class="work-panel-info">
+        <span class="work-panel-cat">${p.category}</span>
+        <span class="work-panel-client">${p.client}</span>
+        <span class="work-panel-meta">${tags}</span>
+        <span class="work-panel-cta">View project</span>
+      </div>
+    </a>`;
+}
+
+function renderProjectPanels(container, list) {
+  container.innerHTML = list.map((p) => panelSlide(p)).join('');
+
+  container.querySelectorAll('.work-panel-media img').forEach((img) => {
+    img.addEventListener('error', () => img.classList.add('is-broken'));
+    if (img.complete && img.naturalWidth === 0) img.classList.add('is-broken');
+  });
+
+  // Reels play only while their panel is on screen (saves bandwidth/CPU).
+  const panelVideos = container.querySelectorAll('.work-panel-video');
+  if (panelVideos.length && 'IntersectionObserver' in window && !prefersReduced) {
+    const vo = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const v = entry.target;
+        if (entry.isIntersecting) {
+          if (v.preload === 'none') v.preload = 'auto';
+          v.play().catch(() => {});
+        } else {
+          v.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+    panelVideos.forEach((v) => vo.observe(v));
+  }
+
+  if (!prefersReduced) {
+    // Vertical parallax on each panel's media as it scrolls through view.
+    container.querySelectorAll('.work-panel').forEach((panel) => {
+      const media = panel.querySelector('.work-panel-media');
+      if (!media) return;
+      gsap.fromTo(
+        media,
+        { yPercent: -8 },
+        {
+          yPercent: 8,
+          ease: 'none',
+          scrollTrigger: { trigger: panel, start: 'top bottom', end: 'bottom top', scrub: true },
+        }
+      );
+    });
+  }
+}
+
+// Renders a list of projects as grid cards into `container` and wires up
+// the broken-image fallback, reel playback, and scroll-in reveal. Used by
+// the full work-page listing.
 function renderProjectCards(container, list) {
   container.innerHTML = list.map((p) => projectCard(p)).join('');
 
@@ -233,7 +307,7 @@ if (homeWorkList && projects.length) {
   const featured = projects.find((p) => p.featured);
   const rest = projects.filter((p) => p !== featured);
   const teaser = (featured ? [featured, ...rest] : rest).slice(0, 4);
-  renderProjectCards(homeWorkList, teaser);
+  renderProjectPanels(homeWorkList, teaser);
 
   if (!prefersReduced) kineticTitleReveal('.work-teaser', '.work-teaser-title');
 }
