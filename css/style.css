@@ -512,6 +512,48 @@ img {
   border-radius: 100px;
 }
 
+/* Work teaser (homepage) — a taste of the work, full list lives on /work.html */
+
+.work-teaser {
+  padding: clamp(4rem, 10vh, 8rem) clamp(1.5rem, 6vw, 6rem);
+  max-width: 1400px;
+  margin: 0 auto;
+  border-top: 1px solid oklch(28% 0.02 138);
+}
+
+.work-teaser-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.work-teaser-link {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  opacity: 0.85;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+.work-teaser-link:hover {
+  opacity: 1;
+  color: var(--brand);
+}
+
+.work-teaser .work-grid {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
 /* Services */
 
 .services {

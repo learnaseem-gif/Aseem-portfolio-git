@@ -130,14 +130,15 @@ function brandedPoster() {
     </div>`;
 }
 
-if (workList && projects.length) {
-  // Featured first, then the rest in declared order.
-  const ordered = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-  workList.innerHTML = ordered.map((p) => projectCard(p)).join('');
+// Renders a list of projects as cards into `container` and wires up the
+// broken-image fallback, reel playback, and scroll-in reveal. Shared by the
+// full work-page grid and the smaller homepage teaser.
+function renderProjectCards(container, list) {
+  container.innerHTML = list.map((p) => projectCard(p)).join('');
 
   // Until real covers are added, hide any cover that fails to load so the
   // branded poster shows instead of a broken-image box.
-  workList.querySelectorAll('.work-card-media img').forEach((img) => {
+  container.querySelectorAll('.work-card-media img').forEach((img) => {
     img.addEventListener('error', () => img.classList.add('is-broken'));
     if (img.complete && img.naturalWidth === 0) img.classList.add('is-broken');
   });
@@ -145,7 +146,7 @@ if (workList && projects.length) {
   // On a grid, several reels can be in view at once — on touch devices we
   // still autoplay-in-view (muted), but on hover-capable devices a card only
   // plays while the cursor is actually on it, so the grid stays calm.
-  const cardVideos = workList.querySelectorAll('.work-card-video');
+  const cardVideos = container.querySelectorAll('.work-card-video');
   const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   if (cardVideos.length && canHover) {
@@ -174,6 +175,29 @@ if (workList && projects.length) {
   }
 
   if (!prefersReduced) {
+    // Cards rise in as the grid scrolls into view, staggered by position.
+    const cards = container.querySelectorAll('.work-card');
+    gsap.set(cards, { autoAlpha: 0, y: 36 });
+    ScrollTrigger.batch(cards, {
+      start: 'top 90%',
+      once: true,
+      onEnter: (batch) => gsap.to(batch, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        stagger: 0.1,
+      }),
+    });
+  }
+}
+
+if (workList && projects.length) {
+  // Featured first, then the rest in declared order.
+  const ordered = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+  renderProjectCards(workList, ordered);
+
+  if (!prefersReduced) {
     // Kinetic title: the two words rise out of a mask, staggered, and get a
     // brief scroll-velocity skew so the type feels alive.
     const words = document.querySelectorAll('.work-title-word');
@@ -195,21 +219,17 @@ if (workList && projects.length) {
         onUpdate: (self) => skewSetter(gsap.utils.clamp(-7, 7, self.getVelocity() / -260)),
       });
     }
-
-    // Cards rise in as the grid scrolls into view, staggered by position.
-    gsap.set(workList.querySelectorAll('.work-card'), { autoAlpha: 0, y: 36 });
-    ScrollTrigger.batch('.work-card', {
-      start: 'top 90%',
-      once: true,
-      onEnter: (batch) => gsap.to(batch, {
-        autoAlpha: 1,
-        y: 0,
-        duration: 0.7,
-        ease: 'power3.out',
-        stagger: 0.1,
-      }),
-    });
   }
+}
+
+/* ---- Homepage work teaser: featured + a handful more, rest lives on /work.html ---- */
+
+const homeWorkList = document.getElementById('home-work-list');
+if (homeWorkList && projects.length) {
+  const featured = projects.find((p) => p.featured);
+  const rest = projects.filter((p) => p !== featured);
+  const teaser = (featured ? [featured, ...rest] : rest).slice(0, 4);
+  renderProjectCards(homeWorkList, teaser);
 }
 
 /* ---- Service filter ---- */
