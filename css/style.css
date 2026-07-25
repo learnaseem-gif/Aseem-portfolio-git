@@ -51,6 +51,8 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: clamp(1rem, 2vw, 1.75rem) clamp(1.25rem, 3vw, 2.5rem);
+  background: color-mix(in oklch, var(--bg) 72%, transparent);
+  backdrop-filter: blur(12px);
 }
 
 .site-header-right {
@@ -311,7 +313,7 @@ img {
   z-index: 15;
   background: color-mix(in oklch, var(--bg) 72%, transparent);
   backdrop-filter: blur(12px);
-  border-block: 1px solid oklch(30% 0.02 138);
+  border-bottom: 1px solid oklch(30% 0.02 138);
 }
 
 .work-filter {
