@@ -1,5 +1,17 @@
 const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* Keep sticky elements (e.g. the work-page filter bar) clear of the fixed
+   header — its height changes across breakpoints, so measure it instead of
+   guessing a fixed offset. */
+const siteHeaderEl = document.querySelector('.site-header');
+function syncHeaderHeight() {
+  if (siteHeaderEl) {
+    document.documentElement.style.setProperty('--header-h', `${siteHeaderEl.offsetHeight}px`);
+  }
+}
+syncHeaderHeight();
+window.addEventListener('resize', syncHeaderHeight);
+
 if (!prefersReduced && window.Lenis) {
   const lenis = new Lenis({
     duration: 1.15,
