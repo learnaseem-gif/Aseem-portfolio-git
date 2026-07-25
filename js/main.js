@@ -11,6 +11,11 @@ function syncHeaderHeight() {
 }
 syncHeaderHeight();
 window.addEventListener('resize', syncHeaderHeight);
+// Self-hosted fonts swap in after first paint (font-display: swap), which
+// can change the header's rendered height — re-measure once they're ready.
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(syncHeaderHeight);
+}
 
 if (!prefersReduced && window.Lenis) {
   const lenis = new Lenis({
