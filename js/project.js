@@ -132,7 +132,65 @@ function render(p) {
     <section class="project-cta">
       <h2 class="section-title">Want work like this?</h2>
       <a class="submit-btn" href="/#contact">Start a project</a>
-    </section>`;
+    </section>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+      <button type="button" class="lightbox-prev" aria-label="Previous photo">&larr;</button>
+      <img class="lightbox-img" alt="" />
+      <button type="button" class="lightbox-next" aria-label="Next photo">&rarr;</button>
+      <span class="lightbox-count"></span>
+    </div>`;
+}
+
+// Click a gallery photo to view it enlarged, with left/right navigation
+// through the rest of the project's photos. Videos already play inline
+// with native controls, so they're not part of the lightbox.
+function setupLightbox(p) {
+  const photos = (p.gallery || []).filter((src) => !isVideoSrc(src)).map(mediaUrl);
+  if (!photos.length) return;
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('.lightbox-img');
+  const countEl = lightbox.querySelector('.lightbox-count');
+  let current = 0;
+
+  function show(i) {
+    current = (i + photos.length) % photos.length;
+    lightboxImg.src = photos[current];
+    countEl.textContent = `${current + 1} / ${photos.length}`;
+  }
+
+  function open(i) {
+    show(i);
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  root.querySelectorAll('.gallery-item:not(.gallery-item--video) img').forEach((img, i) => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => open(i));
+  });
+
+  lightbox.querySelector('.lightbox-close').addEventListener('click', close);
+  lightbox.querySelector('.lightbox-prev').addEventListener('click', () => show(current - 1));
+  lightbox.querySelector('.lightbox-next').addEventListener('click', () => show(current + 1));
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'ArrowRight') show(current + 1);
+  });
 }
 
 window.PROJECTS_READY.then((projects) => {
@@ -144,6 +202,7 @@ window.PROJECTS_READY.then((projects) => {
   }
 
   render(project);
+  setupLightbox(project);
   // Hide a hero cover that fails to load so the branded poster shows.
   const heroImg = root.querySelector('.project-hero-media img');
   if (heroImg) {
