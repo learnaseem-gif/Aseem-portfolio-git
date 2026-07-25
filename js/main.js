@@ -60,10 +60,10 @@ if (prefersReduced) {
     .to(heroText, { opacity: 0, ease: 'none', duration: 0.18 }, 0.85);
 }
 
-/* ---- Work list (rendered from window.PROJECTS) ---- */
+/* ---- Work list (rendered from window.PROJECTS, loaded async — see js/projects.js) ---- */
 
 const workList = document.getElementById('work-list');
-const projects = window.PROJECTS || [];
+const homeWorkList = document.getElementById('home-work-list');
 
 function tag(text) {
   return `<span class="work-tag">${text}</span>`;
@@ -309,25 +309,25 @@ function kineticTitleReveal(triggerSelector, titleSelector, tagsSelector) {
   }
 }
 
-if (workList && projects.length) {
-  // Featured first, then the rest in declared order.
-  const ordered = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-  renderProjectCards(workList, ordered);
+window.PROJECTS_READY.then((projects) => {
+  if (workList && projects.length) {
+    // Featured first, then the rest in declared order.
+    const ordered = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    renderProjectCards(workList, ordered);
 
-  if (!prefersReduced) kineticTitleReveal('.work-intro', '.work-title');
-}
+    if (!prefersReduced) kineticTitleReveal('.work-intro', '.work-title');
+  }
 
-/* ---- Homepage work teaser: featured + a handful more, rest lives on /work.html ---- */
+  /* Homepage work teaser: featured + a handful more, rest lives on /work.html */
+  if (homeWorkList && projects.length) {
+    const featured = projects.find((p) => p.featured);
+    const rest = projects.filter((p) => p !== featured);
+    const teaser = (featured ? [featured, ...rest] : rest).slice(0, 4);
+    renderProjectPanels(homeWorkList, teaser);
 
-const homeWorkList = document.getElementById('home-work-list');
-if (homeWorkList && projects.length) {
-  const featured = projects.find((p) => p.featured);
-  const rest = projects.filter((p) => p !== featured);
-  const teaser = (featured ? [featured, ...rest] : rest).slice(0, 4);
-  renderProjectPanels(homeWorkList, teaser);
-
-  if (!prefersReduced) kineticTitleReveal('.work-teaser', '.work-title', '.work-teaser-cat');
-}
+    if (!prefersReduced) kineticTitleReveal('.work-teaser', '.work-title', '.work-teaser-cat');
+  }
+});
 
 /* ---- Service filter ---- */
 

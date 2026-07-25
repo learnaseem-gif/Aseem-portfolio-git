@@ -7,6 +7,7 @@ node_modules
 .gitignore
 wrangler.jsonc
 .assetsignore
+worker
 
 # Cloudflare's static-asset limit is 25 MiB per file. Videos under that
 # ship from the repo directly; anything larger is hosted on R2 instead

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin — The Scaling Space</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
+  <link rel="preload" href="/assets/fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/hanken-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/css/fonts.css" />
+  <link rel="stylesheet" href="/css/style.css?v=7" />
+  <link rel="stylesheet" href="/css/admin.css?v=1" />
+</head>
+<body class="admin-page">
+
+  <header class="site-header">
+    <a class="brand-mark" href="/" aria-label="The Scaling Space — home">
+      <svg class="brand-mark-icon" viewBox="0 0 300 300" width="28" height="28" aria-hidden="true">
+        <path d="M300 150C300 67.1573 232.843 0 150 0C67.1573 0 0 67.1573 0 150C0 232.843 67.1573 300 150 300C232.843 300 300 232.843 300 150Z" fill="var(--brand)"/>
+        <path d="M103.653 223.575C103.653 222.384 103.653 221.475 103.653 220.559C103.653 189.092 103.585 157.617 103.673 126.149C103.747 98.8751 127.64 75.3567 155.428 75.0269C156.152 75.0202 156.876 75.1077 158.039 75.175C158.039 76.252 158.039 77.2482 158.039 78.2444C158.039 109.921 158.093 141.597 158.019 173.28C157.958 200.09 133.376 223.864 105.993 223.757C105.371 223.743 104.742 223.656 103.653 223.575Z" fill="var(--logo-body)"/>
+        <path d="M163.371 177.299C163.371 143.206 163.371 109.315 163.371 75C182.074 75.1481 197.017 82.2628 207.536 97.0847C219.955 114.585 220.733 133.143 210.052 151.734C199.398 170.272 178.665 178.302 163.371 177.299Z" fill="var(--logo-accent)"/>
+        <path d="M100.19 184.784C100.19 197.795 100.19 210.577 100.19 223.326C91.8426 224.645 82.3386 216.379 81.3848 207.158C80.113 194.914 87.9531 185.443 100.19 184.784Z" fill="var(--logo-accent)"/>
+      </svg>
+      <span>The Scaling Space</span>
+    </a>
+  </header>
+
+  <main class="admin-main">
+    <section id="login-view" class="admin-login">
+      <h1>Admin</h1>
+      <form id="login-form">
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" required autocomplete="current-password" />
+        <button type="submit" class="submit-btn">Log in</button>
+        <p class="admin-error" id="login-error" hidden></p>
+      </form>
+    </section>
+
+    <section id="dashboard-view" class="admin-dashboard" hidden>
+      <div class="admin-topbar">
+        <h1>Dashboard</h1>
+        <button type="button" id="logout-btn" class="work-teaser-link">Log out</button>
+      </div>
+
+      <div class="admin-tabs">
+        <button type="button" class="admin-tab is-active" data-tab="projects">Projects</button>
+        <button type="button" class="admin-tab" data-tab="about">About Us</button>
+      </div>
+
+      <div class="admin-panel" data-panel="projects">
+        <div class="admin-list" id="project-list"></div>
+
+        <h2 id="project-form-title">Add a project</h2>
+        <form id="project-form" class="admin-form">
+          <input type="hidden" id="p-slug" />
+
+          <label>Client name
+            <input type="text" id="p-client" required />
+          </label>
+          <label>Title / tagline
+            <input type="text" id="p-title" />
+          </label>
+          <label>Category
+            <input type="text" id="p-category" placeholder="e.g. Automotive · Luxury" />
+          </label>
+
+          <fieldset>
+            <legend>Services</legend>
+            <label class="admin-form-row"><input type="checkbox" name="p-services" value="Photography" /> Photography</label>
+            <label class="admin-form-row"><input type="checkbox" name="p-services" value="Social Reels" /> Social Reels</label>
+            <label class="admin-form-row"><input type="checkbox" name="p-services" value="Paid Campaigns" /> Paid Campaigns</label>
+            <label class="admin-form-row"><input type="checkbox" name="p-services" value="Websites" /> Websites</label>
+          </fieldset>
+
+          <label class="admin-form-row"><input type="checkbox" id="p-featured" /> Featured (large lead card)</label>
+
+          <label>Status
+            <select id="p-status">
+              <option value="live">Live</option>
+              <option value="coming-soon">Coming soon</option>
+            </select>
+          </label>
+
+          <label>Summary (shown on the project card and page lede)
+            <textarea id="p-summary" rows="2"></textarea>
+          </label>
+          <label>The problem
+            <textarea id="p-problem" rows="3"></textarea>
+          </label>
+          <label>Scope (one line per item)
+            <textarea id="p-scope" rows="3"></textarea>
+          </label>
+          <label>What we delivered
+            <textarea id="p-work" rows="3"></textarea>
+          </label>
+
+          <label>Cover image
+            <input type="file" id="p-cover-file" accept="image/*" />
+          </label>
+          <label>Hero video (optional — plays instead of the cover image)
+            <input type="file" id="p-hero-file" accept="video/*" />
+          </label>
+          <label>Add to gallery (photos and/or reels, pick multiple)
+            <input type="file" id="p-gallery-files" accept="image/*,video/*" multiple />
+          </label>
+          <div>
+            <span style="font-size:0.85rem;color:var(--muted)">Current gallery items (click × to remove):</span>
+            <div class="admin-gallery-existing" id="p-gallery-existing"></div>
+          </div>
+
+          <div class="admin-form-actions">
+            <button type="submit" class="submit-btn">Save project</button>
+            <button type="button" id="project-cancel" class="work-teaser-link">Cancel edit</button>
+          </div>
+          <p class="admin-status" id="project-status"></p>
+        </form>
+      </div>
+
+      <div class="admin-panel" data-panel="about" hidden>
+        <form id="about-form" class="admin-form">
+          <label>Founder photo
+            <input type="file" id="a-photo-file" accept="image/*" />
+          </label>
+          <label>Lede (short line under "About Us")
+            <input type="text" id="a-lede" />
+          </label>
+          <label>Story
+            <textarea id="a-story" rows="6"></textarea>
+          </label>
+          <div class="admin-form-actions">
+            <button type="submit" class="submit-btn">Save About Us</button>
+          </div>
+          <p class="admin-status" id="about-status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/admin.js?v=1"></script>
+</body>
+</html>

@@ -1,8 +1,13 @@
 {
   "name": "aseem-portfolio-git",
   "compatibility_date": "2026-07-14",
+  "main": "worker/index.js",
   "assets": {
     "directory": ".",
+    "binding": "ASSETS",
     "not_found_handling": "404-page"
-  }
+  },
+  "r2_buckets": [
+    { "binding": "MEDIA", "bucket_name": "scaling-space-media" }
+  ]
 }

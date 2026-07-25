@@ -1,0 +1,193 @@
+/* Admin dashboard — functional, not fancy. Reuses brand tokens from style.css. */
+
+.admin-page {
+  padding-top: clamp(5rem, 12vh, 7rem);
+}
+
+.admin-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 2.5rem) 6rem;
+}
+
+.admin-login {
+  max-width: 360px;
+  margin: 10vh auto 0;
+  text-align: center;
+}
+
+.admin-login h1,
+.admin-dashboard h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+}
+
+.admin-login form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid oklch(28% 0.02 138);
+}
+
+.admin-tab {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--muted);
+  background: none;
+  border: none;
+  padding: 0.75rem 0.25rem;
+  margin-right: 1.25rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.admin-tab.is-active {
+  color: var(--ink);
+  border-bottom-color: var(--brand);
+}
+
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.admin-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid oklch(28% 0.02 138);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.admin-list-row-name {
+  font-weight: 600;
+}
+
+.admin-list-row-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.admin-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.admin-form fieldset {
+  border: 1px solid oklch(28% 0.02 138);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.admin-form fieldset label {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ink);
+  font-size: 0.85rem;
+}
+
+.admin-form input[type="text"],
+.admin-form input[type="password"],
+.admin-form select,
+.admin-form textarea {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid oklch(38% 0.02 138);
+  border-radius: 8px;
+  padding: 0.65em 0.85em;
+}
+
+.admin-form input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+}
+
+.admin-form-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-direction: row !important;
+  color: var(--ink) !important;
+}
+
+.admin-gallery-existing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-gallery-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid oklch(38% 0.02 138);
+  border-radius: 100px;
+  padding: 0.35em 0.5em 0.35em 0.75em;
+}
+
+.admin-gallery-chip button {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.admin-status {
+  font-size: 0.85rem;
+  color: var(--brand);
+  min-height: 1.2em;
+}
+
+.admin-error {
+  font-size: 0.85rem;
+  color: oklch(70% 0.18 25);
+}

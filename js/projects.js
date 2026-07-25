@@ -1,14 +1,18 @@
 /*
- * The Scaling Space — project data (single source of truth).
+ * The Scaling Space — project data loader.
  *
- * To add or edit work, change this file only; the homepage grid and the
- * project detail pages both read from it. Media can be either:
+ * Project data now lives server-side (edited via /admin.html) and is
+ * fetched from /api/projects instead of being hardcoded here. Any script
+ * that renders projects should `await window.PROJECTS_READY` (or use
+ * `.then()`) before reading `window.PROJECTS`, since the fetch is async.
+ *
+ * Media can be either:
  *   - a local repo path, e.g. "assets/work/<slug>/cover.jpg"
  *   - a full URL to the R2 media bucket, e.g.
  *     "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/<Client>/Photos/x.webp"
  *
  * services  — any of: "Photography", "Social Reels", "Paid Campaigns", "Websites"
- * featured  — true pins the project to the large lead slot (reserved for Porsche)
+ * featured  — true pins the project to the large lead slot
  * status    — "live" shows normally; "coming-soon" shows the card with a badge
  */
 
@@ -18,158 +22,14 @@ window.mediaUrl = function mediaUrl(path) {
   return /^https?:\/\//i.test(path) ? path : '/' + path;
 };
 
-window.PROJECTS = [
-  {
-    slug: "porsche-centre-richmond",
-    client: "Porsche Centre Richmond",
-    title: "Precision, in motion",
-    category: "Automotive · Luxury",
-    services: ["Photography", "Social Reels"],
-    featured: true,
-    status: "live",
-    cover: "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/Hero-Image_result.webp",
-    heroVideo: "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Hero-Video.mp4",
-    summary:
-      "Event coverage, reels, and vehicle photography for one of Canada's premier Porsche dealerships — content built to match the marque.",
-    problem:
-      "Porsche Centre Richmond needed content that matched the marque: fast, exacting, unmistakably premium. Off-the-shelf dealership media wasn't going to cut it.",
-    scope: [
-      "Instagram reels for CPO inspections, tire promotions, and in-store events",
-      "Live event photography and coverage",
-      "Vehicle and lifestyle photography across the showroom floor",
-    ],
-    work:
-      "We built reels tuned to the dealership's actual sales calendar — CPO inspection walkthroughs, tire promotions, and live TechNight event coverage — backed by a full vehicle and lifestyle photography library the team can draw from for every future campaign.",
-    gallery: [
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC06914_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC07381_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC07429_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC07922_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC07966_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC07981_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC07982_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC07985_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_4435_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_4436_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_4437_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_4521_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_8409_jpg_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9506_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9529_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9534_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Ir-Cpo-Inspection.mp4",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Ir-Technight-Event.mp4",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Ir-Tire-Promotion.mp4",
-    ],
-  },
-  {
-    slug: "bagga-jewels",
-    client: "Bagga Jewels",
-    title: "Light, cut to sell",
-    category: "Jewelry · Retail",
-    services: ["Social Reels", "Photography"],
-    featured: false,
-    status: "live",
-    cover: "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Hero%20Image_result.webp",
-    heroVideo: "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Videos/Hero-Video.mp4",
-    summary:
-      "Scroll-stopping reels and product photography that make fine jewelry read as luxury on a phone screen.",
-    problem:
-      "Jewelry lives or dies on how it catches light — and most phone-shot content flattens it. Bagga Jewels needed social content that kept the sparkle and the status.",
-    scope: [
-      "Instagram reels for collections and drops",
-      "Product and detail photography",
-      "Content styled for feed and story formats",
-    ],
-    work:
-      "We built a reel format that leads with motion and light — pieces shot to catch the eye mid-scroll, cut to a rhythm that holds attention long enough to sell.",
-    gallery: [
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00887_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00983_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00987_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC01019_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC01038_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Grid-3_01_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Grid-Revision_04_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/new-magzine_03_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/pink-grid-03_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/1_result.webp",
-      "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/2_result.webp",
-    ],
-  },
-  {
-    slug: "saloud",
-    client: "Saloud",
-    title: "The weight of oud",
-    category: "Fragrance · Luxury",
-    services: ["Photography", "Social Reels", "Paid Campaigns"],
-    featured: false,
-    status: "live",
-    cover: "assets/work/saloud/cover.jpg",
-    heroVideo: "https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Saloud/Saloud%20Render%20V001.mp4",
-    summary:
-      "A visual language for a luxury oud house — photography and paid social that sell scent through mood, not description.",
-    problem:
-      "You can't smell a perfume through a screen. Saloud needed imagery that conveyed the richness and ritual of oud — and paid campaigns that turned that mood into sales.",
-    scope: [
-      "Product and mood photography",
-      "Reels for launches and storytelling",
-      "Paid social campaign creative",
-    ],
-    work:
-      "We art-directed a warm, deliberate look — deep shadow, patient pacing — then built paid creative around it so the ads felt like the brand, not like ads.",
-    gallery: [],
-  },
-  {
-    slug: "canwide-mortgage",
-    client: "Canwide Mortgage Services",
-    title: "Trust, made visible",
-    category: "Finance · Services",
-    services: ["Websites", "Paid Campaigns", "Social Reels"],
-    featured: false,
-    status: "live",
-    cover: "assets/work/canwide-mortgage/cover.jpg",
-    heroVideo: "",
-    summary:
-      "A clear, credible digital presence for a mortgage brokerage — website, paid lead-gen, and social that build trust fast.",
-    problem:
-      "In mortgages, trust is the whole product. Canwide needed a digital presence that felt established and approachable, and marketing that brought in qualified leads.",
-    scope: [
-      "Website design and build",
-      "Paid campaigns for lead generation",
-      "Social content to build authority",
-    ],
-    work:
-      "We built a website that reads as credible at a glance, then wired it to paid campaigns designed to capture and qualify leads — so marketing spend turns into conversations.",
-    gallery: [],
-  },
-  {
-    slug: "motor-world-autos",
-    client: "The Motor World Auto's",
-    title: "Every car, its best angle",
-    category: "Automotive · Retail",
-    services: ["Photography", "Social Reels", "Websites"],
-    featured: false,
-    status: "live",
-    cover: "assets/work/motor-world-autos/cover.jpg",
-    heroVideo: "assets/work/motor-world-autos/reel.mp4",
-    summary:
-      "Inventory photography, reels, and web presence that help an auto dealer move metal faster.",
-    problem:
-      "Used-car listings are a sea of sameness. The Motor World needed photography and content that made their inventory stand out and their dealership look the part.",
-    scope: [
-      "Vehicle inventory photography",
-      "Reels for featured stock and the dealership",
-      "Web presence",
-    ],
-    work:
-      "We gave every vehicle a consistent, sharp look and built social content that showcases stock and personality — so browsers become buyers.",
-    gallery: [
-      "assets/work/motor-world-autos/bmw-x5-reel.mp4",
-      "assets/work/motor-world-autos/dodge-challenger-gt-reel.mp4",
-      "assets/work/motor-world-autos/ram-reel.mp4",
-      "assets/work/motor-world-autos/u-sick-reel.mp4",
-      "assets/work/motor-world-autos/final-reel.mp4",
-    ],
-  },
-];
+window.PROJECTS = [];
+window.PROJECTS_READY = fetch('/api/projects')
+  .then((res) => res.json())
+  .then((data) => {
+    window.PROJECTS = data;
+    return data;
+  })
+  .catch(() => {
+    window.PROJECTS = [];
+    return [];
+  });

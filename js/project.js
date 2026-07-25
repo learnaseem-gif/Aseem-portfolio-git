@@ -1,9 +1,9 @@
-/* Project detail page — renders one project from window.PROJECTS by ?slug= */
+/* Project detail page — renders one project from window.PROJECTS by ?slug=.
+   Project data now loads async (see js/projects.js), so rendering waits on
+   window.PROJECTS_READY below. */
 
 const params = new URLSearchParams(window.location.search);
 const slug = params.get('slug');
-const projects = window.PROJECTS || [];
-const project = projects.find((p) => p.slug === slug);
 const root = document.getElementById('project-root');
 
 function notFound() {
@@ -135,9 +135,14 @@ function render(p) {
     </section>`;
 }
 
-if (!slug || !project) {
-  notFound();
-} else {
+window.PROJECTS_READY.then((projects) => {
+  const project = projects.find((p) => p.slug === slug);
+
+  if (!slug || !project) {
+    notFound();
+    return;
+  }
+
   render(project);
   // Hide a hero cover that fails to load so the branded poster shows.
   const heroImg = root.querySelector('.project-hero-media img');
@@ -163,7 +168,7 @@ if (!slug || !project) {
       });
     });
   });
-}
+});
 
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
