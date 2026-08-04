@@ -2,7 +2,7 @@ const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').mat
 
 if (!prefersReduced && window.Lenis) {
   const lenis = new Lenis({
-    duration: 1.15,
+    duration: 1.09, // ~5% faster than before (lower duration = snappier scroll)
     easing: (t) => 1 - Math.pow(1 - t, 3),
     smoothWheel: true,
   });
