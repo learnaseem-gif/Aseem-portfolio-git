@@ -5,9 +5,17 @@
   --muted: oklch(78% 0.03 138);
   --brand: oklch(72.2% 0.168 138);
   --brand-ink: oklch(20.2% 0.031 139);
-  /* Logo fills, matched to the uploaded mark */
+  /* Logo fills, matched to the uploaded mark — constant across themes, since
+     the mark always sits on its own brand-green circle, not the page bg. */
   --logo-body: oklch(99% 0.005 138);
   --logo-accent: oklch(88.3% 0.07 137);
+
+  /* Chrome borders (section dividers / form fields / pill outlines) — kept
+     as their own tokens rather than reusing --muted etc. so light mode can
+     give each the right amount of contrast independently. */
+  --border: oklch(28% 0.02 138);
+  --border-field: oklch(34% 0.02 138);
+  --border-pill: oklch(38% 0.02 138);
 
   --font-display: "Bricolage Grotesque", "Arial Black", sans-serif;
   --font-body: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
@@ -15,6 +23,21 @@
   --z-header: 20;
   --z-hero-fill: 5;
   --z-hero-content: 10;
+}
+
+/* Light mode — a slightly greyed-off white, not stark white, so it still
+   reads as the same brand rather than a generic light template. Photo/video
+   overlays (scrims, the branded placeholder poster, the lightbox) stay dark
+   on purpose in both themes, since they sit on top of media, not page bg. */
+:root[data-theme="light"] {
+  --bg: oklch(95% 0.006 138);
+  --surface: oklch(90% 0.01 138);
+  --ink: oklch(19% 0.02 138);
+  --muted: oklch(42% 0.02 138);
+  --border: oklch(85% 0.015 138);
+  --border-field: oklch(76% 0.02 138);
+  --border-pill: oklch(68% 0.02 138);
+  color-scheme: light;
 }
 
 * {
@@ -89,6 +112,35 @@ img {
   color: var(--brand);
   opacity: 1;
 }
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border-pill);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--brand);
+  background: color-mix(in oklch, var(--brand) 12%, transparent);
+}
+
+.theme-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.theme-icon--moon { display: none; }
+
+:root[data-theme="light"] .theme-icon--sun { display: none; }
+:root[data-theme="light"] .theme-icon--moon { display: block; }
 
 .header-cta {
   font-family: var(--font-body);
@@ -359,7 +411,7 @@ img {
   font-size: 0.85rem;
   color: var(--muted);
   background: transparent;
-  border: 1px solid oklch(38% 0.02 138);
+  border: 1px solid var(--border-pill);
   border-radius: 100px;
   padding: 0.5em 1em;
   cursor: pointer;
@@ -563,7 +615,7 @@ img {
   font-weight: 500;
   font-size: 0.85rem;
   color: var(--muted);
-  border: 1px solid oklch(38% 0.02 138);
+  border: 1px solid var(--border-pill);
   border-radius: 100px;
   padding: 0.5em 1em;
   will-change: transform, opacity;
@@ -702,7 +754,7 @@ img {
   padding: clamp(4rem, 10vh, 8rem) clamp(1.5rem, 6vw, 6rem);
   max-width: 1400px;
   margin: 0 auto;
-  border-top: 1px solid oklch(28% 0.02 138);
+  border-top: 1px solid var(--border);
 }
 
 .services-list {
@@ -716,12 +768,12 @@ img {
   gap: 1rem 3rem;
   align-items: baseline;
   padding: clamp(1.5rem, 3.5vw, 2.5rem) 0;
-  border-top: 1px solid oklch(28% 0.02 138);
+  border-top: 1px solid var(--border);
   position: relative;
   transition: opacity 0.35s ease;
 }
 
-.service-row:last-child { border-bottom: 1px solid oklch(28% 0.02 138); }
+.service-row:last-child { border-bottom: 1px solid var(--border); }
 
 .service-main {
   display: flex;
@@ -926,7 +978,7 @@ img {
   font-size: 1rem;
   color: var(--ink);
   background: var(--bg);
-  border: 1px solid oklch(34% 0.02 138);
+  border: 1px solid var(--border-field);
   border-radius: 10px;
   padding: 0.7em 0.85em;
   transition: border-color 0.25s ease;
@@ -952,7 +1004,7 @@ img {
   gap: 0.4rem;
   font-size: 0.85rem;
   color: var(--muted);
-  border: 1px solid oklch(34% 0.02 138);
+  border: 1px solid var(--border-field);
   border-radius: 100px;
   padding: 0.4em 0.8em;
   cursor: pointer;
@@ -1005,7 +1057,7 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: 2rem clamp(1.5rem, 6vw, 6rem);
-  border-top: 1px solid oklch(28% 0.02 138);
+  border-top: 1px solid var(--border);
   color: var(--muted);
   font-size: 0.9rem;
 }
@@ -1170,7 +1222,7 @@ img {
   font-size: 0.9rem;
   color: var(--muted);
   background: transparent;
-  border: 1px solid oklch(38% 0.02 138);
+  border: 1px solid var(--border-pill);
   border-radius: 100px;
   padding: 0.55em 1.2em;
   cursor: pointer;
@@ -1188,6 +1240,8 @@ img {
 .media-tab .count {
   font-size: 0.78rem;
   color: #fff;
+  /* Fixed dark chip with white text in both themes — --border-pill goes
+     light in light mode, which would break this pairing. */
   background: oklch(38% 0.02 138);
   border-radius: 100px;
   padding: 0.1em 0.5em;
@@ -1416,7 +1470,7 @@ img {
 .project-cta {
   text-align: center;
   padding: clamp(3rem, 7vw, 5rem) 1.5rem;
-  border-top: 1px solid oklch(28% 0.02 138);
+  border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1442,8 +1496,8 @@ img {
   overflow: hidden;
   padding: clamp(1.5rem, 4vw, 3rem) 0;
   background: var(--bg);
-  border-top: 1px solid oklch(28% 0.02 138);
-  border-bottom: 1px solid oklch(28% 0.02 138);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 .marquee-track {
