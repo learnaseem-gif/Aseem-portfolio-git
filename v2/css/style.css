@@ -694,24 +694,28 @@ a {
   padding: 0.3em 0.85em;
 }
 
+/* Case-study copy reads as continuous prose rather than three labelled
+   columns, so it's a single measured column held to a comfortable line
+   length instead of an auto-fit grid. */
 .case-study-body {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem 2rem;
-  margin-bottom: 2rem;
+  max-width: 68ch;
+  margin-bottom: 2.5rem;
 }
 
-.case-study-block h3 {
-  font-size: 0.78rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-bottom: 0.5rem;
+.case-study-body p {
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 
-.case-study-block p {
-  font-size: 1rem;
+.case-study-body p + p {
+  margin-top: 1.1rem;
+}
+
+/* Group label separating Launches from ongoing Photography & video work. */
+.work-group-label {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 6vh, 4rem) clamp(1.25rem, 5vw, 3rem) 0;
 }
 
 .case-study-media {
