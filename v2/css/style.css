@@ -750,6 +750,60 @@ a {
   object-fit: cover;
 }
 
+/* Two labelled galleries inside one case study, so the two businesses
+   read separately. Every item in a gallery shares one aspect ratio, so
+   rows stay even and no full-width item sits beside a half-width one. */
+.gallery {
+  margin-top: 2.25rem;
+}
+
+.gallery-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.4rem 1rem;
+}
+
+.gallery-item {
+  margin: 0;
+}
+
+/* 1:1. These reels are square (verified 1080x1080), so a square frame
+   matches the source exactly: no letterbox bars, no cropping. */
+.gallery-item img,
+.gallery-item video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  background: var(--ink);
+}
+
+.gallery-item figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* One item per row on narrow screens. */
+@media (max-width: 560px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Video slots. Each holds a poster frame and native controls; nothing but
    the poster image is fetched until the visitor presses play, so video
    never lands on the render path. Stacks to one full-width column below

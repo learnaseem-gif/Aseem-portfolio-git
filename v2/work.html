@@ -133,36 +133,82 @@
           <p>Bagga Jewels went from selling entirely in-store to taking orders across Canada within about six months. At the dealership, walk-ins regularly said they'd seen the videos online before coming in, and a good number became repeat customers.</p>
           <p>Both businesses closed in late 2024 for personal reasons.</p>
         </div>
-        <div class="case-study-media">
-          <figure>
-            <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Hero%20Image_result.webp" alt="Product photography for Bagga Jewels" loading="lazy" width="400" height="300" />
-          </figure>
+        <!-- ============================================================
+             GALLERY 1 of 2 — MOTOR WORLD AUTO'S (dealership).
+             All items are square (1:1). The source reels are 1080x1080,
+             so the square frame matches them exactly. If you swap in a
+             clip of a different shape, change the aspect-ratio on
+             .gallery-item in style.css rather than letterboxing it here.
+             Posters were pulled from a strong frame partway into each
+             clip, never frame 0.
+             ============================================================ -->
+        <div class="gallery">
+          <p class="gallery-label">Motor World Auto's &mdash; dealership</p>
+          <div class="gallery-grid">
+
+            <figure class="gallery-item">
+              <video src="/assets/work/motor-world-autos/bmw-x5-reel.mp4"
+                     poster="/v2/assets/posters/mw-bmw-x5.webp"
+                     preload="none" controls playsinline
+                     aria-label="Vehicle video for Motor World Auto's: BMW X5 walkaround"></video>
+              <figcaption>BMW X5 &mdash; vehicle feature</figcaption>
+            </figure>
+
+            <figure class="gallery-item">
+              <video src="/assets/work/motor-world-autos/ram-reel.mp4"
+                     poster="/v2/assets/posters/mw-ram.webp"
+                     preload="none" controls playsinline
+                     aria-label="Vehicle video for Motor World Auto's: RAM 1500"></video>
+              <figcaption>RAM 1500 &mdash; vehicle feature</figcaption>
+            </figure>
+
+            <figure class="gallery-item">
+              <video src="/assets/work/motor-world-autos/final-reel.mp4"
+                     poster="/v2/assets/posters/mw-clearance.webp"
+                     preload="none" controls playsinline
+                     aria-label="Dealership promotion video for Motor World Auto's"></video>
+              <figcaption>Dealership promotion</figcaption>
+            </figure>
+
+          </div>
         </div>
 
-        <div class="video-slots">
-          <!-- VIDEO SLOT 1 of 2 — Motor World: dealership vehicle video.
-               To swap in a different cut, replace the src below. Keep
-               preload="none" and add no autoplay attribute: that is what
-               stops the file downloading before the visitor presses play.
-               TODO: no poster frame exists for this clip yet. Add
-               poster="<url>" so the slot shows a still instead of a dark
-               panel before playback. -->
-          <figure class="video-slot">
-            <video src="/v2/assets/work/motor-world-final-reel.mp4"
-                   preload="none" controls playsinline
-                   aria-label="Dealership vehicle video for Motor World Auto's"></video>
-            <figcaption>Dealership vehicle video</figcaption>
-          </figure>
+        <!-- ============================================================
+             GALLERY 2 of 2 — BAGGA JEWELS (jewelry).
+             Same square grid as the dealership gallery above.
+             TODO: the poster on the video below is a product photo, not a
+             still lifted from the clip itself. The video lives on R2 and
+             could not be read from this environment to pull a frame.
+             Replace it with a real still when you can.
+             ============================================================ -->
+        <div class="gallery">
+          <p class="gallery-label">Bagga Jewels &mdash; jewelry</p>
+          <div class="gallery-grid">
 
-          <!-- VIDEO SLOT 2 of 2 — Bagga Jewels: jewelry product video.
-               Replace src and poster to swap in a different cut. -->
-          <figure class="video-slot">
-            <video src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Videos/Hero-Video.mp4"
-                   poster="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC01019_result.webp"
-                   preload="none" controls playsinline
-                   aria-label="Jewelry product video for Bagga Jewels"></video>
-            <figcaption>Jewelry product video</figcaption>
-          </figure>
+            <figure class="gallery-item">
+              <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Hero%20Image_result.webp" alt="Product photography for Bagga Jewels" loading="lazy" width="600" height="600" />
+              <figcaption>Product photography</figcaption>
+            </figure>
+
+            <figure class="gallery-item">
+              <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00887_result.webp" alt="Gold chain product photography for Bagga Jewels" loading="lazy" width="600" height="600" />
+              <figcaption>Product photography</figcaption>
+            </figure>
+
+            <figure class="gallery-item">
+              <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC01019_result.webp" alt="Macro jewelry photography for Bagga Jewels" loading="lazy" width="600" height="600" />
+              <figcaption>Macro detail for the website</figcaption>
+            </figure>
+
+            <figure class="gallery-item">
+              <video src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Videos/Hero-Video.mp4"
+                     poster="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00983_result.webp"
+                     preload="none" controls playsinline
+                     aria-label="Jewelry product video for Bagga Jewels"></video>
+              <figcaption>Jewelry product video</figcaption>
+            </figure>
+
+          </div>
         </div>
       </div>
     </section>
