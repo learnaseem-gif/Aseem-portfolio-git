@@ -750,6 +750,41 @@ a {
   object-fit: cover;
 }
 
+/* Video slots. Each holds a poster frame and native controls; nothing but
+   the poster image is fetched until the visitor presses play, so video
+   never lands on the render path. Stacks to one full-width column below
+   roughly 600px. */
+.video-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem 1rem;
+  margin-top: 1rem;
+}
+
+.video-slot {
+  margin: 0;
+}
+
+.video-slot video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  background: var(--ink);
+  /* contain, not cover: these are a mix of vertical reels and landscape
+     promos, and cropping a vertical reel to fit would cut the subject. */
+  object-fit: contain;
+}
+
+.video-slot figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
 .case-study-media .is-placeholder {
   display: grid;
   place-items: center;
