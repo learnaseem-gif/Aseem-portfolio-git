@@ -20,9 +20,18 @@
   --on-dark: oklch(97% 0 0);
   --on-dark-muted: oklch(72% 0 0);
 
-  /* Brand green survives only as an identity mark and a focus ring, never
-     as the accent system — that pairing is a named anti-pattern. */
+  /* Brand green. It carries the calls to action and the two "featured"
+     cards, and it lives on the light sections. The dark bands stay
+     monochrome on purpose: a near-black ground whose only accent is a
+     bright green is a named anti-pattern, and the surest way to trip it
+     is to make the green do all its work down there. */
   --brand: oklch(72.2% 0.168 138);
+  --brand-hover: oklch(66% 0.165 138);
+  --brand-ink: oklch(20.2% 0.031 139);
+  /* A deeper cut of the same hue, for green used as text on light. The
+     identity green is far too light to read at small sizes. */
+  --brand-deep: oklch(43% 0.105 138);
+  --brand-tint: oklch(93% 0.045 138);
 
   --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Bricolage Grotesque", var(--font-body);
@@ -119,7 +128,7 @@ a { color: inherit; }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--muted);
+  color: var(--brand-deep);
 }
 
 /* ---------- Buttons ---------- */
@@ -134,13 +143,13 @@ a { color: inherit; }
   text-decoration: none;
   padding: 0.85em 1.5em;
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--on-dark);
-  border: 1px solid var(--ink);
+  background: var(--brand);
+  color: var(--brand-ink);
+  border: 1px solid var(--brand);
   white-space: nowrap;
 }
 
-.btn:hover { background: var(--dark-2); border-color: var(--dark-2); }
+.btn:hover { background: var(--brand-hover); border-color: var(--brand-hover); }
 
 .btn-ghost {
   background: transparent;
@@ -150,14 +159,9 @@ a { color: inherit; }
 
 .btn-ghost:hover { background: var(--card); border-color: var(--muted); }
 
-/* On dark bands the pill inverts. */
-.on-dark .btn {
-  background: var(--on-dark);
-  color: var(--ink);
-  border-color: var(--on-dark);
-}
-
-.on-dark .btn:hover { background: oklch(88% 0 0); border-color: oklch(88% 0 0); }
+/* The primary pill stays green on the dark bands too — it is the one
+   place brand colour belongs down there, and the light green reads
+   clearly against near-black. */
 
 /* Secondary button on a dark band. Without this the rule above wins on
    specificity and paints a white pill with white text. */
@@ -246,8 +250,8 @@ a { color: inherit; }
   white-space: nowrap;
   padding: 0.6em 1em;
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--on-dark);
+  background: var(--brand);
+  color: var(--brand-ink);
 }
 
 .header-tel svg { flex-shrink: 0; }
@@ -475,14 +479,15 @@ a { color: inherit; }
   color: var(--ink-soft);
 }
 
-/* One card carries the dark treatment, as in the reference. */
+/* One card is picked out, as in the reference — in brand green rather
+   than black, so the accent lands on a light section. */
 .rack-card.is-featured {
-  background: var(--dark);
-  color: var(--on-dark);
+  background: var(--brand);
+  color: var(--brand-ink);
 }
 
-.rack-card.is-featured .num { color: var(--on-dark-muted); }
-.rack-card.is-featured p { color: var(--on-dark-muted); }
+.rack-card.is-featured .num,
+.rack-card.is-featured p { color: var(--brand-ink); }
 
 /* ---------- Work tiles ---------- */
 
@@ -570,6 +575,7 @@ a { color: inherit; }
 }
 
 .tile:hover .tile-cta { text-decoration: underline; }
+.tile-cta { color: var(--brand-deep); }
 
 /* ---------- Stats ---------- */
 
@@ -752,9 +758,9 @@ a { color: inherit; }
 }
 
 .pill-solid {
-  background: var(--ink);
-  color: var(--on-dark);
-  border-color: var(--ink);
+  background: var(--brand);
+  color: var(--brand-ink);
+  border-color: var(--brand);
 }
 
 .tag-row {
@@ -842,15 +848,24 @@ a { color: inherit; }
 }
 
 .price-card.is-featured {
-  background: var(--dark);
-  color: var(--on-dark);
+  background: var(--brand);
+  color: var(--brand-ink);
 }
 
-/* The muted grey is tuned for light backgrounds; on the dark card it drops
-   to about 3.5:1, so the secondary text switches to the on-dark tone. */
-.price-card.is-featured .eyebrow { color: var(--on-dark-muted); }
-.price-card.is-featured .price-list li { color: var(--on-dark-muted); }
-.price-card.is-featured .price-list li::before { background: var(--on-dark-muted); }
+/* On the green card every tone resolves to the brand ink; the greys are
+   tuned for light backgrounds and lose contrast here. */
+.price-card.is-featured .eyebrow,
+.price-card.is-featured .price-list li { color: var(--brand-ink); }
+.price-card.is-featured .price-list li::before { background: var(--brand-ink); }
+
+/* Inside the green card the solid pill would disappear, so it inverts. */
+.price-card.is-featured .btn {
+  background: var(--brand-ink);
+  color: var(--brand);
+  border-color: var(--brand-ink);
+}
+
+.price-card.is-featured .btn:hover { background: var(--ink); border-color: var(--ink); }
 
 .price-amount {
   font-family: var(--font-display);
