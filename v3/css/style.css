@@ -463,6 +463,15 @@ a { color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.rack-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .rack-card .num {
@@ -470,6 +479,17 @@ a { color: inherit; }
   font-weight: 800;
   font-size: 1rem;
   color: var(--muted);
+}
+
+.rack-card-arrow {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  flex-shrink: 0;
 }
 
 .rack-card h3 { margin-top: auto; }
@@ -481,13 +501,50 @@ a { color: inherit; }
 
 /* One card is picked out, as in the reference — in brand green rather
    than black, so the accent lands on a light section. */
-.rack-card.is-featured {
+.rack-card.is-featured,
+.rack-card:hover,
+.rack-card:focus-visible {
   background: var(--brand);
   color: var(--brand-ink);
 }
 
 .rack-card.is-featured .num,
-.rack-card.is-featured p { color: var(--brand-ink); }
+.rack-card.is-featured p,
+.rack-card:hover .num,
+.rack-card:hover p,
+.rack-card:focus-visible .num,
+.rack-card:focus-visible p { color: var(--brand-ink); }
+
+.rack-card.is-featured .rack-card-arrow,
+.rack-card:hover .rack-card-arrow,
+.rack-card:focus-visible .rack-card-arrow {
+  color: var(--brand-ink);
+  border-color: color-mix(in oklch, var(--brand-ink) 35%, transparent);
+}
+
+/* The resting card yields only while a sibling is hovered, so the green
+   is never in two places at once and never disappears altogether. */
+.rack:hover .rack-card.is-featured:not(:hover) {
+  background: var(--card);
+  color: var(--ink);
+}
+
+.rack:hover .rack-card.is-featured:not(:hover) .num { color: var(--muted); }
+.rack:hover .rack-card.is-featured:not(:hover) p { color: var(--ink-soft); }
+
+.rack:hover .rack-card.is-featured:not(:hover) .rack-card-arrow {
+  color: var(--muted);
+  border-color: var(--line);
+}
+
+/* Motion is decoration: the colour swap above still happens instantly for
+   anyone who has asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .rack-card,
+  .rack-card-arrow { transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, transform 0.22s ease; }
+  .rack-card:hover .rack-card-arrow,
+  .rack-card:focus-visible .rack-card-arrow { transform: translateX(3px); }
+}
 
 /* ---------- Work tiles ---------- */
 
@@ -908,6 +965,9 @@ a { color: inherit; }
   gap: 0.5rem 2rem;
   padding-block: 1.5rem;
   border-top: 1px solid var(--line);
+  /* The stage cards link straight to these rows; without this the sticky
+     header sits on top of whichever row is jumped to. */
+  scroll-margin-top: 6rem;
 }
 
 .service-row p { color: var(--ink-soft); }
