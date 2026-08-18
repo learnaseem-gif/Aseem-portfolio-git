@@ -819,14 +819,14 @@ a { color: inherit; }
 
   .wrap { max-width: none; padding-inline: 0; }
   .section, .hero, .section-tight { padding-block: 0.35rem !important; }
-  .section-head { margin-bottom: 0.5rem !important; }
-  .role { padding-block: 0.6rem; }
+  .section-head { margin-bottom: 0.35rem !important; }
+  .role { padding-block: 0.45rem; }
   .role-points { gap: 0.2rem; margin-top: 0.4rem; }
   .role-tags { display: none; }
   .identity-meta { margin-top: 0.5rem; gap: 0.2rem 1rem; font-size: 9.5pt; }
-  .lede { font-size: 10pt; }
+  .lede { font-size: 9.5pt; }
 
-  .identity-name { font-size: 22pt; }
+  .identity-name { font-size: 20pt; }
   .identity-role { font-size: 11.5pt; color: #000 !important; }
   .h-lg { font-size: 12pt; margin-bottom: 0.15rem; }
   .h-md { font-size: 11pt; }
@@ -843,7 +843,7 @@ a { color: inherit; }
      rows instead of three is what keeps the whole resume to two pages. */
   .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem 1.5rem; }
   .skill-group li { font-size: 9.5pt; }
-  .role-points li { color: #000 !important; font-size: 10pt; }
+  .role-points li { color: #000 !important; font-size: 9.5pt; line-height: 1.35; }
   .role-points li::before { background: #000 !important; }
   .tag, .role-when, .role-where { color: #333 !important; }
 
