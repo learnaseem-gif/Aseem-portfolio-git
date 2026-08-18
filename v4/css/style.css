@@ -838,11 +838,11 @@ a { color: inherit; }
 
   h2, h3 { break-after: avoid; page-break-after: avoid; }
 
-  .skill-group { background: none !important; padding: 0 0 0.4rem; }
+  .skill-group { background: none !important; padding: 0 0 0.2rem; }
   /* Three columns on paper rather than two: the groups are short, and two
      rows instead of three is what keeps the whole resume to two pages. */
-  .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 0.4rem 1.5rem; }
-  .skill-group li { font-size: 9.5pt; }
+  .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 0.2rem 1.5rem; }
+  .skill-group li { font-size: 9.5pt; line-height: 1.3; }
   .role-points li { color: #000 !important; font-size: 9.5pt; line-height: 1.35; }
   .role-points li::before { background: #000 !important; }
   .tag, .role-when, .role-where { color: #333 !important; }
