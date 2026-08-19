@@ -867,14 +867,16 @@ a { color: inherit; }
    CSS, so it survives with scripting off. */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  /* minmax(0, ...) not plain 1fr: a bare 1fr floors at min-content, so a
+     long caption word widens its column and the rows stop lining up. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   align-items: start;
 }
 
 /* A gallery whose groups divide evenly into two needs no filler at all,
    so it opts into two columns and the photography runs larger. */
-.gallery-grid.is-pairs { grid-template-columns: repeat(2, 1fr); }
+.gallery-grid.is-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
 .gallery-item {
   margin: 0;
@@ -902,8 +904,18 @@ a { color: inherit; }
 /* Quiet tonal panel that completes a row. Deliberately silent: no text,
    no border, aria-hidden on the element, so it reads as negative space in
    the composition rather than as content that failed to load. */
+/* The grid aligns items to the start, so a filler sized only by its
+   ratio stops short of the figure beside it by exactly the height of that
+   figure's caption. Stretching it to the row instead makes the bottom edge
+   read as one line. The ratio stays as the intrinsic size, so a filler
+   still has a shape if it ever lands in a row of its own. */
 .gallery-item.is-fill {
   aspect-ratio: var(--ar, 3 / 4);
+  align-self: stretch;
+  /* Width must stay pinned to the column. Left to itself, a stretched
+     height plus a ratio makes the box derive its width from that height
+     and spill out of the grid. */
+  width: 100%;
   border-radius: var(--r);
   background: var(--card);
 }
@@ -914,9 +926,14 @@ a { color: inherit; }
    visible. */
 .gallery-item.fill-2 { display: none; }
 
+/* Reserving two lines keeps the row's bottom edge straight when one
+   caption wraps on a narrow column and its neighbour does not. Rows whose
+   captions all fit on one line simply carry a little air underneath. */
 .gallery-item figcaption {
   margin-top: 0.55rem;
   font-size: 0.8rem;
+  line-height: 1.4;
+  min-height: 2.8em;
   color: var(--muted);
 }
 
@@ -929,7 +946,7 @@ a { color: inherit; }
    a media query adds no specificity of its own. */
 @media (max-width: 860px) {
   .gallery-grid,
-  .gallery-grid.is-pairs { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid.is-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   .gallery-item.fill-3 { display: none; }
   .gallery-item.fill-2 { display: block; }

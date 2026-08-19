@@ -778,8 +778,11 @@ a {
   margin: 0;
 }
 
-/* 1:1. These reels are square (verified 1080x1080), so a square frame
-   matches the source exactly: no letterbox bars, no cropping. */
+/* 1:1 by default, which suits the Bagga Jewels stills.
+   Not the dealership reels: those store 1080x1080 frames with a 9:16
+   pixel aspect ratio (pasp), so browsers play them vertical at 608x1080.
+   The coded size is not the shape on screen. Their grid opts into
+   .is-vertical below. */
 .gallery-item img,
 .gallery-item video {
   display: block;
@@ -788,6 +791,13 @@ a {
   object-fit: cover;
   border-radius: 12px;
   background: var(--ink);
+}
+
+/* Vertical (9:16) source. Scoped to the grid that needs it so the
+   square galleries are untouched. */
+.gallery-grid.is-vertical .gallery-item img,
+.gallery-grid.is-vertical .gallery-item video {
+  aspect-ratio: 9 / 16;
 }
 
 .gallery-item figcaption {

@@ -171,17 +171,20 @@
         </div>
 
         <!-- GALLERY 1 of 2 — MOTOR WORLD AUTO'S (dealership).
-             Square (1:1) throughout: the source reels are 1080x1080, so the
-             frame matches them exactly, with no bars and no cropping. If a
-             clip of a different shape is swapped in, change aspect-ratio on
-             .gallery-item in style.css rather than letterboxing here.
-             Posters are real stills pulled from partway into each clip. -->
+             9:16 throughout. The reels are stored as 1080x1080 frames but
+             carry a 9:16 pixel aspect ratio (pasp), so every browser plays
+             them vertical at 608x1080 — the coded size is not the shape on
+             screen. Matching the frame to 9/16 means no bars and no crop.
+             Posters are real stills pulled from partway into each clip and
+             rendered at the display size, not the coded one, so the cars
+             are not stretched. Every item in a row shares one --ar; keep it
+             that way if a clip is swapped in. -->
         <div class="gallery">
           <p class="gallery-label">Motor World Auto's &mdash; dealership</p>
           <div class="gallery-grid">
             <figure class="gallery-item">
               <video src="/assets/work/motor-world-autos/bmw-x5-reel.mp4"
-                     style="--ar: 1 / 1"
+                     style="--ar: 9 / 16"
                      poster="/v3/assets/posters/mw-bmw-x5.webp"
                      preload="none" controls playsinline
                      aria-label="Vehicle video for Motor World Auto's: BMW X5"></video>
@@ -189,7 +192,7 @@
             </figure>
             <figure class="gallery-item">
               <video src="/assets/work/motor-world-autos/ram-reel.mp4"
-                     style="--ar: 1 / 1"
+                     style="--ar: 9 / 16"
                      poster="/v3/assets/posters/mw-ram.webp"
                      preload="none" controls playsinline
                      aria-label="Vehicle video for Motor World Auto's: RAM 1500"></video>
@@ -197,14 +200,14 @@
             </figure>
             <figure class="gallery-item">
               <video src="/assets/work/motor-world-autos/final-reel.mp4"
-                     style="--ar: 1 / 1"
+                     style="--ar: 9 / 16"
                      poster="/v3/assets/posters/mw-clearance.webp"
                      preload="none" controls playsinline
                      aria-label="Dealership promotion video for Motor World Auto's"></video>
               <figcaption>Dealership promotion</figcaption>
             </figure>
 
-            <div class="gallery-item is-fill fill-2" style="--ar: 1 / 1" aria-hidden="true"></div>
+            <div class="gallery-item is-fill fill-2" style="--ar: 9 / 16" aria-hidden="true"></div>
           </div>
         </div>
 
