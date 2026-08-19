@@ -857,21 +857,44 @@ a { color: inherit; }
   border-bottom: 1px solid var(--line);
 }
 
+/* Masonry. A single forced aspect ratio squashed 16:9 clips and cropped
+   tall product shots to squares; here each item keeps its own proportions
+   and the columns pack around them. Multi-column rather than grid because
+   it needs no JS to measure heights, so it still works with scripting off. */
 .gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.4rem 1rem;
+  columns: 3 260px;
+  column-gap: 1rem;
 }
 
-.gallery-item { margin: 0; }
+.gallery-item {
+  margin: 0 0 1rem;
+  /* keep a picture and its caption together in one column */
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
 
-/* Square: the source reels are 1080x1080, so this matches them exactly —
-   no letterbox bars, no cropping. */
-.gallery-item img,
+/* Images keep their own proportions and are never cropped. The `auto`
+   keyword in aspect-ratio matters: the 3/4 is only a placeholder shape to
+   reserve space while a lazy image is still loading, and the real
+   intrinsic ratio replaces it the moment it arrives. Without it these
+   collapse to zero height and the column jumps as you scroll. */
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto 3 / 4;
+  border-radius: var(--r);
+  background: var(--card);
+}
+
+/* A video with preload="none" has no intrinsic size to lay out from, so
+   its shape has to be declared. The default matches the dealership reels,
+   verified as 1080x1080; set --ar on any clip that differs, for example
+   style="--ar: 16 / 9" or "--ar: 9 / 16". */
 .gallery-item video {
   display: block;
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: var(--ar, 1 / 1);
   object-fit: cover;
   border-radius: var(--r);
   background: var(--dark);
@@ -884,7 +907,7 @@ a { color: inherit; }
 }
 
 @media (max-width: 560px) {
-  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-grid { columns: 1; }
 }
 
 /* ---------- Pricing ---------- */
