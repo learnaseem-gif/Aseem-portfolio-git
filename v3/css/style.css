@@ -908,20 +908,31 @@ a { color: inherit; }
   background: var(--card);
 }
 
+/* How many panels a row needs depends on how many columns there are, so
+   each one is tagged with the layout it belongs to. fill-3 completes a
+   three-column row, fill-2 a two-column row, and only one set is ever
+   visible. */
+.gallery-item.fill-2 { display: none; }
+
 .gallery-item figcaption {
   margin-top: 0.55rem;
   font-size: 0.8rem;
   color: var(--muted);
 }
 
-@media (max-width: 860px) {
-  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-}
+/* Two columns from tablet all the way down to the smallest phone. A
+   single stacked column made the galleries read as an endless list; a
+   pair keeps the grid legible as a grid on a phone.
 
-@media (max-width: 560px) {
-  .gallery-grid { grid-template-columns: 1fr; }
-  /* one item per row already, so a filler would just be dead space */
-  .gallery-item.is-fill { display: none; }
+   Both selectors are listed because .gallery-grid.is-pairs carries two
+   classes and would otherwise outrank a lone .gallery-grid here —
+   a media query adds no specificity of its own. */
+@media (max-width: 860px) {
+  .gallery-grid,
+  .gallery-grid.is-pairs { grid-template-columns: repeat(2, 1fr); }
+
+  .gallery-item.fill-3 { display: none; }
+  .gallery-item.fill-2 { display: block; }
 }
 
 /* ---------- Pricing ---------- */
