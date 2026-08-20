@@ -926,6 +926,27 @@ a { color: inherit; }
    colour instead of filling the frame. */
 .gallery-item.is-contain img { object-fit: contain; background: var(--card); }
 
+/* A landscape screen-recording cannot share a row with 3:4 stills: the
+   grid depends on one ratio per row, and mixing them leaves the row's
+   bottom edge ragged. It gets the full content width instead. */
+.gallery-feature { margin: 0 0 1rem; }
+
+.gallery-feature video {
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--ar, 16 / 9);
+  object-fit: cover;
+  border-radius: var(--r);
+  background: var(--dark);
+}
+
+.gallery-feature figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
 .gallery-item.is-fill {
   aspect-ratio: var(--ar, 3 / 4);
   align-self: stretch;
