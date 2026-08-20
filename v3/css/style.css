@@ -874,10 +874,6 @@ a { color: inherit; }
   align-items: start;
 }
 
-/* A gallery whose groups divide evenly into two needs no filler at all,
-   so it opts into two columns and the photography runs larger. */
-.gallery-grid.is-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
 .gallery-item {
   margin: 0;
   display: grid;
@@ -939,14 +935,9 @@ a { color: inherit; }
 
 /* Two columns from tablet all the way down to the smallest phone. A
    single stacked column made the galleries read as an endless list; a
-   pair keeps the grid legible as a grid on a phone.
-
-   Both selectors are listed because .gallery-grid.is-pairs carries two
-   classes and would otherwise outrank a lone .gallery-grid here —
-   a media query adds no specificity of its own. */
+   pair keeps the grid legible as a grid on a phone. */
 @media (max-width: 860px) {
-  .gallery-grid,
-  .gallery-grid.is-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
   .gallery-item.fill-3 { display: none; }
   .gallery-item.fill-2 { display: block; }
