@@ -908,6 +908,11 @@ a { color: inherit; }
 
 .gallery-item video { background: var(--dark); }
 
+/* Full-page screenshots and logos lose the point of showing them if a
+   fixed-ratio crop cuts them off, so they sit letterboxed on the card
+   colour instead of filling the frame. */
+.gallery-item.is-contain img { object-fit: contain; background: var(--card); }
+
 .gallery-item.is-fill {
   aspect-ratio: var(--ar, 3 / 4);
   align-self: stretch;
