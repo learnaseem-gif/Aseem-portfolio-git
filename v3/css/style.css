@@ -857,6 +857,41 @@ a { color: inherit; }
   border-bottom: 1px solid var(--line);
 }
 
+/* A website screen-recording is landscape and wide — nothing like the
+   3:4 stills or 9:16 reels the grid is built for. Dropping one into a
+   365px column would make it a postage stamp, so it gets the full content
+   width instead and leads the gallery: it is the thing worth waiting for.
+   Shape still comes from --ar, like every other item here. */
+.gallery-feature {
+  margin: 0 0 1rem;
+}
+
+.gallery-feature video {
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--ar, 16 / 9);
+  object-fit: cover;
+  border-radius: var(--r);
+  background: var(--dark);
+}
+
+.gallery-feature figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+/* Logos must never be cropped, so this one opts out of the cover rule the
+   rest of the gallery uses. Two of the three variations carry their own
+   background and the third is transparent, so the panel behind them stays
+   light — on a dark panel the transparent one's green wordmark vanishes. */
+.gallery-item.is-contain img {
+  object-fit: contain;
+  padding: 8%;
+  background: var(--card);
+}
+
 /* A plain row grid rather than free-flowing columns. Column masonry
    balanced itself unpredictably and left ragged bottoms, and mixing
    shapes within a row left holes beneath the shorter items.
