@@ -788,6 +788,164 @@ a { color: inherit; }
   overflow-wrap: anywhere;
 }
 
+/* ================= Tags ================= */
+
+.tag {
+  font-size: 0.8rem;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.32em 0.85em;
+}
+
+/* ================= Work index (work.html) ================= */
+
+.work-group-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ================= Case study (work/*.html) ================= */
+
+.case-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+}
+
+.case-index {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5em 1.05em;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  text-decoration: none;
+  background: var(--surface);
+}
+
+.pill-solid {
+  background: var(--brand);
+  color: var(--brand-ink);
+  border-color: var(--brand);
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1rem;
+}
+
+.case-copy {
+  max-width: 68ch;
+  margin-top: 1.5rem;
+}
+
+.case-copy p + p { margin-top: 1.1rem; }
+
+/* ---------- Galleries ---------- */
+
+.gallery { margin-top: 2.25rem; }
+
+.gallery-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+/* A plain row grid rather than free-flowing columns: everything in a row
+   shares one ratio, so groups fill whole even rows and a tonal filler
+   completes any row left short. */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.gallery-grid.is-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+.gallery-item {
+  margin: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+}
+
+.gallery-item img,
+.gallery-item video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: var(--ar, 3 / 4);
+  object-fit: cover;
+  border-radius: var(--r);
+  background: var(--card);
+}
+
+.gallery-item video { background: var(--dark); }
+
+.gallery-item.is-fill {
+  aspect-ratio: var(--ar, 3 / 4);
+  align-self: stretch;
+  width: 100%;
+  border-radius: var(--r);
+  background: var(--card);
+}
+
+.gallery-item.fill-2 { display: none; }
+
+.gallery-item figcaption {
+  margin-top: 0.55rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  min-height: 2.8em;
+  color: var(--muted);
+}
+
+@media (max-width: 860px) {
+  .gallery-grid,
+  .gallery-grid.is-pairs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .gallery-item.fill-3 { display: none; }
+  .gallery-item.fill-2 { display: block; }
+}
+
+/* Honest placeholder for a case that has no photography uploaded yet,
+   rather than filling the slot with a stock or fabricated image. */
+.gallery-empty {
+  margin-top: 2.25rem;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  border: 1px dashed var(--line);
+  border-radius: var(--r);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
 /* ================= Print / PDF ================= */
 
 @page { margin: 12mm 13mm; }
