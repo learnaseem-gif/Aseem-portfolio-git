@@ -585,6 +585,11 @@ a { color: inherit; }
   display: block;
 }
 
+/* Wide screenshots lose their point if a 4:3 crop cuts off the logo or
+   the subject, so these sit letterboxed on the card colour instead. */
+.tile-media.is-contain { background: var(--card); }
+.tile-media.is-contain img { object-fit: contain; }
+
 /* Typographic tile for entries with no photography — designed, not empty. */
 .tile-type {
   aspect-ratio: 4 / 3;
@@ -895,6 +900,11 @@ a { color: inherit; }
   grid-template-rows: 1fr auto;
 }
 
+/* A photo is wrapped in a link to its full-size file (opens in a new tab
+   for native pinch/scroll zoom); display:contents keeps the <a> out of
+   the grid so the img still fills the image row exactly as before. */
+.gallery-item > a { display: contents; }
+
 .gallery-item img,
 .gallery-item video {
   display: block;
@@ -905,6 +915,9 @@ a { color: inherit; }
   border-radius: var(--r);
   background: var(--card);
 }
+
+.gallery-item > a img { cursor: zoom-in; }
+.gallery-item > a:hover img { opacity: 0.92; }
 
 .gallery-item video { background: var(--dark); }
 
