@@ -703,8 +703,12 @@ a { color: inherit; }
   align-items: center;
 }
 
+/* Portrait, not landscape. The photograph that goes here is vertical, and
+   a 4:3 frame with object-fit: cover would crop a horizontal band across
+   the chest and take the head off. Only the two "about" slots use this
+   class, so nothing else is affected. */
 .split-media {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   border-radius: var(--r);
   overflow: hidden;
   background: var(--card);
@@ -717,9 +721,25 @@ a { color: inherit; }
   letter-spacing: 0.08em;
   text-align: center;
   padding: 1rem;
+  position: relative;
 }
 
-.split-media img { width: 100%; height: 100%; object-fit: cover; }
+/* Absolutely positioned rather than a grid child, for two reasons that
+   both bit: the 1rem padding is there to inset the placeholder text, and
+   an in-flow image would sit inside it instead of bleeding to the edge;
+   and height: 100% cannot resolve against a slot whose own height comes
+   from aspect-ratio, so the image fell back to its natural shape — a 9:16
+   photo measured 508x903 inside a 540x675 frame. An absolutely positioned
+   box takes the padding box as its containing block, so inset: 0 is
+   exactly the slot, padding and all. */
+.split-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
 
 /* ---------- Closing ---------- */
 
