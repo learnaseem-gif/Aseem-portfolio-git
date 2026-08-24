@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Services &amp; Pricing — The Scaling Space</title>
-  <meta name="description" content="Launch packages for new and relaunching Vancouver businesses: brand identity, website, photography, video, Google Business Profile and Facebook Business setup. Project pricing, no retainers." />
+  <meta name="description" content="Photo and video for Vancouver businesses, booked by the shoot: half day, full day, or a batch of reels. Launch packages for brand identity, website, and Google and Facebook setup. Project pricing, no retainers." />
   <!-- PREVIEW ONLY: remove this line before launch so the page can rank. -->
   <meta name="robots" content="noindex, nofollow" />
   <link rel="icon" type="image/svg+xml" href="/v3/assets/logo.svg" />
@@ -61,12 +61,68 @@
     <section class="hero">
       <div class="wrap">
         <p class="eyebrow">Services &amp; pricing</p>
-        <h1 class="h-xl" style="margin-top:1rem;">Two ways to launch. One project each, no retainers.</h1>
-        <p class="lede">Pick a package, or scroll down for individual services if you only need one piece.</p>
+        <h1 class="h-xl" style="margin-top:1rem;">Photo and video, by the shoot.</h1>
+        <p class="lede">Book a half day, a full day, or a batch of reels. If you are opening or relaunching, the launch packages further down cover the rest of the setup.</p>
       </div>
     </section>
 
-    <section class="section" id="packages" style="padding-top:0;">
+    <!-- PHOTO & VIDEO — the lead offer.
+         Deliberately framed per shoot, never per month: this is project
+         work and the site must not imply a retainer anywhere. Reuses
+         .price-grid / .price-card unchanged; the grid is auto-fit
+         minmax(280px, 1fr), so a third card needs no new CSS.
+         TODO: the three [FROM PRICE] values are Aseem's to fill, as are
+         the two on the packages below. The bullets deliberately carry no
+         hour counts or delivery quantities — those are his to set. -->
+    <section class="section" id="photo-video" style="padding-top:0;">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Photo &amp; video</p>
+          <h2 class="h-lg" style="margin-top:0.85rem;">Booked by the shoot, not by the month.</h2>
+          <p class="lede" style="margin-top:1rem;">Storefront, product, team, and short-form video. One shoot at a time, quoted before it starts.</p>
+        </div>
+
+        <div class="price-grid reveal" style="margin-top:2rem;">
+          <div class="price-card">
+            <p class="eyebrow">Shoot</p>
+            <h3 class="h-md">Half day</h3>
+            <p class="price-amount">[FROM PRICE]</p>
+            <ul class="price-list">
+              <li>One location</li>
+              <li>Storefront, product, or team</li>
+              <li>Edited stills, delivered web-ready</li>
+            </ul>
+            <a class="btn btn-ghost" href="/v3/contact.html">Ask about a half day</a>
+          </div>
+
+          <div class="price-card is-featured">
+            <p class="eyebrow">Shoot</p>
+            <h3 class="h-md">Full day</h3>
+            <p class="price-amount">[FROM PRICE]</p>
+            <ul class="price-list">
+              <li>A full day on location</li>
+              <li>Photo and video in the same visit</li>
+              <li>Enough to cover a site and a launch</li>
+            </ul>
+            <a class="btn" href="/v3/contact.html">Ask about a full day</a>
+          </div>
+
+          <div class="price-card">
+            <p class="eyebrow">Shoot</p>
+            <h3 class="h-md">Reel batch</h3>
+            <p class="price-amount">[FROM PRICE]</p>
+            <ul class="price-list">
+              <li>Short vertical video, shot in one session</li>
+              <li>Cut and colour-graded</li>
+              <li>Delivered ready to post</li>
+            </ul>
+            <a class="btn btn-ghost" href="/v3/contact.html">Ask about a reel batch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="packages">
       <div class="wrap">
         <div class="price-grid reveal">
           <div class="price-card">
@@ -88,7 +144,7 @@
             <h2 class="h-md">Full Launch</h2>
             <p class="price-amount">[FROM PRICE]</p>
             <ul class="price-list">
-              <li>Full brand identity + print (signage, cards, menus)</li>
+              <li>Full brand identity + print (business cards and letterhead)</li>
               <li>Multi-page website</li>
               <li>Google Business Profile setup</li>
               <li>Facebook Business setup</li>
@@ -129,15 +185,7 @@
           </div>
           <div class="service-row" id="print">
             <h3 class="h-md">Print</h3>
-            <p>Signage, business cards, stationery, menus. The physical things a customer holds or walks past.</p>
-          </div>
-          <div class="service-row" id="photography">
-            <h3 class="h-md">Photography</h3>
-            <p>Product, storefront, and team photography that makes a new or relaunching business look open for business.</p>
-          </div>
-          <div class="service-row" id="video">
-            <h3 class="h-md">Video</h3>
-            <p>Short-form video for social and web, the kind of content that gets a new business noticed locally.</p>
+            <p>Business cards and letterhead. The physical things a customer takes away.</p>
           </div>
           <div class="service-row" id="google-business-profile">
             <h3 class="h-md">Google Business Profile setup</h3>
