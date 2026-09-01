@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Superseded builds and the admin panel. Kept out of search so they cannot
+# compete with the live site for the same queries.
+Disallow: /v1/
+Disallow: /v2/
+Disallow: /v4/
+Disallow: /admin.html
+Disallow: /uploads/
+
+Sitemap: https://thescalingspace.ca/sitemap.xml

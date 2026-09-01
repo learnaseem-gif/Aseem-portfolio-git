@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("/v3/assets/fonts/bricolage-700.woff2") format("woff2");
+  src: url("/assets/fonts/bricolage-700.woff2") format("woff2");
 }
 
 @font-face {
@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 800;
   font-display: swap;
-  src: url("/v3/assets/fonts/bricolage-800.woff2") format("woff2");
+  src: url("/assets/fonts/bricolage-800.woff2") format("woff2");
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/v3/assets/fonts/hanken-400.woff2") format("woff2");
+  src: url("/assets/fonts/hanken-400.woff2") format("woff2");
 }
 
 @font-face {
@@ -27,7 +27,7 @@
   font-style: normal;
   font-weight: 500;
   font-display: swap;
-  src: url("/v3/assets/fonts/hanken-500.woff2") format("woff2");
+  src: url("/assets/fonts/hanken-500.woff2") format("woff2");
 }
 
 @font-face {
@@ -35,5 +35,5 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("/v3/assets/fonts/hanken-600.woff2") format("woff2");
+  src: url("/assets/fonts/hanken-600.woff2") format("woff2");
 }

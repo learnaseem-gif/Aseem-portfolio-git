@@ -3,95 +3,454 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>
-    (function () {
-      var t = 'dark';
-      try { if (localStorage.getItem('ts-theme') === 'light') t = 'light'; } catch (e) {}
-      document.documentElement.setAttribute('data-theme', t);
-    })();
-  </script>
   <title>Work — The Scaling Space</title>
-  <meta name="description" content="Selected work from The Scaling Space — photography, social reels, paid campaigns, and websites for brands built to grow." />
+  <meta name="description" content="Recent Vancouver business launches by Aseem at The Scaling Space: brand, website, photography and video, Google and Facebook setup." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://thescalingspace.ca/work.html" />
   <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
-  <link rel="preload" href="/assets/fonts/bricolage-800.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/hanken-600.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/hanken-400.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/css/fonts.css" />
-  <link rel="stylesheet" href="/css/style.css?v=9" />
+  <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
 
-  <header class="site-header site-header--work">
-    <a class="brand-mark" href="/" aria-label="The Scaling Space — home">
-      <svg class="brand-mark-icon" viewBox="0 0 300 300" width="28" height="28" aria-hidden="true">
-        <path d="M300 150C300 67.1573 232.843 0 150 0C67.1573 0 0 67.1573 0 150C0 232.843 67.1573 300 150 300C232.843 300 300 232.843 300 150Z" fill="var(--brand)"/>
-        <path d="M103.653 223.575C103.653 222.384 103.653 221.475 103.653 220.559C103.653 189.092 103.585 157.617 103.673 126.149C103.747 98.8751 127.64 75.3567 155.428 75.0269C156.152 75.0202 156.876 75.1077 158.039 75.175C158.039 76.252 158.039 77.2482 158.039 78.2444C158.039 109.921 158.093 141.597 158.019 173.28C157.958 200.09 133.376 223.864 105.993 223.757C105.371 223.743 104.742 223.656 103.653 223.575Z" fill="var(--logo-body)"/>
-        <path d="M163.371 177.299C163.371 143.206 163.371 109.315 163.371 75C182.074 75.1481 197.017 82.2628 207.536 97.0847C219.955 114.585 220.733 133.143 210.052 151.734C199.398 170.272 178.665 178.302 163.371 177.299Z" fill="var(--logo-accent)"/>
-        <path d="M100.19 184.784C100.19 197.795 100.19 210.577 100.19 223.326C91.8426 224.645 82.3386 216.379 81.3848 207.158C80.113 194.914 87.9531 185.443 100.19 184.784Z" fill="var(--logo-accent)"/>
-      </svg>
-      <span>The Scaling Space</span>
-    </a>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="brand-mark" href="/" aria-label="The Scaling Space, home">
+        <svg viewBox="0 0 300 300" width="26" height="26" aria-hidden="true">
+          <path d="M300 150C300 67.1573 232.843 0 150 0C67.1573 0 0 67.1573 0 150C0 232.843 67.1573 300 150 300C232.843 300 300 232.843 300 150Z" fill="var(--brand)"/>
+          <path d="M103.653 223.575C103.653 222.384 103.653 221.475 103.653 220.559C103.653 189.092 103.585 157.617 103.673 126.149C103.747 98.8751 127.64 75.3567 155.428 75.0269C156.152 75.0202 156.876 75.1077 158.039 75.175C158.039 76.252 158.039 77.2482 158.039 78.2444C158.039 109.921 158.093 141.597 158.019 173.28C157.958 200.09 133.376 223.864 105.993 223.757C105.371 223.743 104.742 223.656 103.653 223.575Z" fill="#fff"/>
+          <path d="M163.371 177.299C163.371 143.206 163.371 109.315 163.371 75C182.074 75.1481 197.017 82.2628 207.536 97.0847C219.955 114.585 220.733 133.143 210.052 151.734C199.398 170.272 178.665 178.302 163.371 177.299Z" fill="oklch(88.3% 0.07 137)"/>
+          <path d="M100.19 184.784C100.19 197.795 100.19 210.577 100.19 223.326C91.8426 224.645 82.3386 216.379 81.3848 207.158C80.113 194.914 87.9531 185.443 100.19 184.784Z" fill="oklch(88.3% 0.07 137)"/>
+        </svg>
+        <span>The Scaling Space</span>
+      </a>
 
-    <div class="work-filter" role="group" aria-label="Filter work by service">
-      <div class="work-filter-track">
-        <button type="button" class="filter-btn is-active" data-filter="all">All</button>
-        <button type="button" class="filter-btn" data-filter="Photography">Photography</button>
-        <button type="button" class="filter-btn" data-filter="Social Reels">Social Reels</button>
-        <button type="button" class="filter-btn" data-filter="Paid Campaigns">Paid Campaigns</button>
-        <button type="button" class="filter-btn" data-filter="Websites">Websites</button>
-      </div>
-    </div>
-
-    <div class="site-header-right">
-      <nav class="site-nav">
-        <a href="/work.html">Work</a>
-        <a href="/about.html">About Us</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/work.html" aria-current="page">Work</a>
+        <a href="/services.html">Services</a>
+        <a href="/about.html">About</a>
+        <a href="/contact.html">Contact</a>
       </nav>
-      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle light and dark mode">
-        <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="4"></circle>
-          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
-        </svg>
-        <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"></path>
-        </svg>
-      </button>
-      <a class="header-cta" href="/#contact">Start a project</a>
+      <a class="btn header-cta" href="/contact.html">Start a project</a>
+
+      <a class="header-tel" href="tel:+17783028140">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M3.65 1.2a1.3 1.3 0 0 1 1.83.24l1.2 1.6a1.3 1.3 0 0 1-.13 1.72l-.7.7a8.4 8.4 0 0 0 3.7 3.7l.7-.7a1.3 1.3 0 0 1 1.71-.13l1.6 1.2a1.3 1.3 0 0 1 .24 1.84l-.72.96a2 2 0 0 1-2.3.67C8.4 11.8 4.2 7.6 2.02 2.93a2 2 0 0 1 .67-2.3z"/></svg>
+        <span>778 302 8140</span>
+      </a>
+
+      <details class="nav-toggle">
+        <summary aria-label="Menu">
+          <svg class="icon-open" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 4h16M1 9h16M1 14h16"/></svg>
+          <svg class="icon-close" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M2 2l14 14M16 2L2 16"/></svg>
+        </summary>
+        <nav class="nav-toggle-panel" aria-label="Mobile">
+          <a href="/work.html">Work</a>
+          <a href="/services.html">Services</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+          <a class="btn" href="/contact.html">Start a project</a>
+        </nav>
+      </details>
     </div>
   </header>
 
   <main>
-    <section class="work" id="work">
-      <div class="work-intro">
-        <h1 class="work-title" aria-label="Selected Work">
-          <span class="work-title-line"><span class="work-title-word">Selected</span></span>
-          <span class="work-title-line"><span class="work-title-word">Work</span></span>
-        </h1>
-        <p class="work-lead-sub">Photography &middot; Social &middot; Paid &middot; Web — for brands built to grow.</p>
+
+    <section class="hero">
+      <div class="wrap">
+        <p class="eyebrow">Work</p>
+        <h1 class="h-xl" style="margin-top:1rem;">Recent work</h1>
+        <p class="lede">Four launches, three years running a dealership's digital in-house, and ongoing photography and video.</p>
       </div>
-
-      <div class="work-grid" id="work-list"><!-- project cards from js/projects.js --></div>
     </section>
 
-    <section class="project-cta">
-      <h2 class="section-title">Want work like this?</h2>
-      <a class="submit-btn" href="/#contact">Start a project</a>
+    <!-- ================= PHOTOGRAPHY & VIDEO ================= -->
+    <section class="section-tight" style="padding-bottom:0;">
+      <div class="wrap"><p class="eyebrow">Photography &amp; video</p></div>
     </section>
+
+    <article class="case" id="porsche-centre-richmond">
+      <div class="wrap">
+        <div class="case-head">
+          <div>
+            <p class="case-index">2025–present</p>
+            <h2 class="h-lg">Porsche Centre Richmond</h2>
+          </div>
+          <span class="pill">Ongoing</span>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Automotive · Luxury</span>
+          <span class="tag">Event photography</span>
+          <span class="tag">Inventory photography</span>
+          <span class="tag">Promotional reels</span>
+        </div>
+        <div class="case-copy">
+          <p>It started with one event. I shot Shades of Stuttgart in August 2025 and cut a reel for their Instagram — they liked it, and since then I've covered most of the events and parties they host. I've also worked with the service department and marketing managers on promotional video for the service side. One tire promotion ran with a code word mentioned only in the video: more than 20 customers came in and used it.</p>
+        </div>
+
+        <!-- Porsche stills and reels, all from R2.
+             TODO: posters here are real Porsche photographs, but not stills
+             lifted from the clips themselves — R2 is unreachable from the
+             build environment. Their true aspect ratio is also unverified. -->
+        <div class="gallery">
+          <p class="gallery-label">Porsche Centre Richmond &mdash; events, inventory, promos</p>
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9506_result.webp" alt="Showroom photography for Porsche Centre Richmond" loading="lazy" style="--ar: 3 / 4" />
+              <figcaption>Showroom photography</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9529_result.webp" alt="Vehicle detail photography for Porsche Centre Richmond" loading="lazy" style="--ar: 3 / 4" />
+              <figcaption>Inventory photography</figcaption>
+            </figure>
+            <div class="gallery-item is-fill fill-3" style="--ar: 3 / 4" aria-hidden="true"></div>
+            <div class="gallery-item is-fill fill-3" style="--ar: 9 / 16" aria-hidden="true"></div>
+            <figure class="gallery-item">
+              <video src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Ir-Technight-Event.mp4"
+                     style="--ar: 9 / 16"
+                     poster="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/DSC07381_result.webp"
+                     preload="none" controls playsinline
+                     aria-label="Event reel for Porsche Centre Richmond"></video>
+              <figcaption>Event reel</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <video src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Videos/Ir-Tire-Promotion.mp4"
+                     style="--ar: 9 / 16"
+                     poster="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Porsche%20Centre%20Richmond/Photos/IMG_9534_result.webp"
+                     preload="none" controls playsinline
+                     aria-label="Service department tire promotion video for Porsche Centre Richmond"></video>
+              <figcaption>Service promo &mdash; tire promotion</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= IN-HOUSE ================= -->
+    <section class="section-tight" style="padding-bottom:0;">
+      <div class="wrap"><p class="eyebrow">In-house</p></div>
+    </section>
+
+    <article class="case" id="motor-world-bagga-jewels">
+      <div class="wrap">
+        <div class="case-head">
+          <div>
+            <p class="case-index">2021–2024</p>
+            <h2 class="h-lg">Motor World Auto's / Bagga Jewels</h2>
+          </div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Automotive · Jewelry</span>
+          <span class="tag">Digital in-house</span>
+          <span class="tag">Photography &amp; video</span>
+        </div>
+        <div class="case-copy">
+          <p>Motor World Auto's was a used car dealership in the Lower Mainland specialising in vehicle financing. Bagga Jewels, owned by the same person, sold traditional Indian silver and gold jewelry. Neither had a website when I started.</p>
+          <p>I ran their digital marketing in-house for three years. I designed both sites in Figma and worked with a Shopify developer to build them, set up and ran their social accounts, shot all the content, and ran Meta ad campaigns for leads. A dealership shoot day meant five or six cars, around twenty photos and a video each. For the jewelry, full product coverage including macro work for the website.</p>
+          <p>Bagga Jewels went from selling entirely in-store to taking orders across Canada within about six months. At the dealership, walk-ins regularly said they'd seen the videos online before coming in, and a good number became repeat customers.</p>
+          <p>Both businesses closed in late 2024 for personal reasons.</p>
+        </div>
+
+        <!-- GALLERY 1 of 2 — MOTOR WORLD AUTO'S (dealership).
+             9:16 throughout. The reels are stored as 1080x1080 frames but
+             carry a 9:16 pixel aspect ratio (pasp), so every browser plays
+             them vertical at 608x1080 — the coded size is not the shape on
+             screen. Matching the frame to 9/16 means no bars and no crop.
+             Posters are real stills pulled from partway into each clip and
+             rendered at the display size, not the coded one, so the cars
+             are not stretched. Every item in a row shares one --ar; keep it
+             that way if a clip is swapped in. -->
+        <div class="gallery">
+          <p class="gallery-label">Motor World Auto's &mdash; dealership</p>
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <video src="/assets/work/motor-world-autos/bmw-x5-reel.mp4"
+                     style="--ar: 9 / 16"
+                     poster="/assets/posters/mw-bmw-x5.webp"
+                     preload="none" controls playsinline
+                     aria-label="Vehicle video for Motor World Auto's: BMW X5"></video>
+              <figcaption>BMW X5 &mdash; vehicle feature</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <video src="/assets/work/motor-world-autos/ram-reel.mp4"
+                     style="--ar: 9 / 16"
+                     poster="/assets/posters/mw-ram.webp"
+                     preload="none" controls playsinline
+                     aria-label="Vehicle video for Motor World Auto's: RAM 1500"></video>
+              <figcaption>RAM 1500 &mdash; vehicle feature</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <video src="/assets/work/motor-world-autos/final-reel.mp4"
+                     style="--ar: 9 / 16"
+                     poster="/assets/posters/mw-clearance.webp"
+                     preload="none" controls playsinline
+                     aria-label="Dealership promotion video for Motor World Auto's"></video>
+              <figcaption>Dealership promotion</figcaption>
+            </figure>
+
+            <div class="gallery-item is-fill fill-2" style="--ar: 9 / 16" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- GALLERY 2 of 2 — BAGGA JEWELS (jewelry).
+             TODO: the poster on the video below is a product photo, not a
+             still lifted from the clip. The video lives on R2 and could not
+             be read from this environment to pull a frame. Swap in a real
+             still when possible. Its true aspect ratio is also unverified;
+             if it is not square, adjust .gallery-item. -->
+        <div class="gallery">
+          <p class="gallery-label">Bagga Jewels &mdash; the site</p>
+          <figure class="gallery-feature">
+            <video src="/assets/work/bagga-jewels/website-walkthrough.mp4"
+                   style="--ar: 640 / 289"
+                   poster="/assets/work/bagga-jewels/website-walkthrough-poster.webp"
+                   preload="none" controls playsinline
+                   aria-label="Scrolling tour of the Bagga Jewels website"></video>
+            <figcaption>Scrolling tour of the Bagga Jewels website</figcaption>
+          </figure>
+        </div>
+
+        <div class="gallery">
+          <p class="gallery-label">Bagga Jewels &mdash; jewelry</p>
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/Hero%20Image_result.webp" alt="Product photography for Bagga Jewels" loading="lazy" style="--ar: 3 / 4" />
+              <figcaption>Product photography</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00887_result.webp" alt="Gold chain product photography for Bagga Jewels" loading="lazy" style="--ar: 3 / 4" />
+              <figcaption>Product photography</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC01019_result.webp" alt="Macro jewelry photography for Bagga Jewels" loading="lazy" style="--ar: 3 / 4" />
+              <figcaption>Macro detail for the website</figcaption>
+            </figure>
+
+            <div class="gallery-item is-fill fill-2" style="--ar: 3 / 4" aria-hidden="true"></div>
+            <figure class="gallery-item">
+              <video src="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Videos/Hero-Video.mp4"
+                     poster="https://pub-aa191eca575349308d8f55261e776ece.r2.dev/Bagga%20Jewels/Photos/DSC00983_result.webp"
+                     style="--ar: 9 / 16"
+                     preload="none" controls playsinline
+                     aria-label="Jewelry product video for Bagga Jewels"></video>
+              <figcaption>Jewelry product video</figcaption>
+            </figure>
+
+            <div class="gallery-item is-fill fill-3" style="--ar: 9 / 16" aria-hidden="true"></div>
+            <div class="gallery-item is-fill fill-3" style="--ar: 9 / 16" aria-hidden="true"></div>
+            <div class="gallery-item is-fill fill-2" style="--ar: 9 / 16" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ================= LAUNCHES ================= -->
+    <section class="section-tight" style="padding-bottom:0;">
+      <div class="wrap"><p class="eyebrow">Launches</p></div>
+    </section>
+
+    <article class="case" id="canwide-mortgages">
+      <div class="wrap">
+        <div class="case-head">
+          <div>
+            <p class="case-index">01 / 04</p>
+            <h2 class="h-lg">Canwide Mortgages</h2>
+          </div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Finance</span>
+          <span class="tag">Brand &amp; website</span>
+        </div>
+        <div class="case-copy">
+          <p>Brand guidelines and logo, plus the website. In mortgages the whole product is trust, so the work was about looking established and straightforward at a glance. The brand launched as Bansal Mortgages and was renamed later, so the design work below carries the original name.</p>
+        </div>
+
+        <!-- GALLERY — CANWIDE MORTGAGES (website design).
+             Waiting on four page exports landing in
+             assets/work/canwide-mortgages/: 01-hero, 02-about,
+             03-services, 04-why-choose-us. They are wide page sections, so
+             they want a single-column treatment rather than the 3-up grid
+             the other galleries use — a 1440-wide screenshot squeezed into
+             a 365px column is unreadable. Do not add the markup until the
+             files are actually in the repo; a path to a missing file ships
+             as a broken image. -->
+      </div>
+    </article>
+
+    <article class="case" id="topco-cleaning">
+      <div class="wrap">
+        <div class="case-head">
+          <div>
+            <p class="case-index">02 / 04</p>
+            <h2 class="h-lg">Topco Cleaning</h2>
+          </div>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Cleaning services</span>
+          <span class="tag">Full launch</span>
+        </div>
+        <div class="case-copy">
+          <p>A full launch, start to finish: logo and brand guidelines, the website, print design, and a complete Google and Facebook Business setup so the business was findable from the day it opened.</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="case" id="rapid-movers-freight">
+      <div class="wrap">
+        <div class="case-head">
+          <div>
+            <p class="case-index">03 / 04 &middot; 2022</p>
+            <h2 class="h-lg">Rapid Movers &amp; Freight</h2>
+          </div>
+          <a class="pill pill-solid" href="https://rapidmoversandfreight.co.nz" target="_blank" rel="noopener">View live site &rarr;</a>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Trades / logistics</span>
+          <span class="tag">Full launch</span>
+        </div>
+        <div class="case-copy">
+          <p>A packers and movers company in Auckland, New Zealand, referred by a past contact. Nothing existed before — no brand, no website, no online presence. I designed the identity (logo, colour system, business cards and stationery) and the website, directed the build, and set up their Google Business Profile and Facebook Business page. Four years on the site is still live, still bringing in enquiries, and the profile is still collecting reviews.</p>
+        </div>
+
+        <!-- GALLERY 1 of 2 — THE SITE.
+             A screen recording of the live site scrolling, transcoded from
+             the original WebM: Safari's WebM support is patchy on older
+             iOS, so H.264 is what actually plays for everyone. The source
+             was letterboxed 1280x578 inside a 1280x720 frame; the bars are
+             cropped off, which is where 640/289 comes from. preload="none"
+             keeps it off the render path — nothing downloads until it is
+             clicked. -->
+        <div class="gallery">
+          <p class="gallery-label">Rapid Movers &amp; Freight &mdash; the site</p>
+          <figure class="gallery-feature">
+            <video src="/assets/work/rapid-movers-freight/website-walkthrough.mp4"
+                   style="--ar: 640 / 289"
+                   poster="/assets/work/rapid-movers-freight/website-walkthrough-poster.webp"
+                   preload="none" controls playsinline
+                   aria-label="Scrolling tour of the live Rapid Movers &amp; Freight website"></video>
+            <figcaption>Scrolling tour of the live Rapid Movers &amp; Freight website</figcaption>
+          </figure>
+        </div>
+
+        <!-- GALLERY 2 of 2 — THE IDENTITY.
+             Logos use is-contain, not the gallery's usual cover: a
+             cropped logo is a broken logo. Row one is the three
+             variations at 16/10, row two the two card faces at their
+             native 366/571. One ratio per row, as everywhere else. -->
+        <div class="gallery">
+          <p class="gallery-label">Rapid Movers &amp; Freight &mdash; identity</p>
+          <div class="gallery-grid">
+            <figure class="gallery-item is-contain">
+              <img src="/assets/work/rapid-movers-freight/logo-variation-1.webp" alt="Rapid Movers &amp; Freight logo on amber" loading="lazy" style="--ar: 16 / 10" />
+              <figcaption>Logo &mdash; primary</figcaption>
+            </figure>
+            <figure class="gallery-item is-contain">
+              <img src="/assets/work/rapid-movers-freight/logo-variation-2.webp" alt="Rapid Movers &amp; Freight logo reversed on green" loading="lazy" style="--ar: 16 / 10" />
+              <figcaption>Logo &mdash; reversed</figcaption>
+            </figure>
+            <figure class="gallery-item is-contain">
+              <img src="/assets/work/rapid-movers-freight/logo-variation-3.webp" alt="Rapid Movers &amp; Freight logo, two-colour on light" loading="lazy" style="--ar: 16 / 10" />
+              <figcaption>Logo &mdash; two-colour</figcaption>
+            </figure>
+            <div class="gallery-item is-fill fill-2" style="--ar: 16 / 10" aria-hidden="true"></div>
+
+            <figure class="gallery-item">
+              <img src="/assets/work/rapid-movers-freight/business-card-front.webp" alt="Business card, front" loading="lazy" style="--ar: 366 / 571" />
+              <figcaption>Business card &mdash; front</figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="/assets/work/rapid-movers-freight/business-card-back.webp" alt="Business card, back" loading="lazy" style="--ar: 366 / 571" />
+              <figcaption>Business card &mdash; back</figcaption>
+            </figure>
+            <div class="gallery-item is-fill fill-3" style="--ar: 366 / 571" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="case" id="your-medi-coach">
+      <div class="wrap">
+        <div class="case-head">
+          <div>
+            <p class="case-index">04 / 04 &middot; 2022</p>
+            <h2 class="h-lg">Your Medi Coach</h2>
+          </div>
+          <a class="pill pill-solid" href="https://yourmedicoach.com" target="_blank" rel="noopener">View live site &rarr;</a>
+        </div>
+        <div class="tag-row">
+          <span class="tag">Health services</span>
+          <span class="tag">Full launch</span>
+        </div>
+        <div class="case-copy">
+          <p>A Vancouver-based health coach launching a private practice with no brand and no online presence. I designed the full launch — logo and identity, print, the website — and set up the Google Business Profile and Facebook Business page, so she opened with everything in place.</p>
+        </div>
+
+        <!-- GALLERY — THE SITE.
+             The source recording had a screen-recorder toolbar burnt into
+             the bottom of the frame — timer, pause, stop, pen icons. It
+             sat inside the content area, not in the letterbox, so the crop
+             here is deeper than the other two tours: 1280x512, hence 5/2.
+             That is what removes it. -->
+        <div class="gallery">
+          <p class="gallery-label">Your Medi Coach &mdash; the site</p>
+          <figure class="gallery-feature">
+            <video src="/assets/work/your-medi-coach/promo-video.mp4"
+                   style="--ar: 5 / 2"
+                   poster="/assets/work/your-medi-coach/promo-video-poster.webp"
+                   preload="none" controls playsinline
+                   aria-label="Scrolling tour of the live Your Medi Coach website"></video>
+            <figcaption>Scrolling tour of the live Your Medi Coach website</figcaption>
+          </figure>
+        </div>
+      </div>
+    </article>
+
+    <section class="band-dark on-dark">
+      <div class="wrap closer">
+        <p class="eyebrow">Ready when you are</p>
+        <p class="closer-title" style="margin-top:1rem;">Let's get started</p>
+        <p class="lede" style="margin:1.25rem auto 0;">Tell me what you're opening, or what you need shot. I'll reply directly.</p>
+        <div style="margin-top:2rem;">
+          <a class="btn" href="/contact.html">Start a project</a>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <footer class="site-footer">
-    <span>© <span id="year"></span> The Scaling Space</span>
-    <a href="#top" data-scroll-top>Back to top ↑</a>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>The Scaling Space</h4>
+          <p>A photo and video studio in Vancouver, BC. Run by Aseem.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="https://wa.me/17783028140" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="tel:+17783028140">+1 778 302 8140</a>
+          <a href="mailto:aseem.tss@outlook.com">aseem.tss@outlook.com</a>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <a href="/work.html">Work</a>
+          <a href="/services.html">Services</a>
+          <a href="/about.html">About</a>
+          <a href="/contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Service area</h4>
+          <p>Vancouver &amp; the Lower Mainland</p>
+        </div>
+      </div>
+      <div class="footer-base">
+        <span>© 2026 The Scaling Space</span>
+        <span>Project work or ongoing content.</span>
+      </div>
+    </div>
   </footer>
 
-  <div class="cursor" aria-hidden="true"></div>
-
-  <script src="/js/vendor/gsap.min.js"></script>
-  <script src="/js/vendor/ScrollTrigger.min.js"></script>
-  <script src="/js/vendor/lenis.min.js"></script>
-  <script src="/js/projects.js?v=6"></script>
-  <script src="/js/main.js?v=7"></script>
-  <script src="/js/interactive.js?v=6"></script>
-  <script src="/js/theme.js?v=1"></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
